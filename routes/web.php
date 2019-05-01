@@ -17,12 +17,15 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/socios', 'UserController@index');
-Route::get('/socios/{id}', 'UserController@show');
-Route::get('/socios/create', 'UserController@create');
-Route::post('/socios/create', 'UserController@create');
-Route::get('/socios/{id}/edit', 'UserController@edit');
-Route::put('/socios/{id}/edit', 'UserController@edit');
-Route::delete('/socios/{id}', 'UserController@delete');
-Route::get('/aeronaves', 'AeronaveController@index');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/socios', 'UserController@index');
+    Route::get('/socios/{id}', 'UserController@show');
+    Route::get('/socios/create', 'UserController@create');
+    Route::post('/socios/create', 'UserController@create');
+    Route::get('/socios/{id}/edit', 'UserController@edit');
+    Route::put('/socios/{id}/edit', 'UserController@edit');
+    Route::delete('/socios/{id}', 'UserController@delete');
+    Route::get('/aeronaves', 'AeronaveController@index');
+});
+
