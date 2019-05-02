@@ -11,13 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Auth::routes(['verify' => true]);
+Auth::routes(['verify' => true,'register' => false]);
 
-Route::middleware(['auth'])->group(function () {
+
+//GRUPO DE MIDDLEWARE PARA QUE TODAS ESTAS ROTAS SEJAM NECESSARIO ESTAR AUTENTICADO
+Route::middleware(['auth'],['verify'])->group(function () {
+    Route::get('/','HomeController@index')->name('homeAuth');
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/socios', 'UserController@index');
     Route::get('/socios/{id}', 'UserController@show');
