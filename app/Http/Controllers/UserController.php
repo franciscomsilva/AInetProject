@@ -16,9 +16,7 @@ class UserController extends Controller
     public function index()
     {
         $users = DB::table('users')->paginate(15);
-        $title = 'List users';
-        //return view('user.list', ['users' => $users]);
-        return view('users.list', compact('title', 'users'));
+        return view('users.list', compact( 'users'));
     }
     /**
      * Show the form for creating a new resource.
