@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Movimentos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class AeronaveController extends Controller
+class MovimentoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +15,10 @@ class AeronaveController extends Controller
      */
     public function index()
     {
-        $aeronaves = DB::table('aeronaves')->paginate(15);
-        $title = 'List Aeronaves';
-        return view('aeronaves.list', compact('title', 'aeronaves'));
-
+        $movimentos = DB::table('movimentos')->paginate(15);
+        $title = 'List Movimentos';
+        //return view('user.list', ['users' => $users]);
+        return view('movimentos.list', compact('title', 'movimentos'));
     }
 
     /**
@@ -44,10 +45,10 @@ class AeronaveController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Movimentos  $movimentos
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Movimentos $movimentos)
     {
         //
     }
@@ -55,10 +56,10 @@ class AeronaveController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Movimentos  $movimentos
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Movimentos $movimentos)
     {
         //
     }
@@ -67,10 +68,10 @@ class AeronaveController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Movimentos  $movimentos
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Movimentos $movimentos)
     {
         //
     }
@@ -78,10 +79,10 @@ class AeronaveController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Movimentos  $movimentos
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Movimentos $movimentos)
     {
         //
     }

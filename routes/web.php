@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true, 'register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/socios', 'UserController@index');
@@ -26,3 +26,6 @@ Route::get('/socios/{id}/edit', 'UserController@edit');
 Route::put('/socios/{id}/edit', 'UserController@edit');
 Route::delete('/socios/{id}', 'UserController@delete');
 Route::get('/aeronaves', 'AeronaveController@index');
+Route::get('/aeronaves/create', 'AeronaveController@create')->name('aeronaves.create');
+
+Route::get('/movimentos', 'MovimentoController@index');
