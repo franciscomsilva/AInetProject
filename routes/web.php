@@ -15,7 +15,7 @@ Auth::routes(['verify' => true,'register' => false]);
 
 
 //GRUPO DE MIDDLEWARE PARA QUE TODAS ESTAS ROTAS SEJAM NECESSARIO ESTAR AUTENTICADO
-Route::middleware(['auth'],['verify'])->group(function () {
+Route::middleware(['ativo'],['auth'],['verified'])->group(function () {
     Route::get('/','HomeController@index')->name('homeAuth');
     Route::get('/home', 'HomeController@index')->name('user.home');
     Route::get('/socios', 'UserController@index');
