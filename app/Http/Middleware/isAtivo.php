@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 
 class isAtivo
 {
@@ -18,6 +19,6 @@ class isAtivo
         if($request->user() && $request->user()->ativo == 1){
             return $next($request);
         }
-        return $next($request);
+        throw new AccessDeniedException('Unauthorized.');
     }
 }
