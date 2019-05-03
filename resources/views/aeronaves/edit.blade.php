@@ -9,7 +9,7 @@
 @endif
 <!-- só os socios da direção é que pode acrescentar, alterar ou remover aeronaves! -->
 
-<form action="{{route('users.update', $user)}}" method="post" class="form-group">
+<form action="{{route('aeronaves.update', $aeronave)}}" method="post" class="form-group">
     {{method_field('PUT')}}
     @include('aeronaves.partials.add-edit')
     <div class="form-group">
