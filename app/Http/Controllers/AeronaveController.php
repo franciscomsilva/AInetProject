@@ -45,8 +45,8 @@ class AeronaveController extends Controller
             'marca' => 'required|alpha_dash',
             'modelo' => 'required|alpha_dash',
             'num_lugares' => 'required|min:0',
-            'conta_horas' => 'required|min:0',
-            'preco_hora' => 'required|min:0',
+            'conta_horas' => 'required',
+            'preco_hora' => 'required',
         ]);
 
         $aeronave = new Aeronave();

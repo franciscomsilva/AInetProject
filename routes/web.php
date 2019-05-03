@@ -18,6 +18,7 @@ Auth::routes(['verify' => true,'register' => false]);
 Route::middleware(['auth'],['verify'])->group(function () {
     Route::get('/','HomeController@index')->name('homeAuth');
     Route::get('/home', 'HomeController@index')->name('user.home');
+    // Sócios!
     Route::get('/socios', 'UserController@index');
     Route::get('/socios/{id}', 'UserController@show');
     Route::get('/socios/create', 'UserController@create');
@@ -26,12 +27,15 @@ Route::middleware(['auth'],['verify'])->group(function () {
     Route::put('/socios/{id}/edit', 'UserController@edit');
     Route::delete('/socios/{id}', 'UserController@delete');
 
+    // Aeronaves!
     Route::get('/aeronaves', 'AeronaveController@index')->name('aeronaves.index');
-    Route::get('/aeronaves/create', 'AeronaveController@create')->name('aeronaves.create');
-    Route::post('/aeronaves/create', 'AeronaveController@create')->name('aeronaves.create');
-    Route::get('/aeronaves/{aeronave}/edit', 'AeronaveController@edit')->name('aeronaves.edit');
-    Route::delete('/aeronaves/{aeronave}', 'AeronaveController@destroy')->name('aeronaves.destroy');
+    Route::get('/aeronaves/create', 'AeronaveController@create')->name('aeronaves.create');   // criar aeronave
+    Route::post('/aeronaves/create', 'AeronaveController@store')->name('aeronaves.store');
+    Route::get('/aeronaves/{aeronave}/edit', 'AeronaveController@edit')->name('aeronaves.edit'); // editar aeronave
+    Route::delete('/aeronaves/{aeronave}', 'AeronaveController@destroy')->name('aeronaves.destroy'); // eliminar aeronave
 
+
+    //Movimentos!
     Route::get('/movimentos', 'MovimentoController@index');
 });
 
