@@ -4,6 +4,7 @@
 /storage/*.key
 /vendor
 /database
+/.idea
 .env
 .phpunit.result.cache
 Homestead.json
