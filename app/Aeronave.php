@@ -9,4 +9,7 @@ class Aeronaves extends Model
     //
 
     protected $table = 'aeronaves';
+
+    public $incrementing = false;
+    
 }
