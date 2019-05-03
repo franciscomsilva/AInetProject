@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','tipo_socio'
     ];
 
     /**
@@ -36,4 +36,41 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+
+    /*
+  * Writes type of socio to string
+  */
+
+    public function tSocioToString(){
+        switch ($this->tipo_socio) {
+            case 'P':
+                return 'Piloto';
+            case 'NP':
+                return 'Não-Piloto';
+            case 'A':
+                return 'Aeromodelista';
+        }
+
+        return 'Unknown';
+    }
+
+    public function direcaoToString(){
+        switch($this->direcao){
+            case 1:
+                return 'Sim';
+            case 0:
+                return 'Não';
+        }
+        return 'Unknown';
+    }
+
+    public function nrLicencaToString(){
+        if($this->num_licenca){
+            return $this->num_licenca;
+        }
+        return '-';
+    }
+
 }
