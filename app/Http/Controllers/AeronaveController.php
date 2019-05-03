@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Aeronave;
 
 class AeronaveController extends Controller
 {
@@ -14,7 +15,7 @@ class AeronaveController extends Controller
      */
     public function index()
     {
-        $aeronaves = DB::table('aeronaves')->paginate(15);
+        $aeronaves = Aeronave::paginate(15);//DB::table('aeronaves')->paginate(15);
         $title = 'List Aeronaves';
         return view('aeronaves.list', compact('title', 'aeronaves'));
 
@@ -28,6 +29,8 @@ class AeronaveController extends Controller
     public function create()
     {
         //
+        $aeronave = new Aeronave();
+        return view('aeronaves.add', compact('aeronave'));
     }
 
     /**
