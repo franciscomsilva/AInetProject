@@ -13,9 +13,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        $users = DB::table('users')->paginate(15);
+        $users = User::paginate(15);
         return view('users.list', compact( 'users'));
     }
     /**

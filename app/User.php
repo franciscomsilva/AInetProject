@@ -56,4 +56,21 @@ class User extends Authenticatable
         return 'Unknown';
     }
 
+    public function direcaoToString(){
+        switch($this->direcao){
+            case 1:
+                return 'Sim';
+            case 0:
+                return 'Não';
+        }
+        return 'Unknown';
+    }
+
+    public function nrLicencaToString(){
+        if($this->num_licenca){
+            return $this->num_licenca;
+        }
+        return '-';
+    }
+
 }
