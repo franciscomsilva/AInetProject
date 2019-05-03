@@ -28,7 +28,6 @@ class AeronaveController extends Controller
      */
     public function create()
     {
-        //
         $aeronave = new Aeronave();
         return view('aeronaves.add', compact('aeronave'));
     }
@@ -41,7 +40,22 @@ class AeronaveController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'matricula' => 'required|alpha_dash|min:8|max:8',
+            'marca' => 'required|alpha_dash',
+            'modelo' => 'required|alpha_dash',
+            'num_lugares' => 'required|min:0',
+            'conta_horas' => 'required|min:0',
+            'preco_hora' => 'required|min:0',
+        ]);
+
+        $aeronave = new Aeronave();
+        $aeronave->fill($request->all());
+        $aeronave->save();
+
+        return redirect()
+            ->route('aeronaves.index')
+            ->with('success', 'Aeronave adicionada com sucesso!');
     }
 
     /**
@@ -58,10 +72,10 @@ class AeronaveController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Aeronave  $aeronave
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($aeronave)
     {
         //
     }

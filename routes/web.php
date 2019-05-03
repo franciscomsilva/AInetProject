@@ -25,8 +25,12 @@ Route::middleware(['auth'],['verify'])->group(function () {
     Route::get('/socios/{id}/edit', 'UserController@edit');
     Route::put('/socios/{id}/edit', 'UserController@edit');
     Route::delete('/socios/{id}', 'UserController@delete');
+
     Route::get('/aeronaves', 'AeronaveController@index')->name('aeronaves.index');
     Route::get('/aeronaves/create', 'AeronaveController@create')->name('aeronaves.create');
+    Route::post('/aeronaves/create', 'AeronaveController@create')->name('aeronaves.create');
+    Route::get('/aeronaves/{aeronave}/edit', 'AeronaveController@edit')->name('aeronaves.edit');
+    Route::delete('/aeronaves/{aeronave}', 'AeronaveController@destroy')->name('aeronaves.destroy');
 
     Route::get('/movimentos', 'MovimentoController@index');
 });

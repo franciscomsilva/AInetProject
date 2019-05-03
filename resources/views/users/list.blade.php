@@ -19,7 +19,11 @@
             <tbody>
             @foreach($users as $user)
                 <tr>
-                    <td><img src="/storage/fotos/{{$user->foto_url}}" height="30px" width="30px" />   </td>
+                    @if($user->foto_url)
+                        <td><img src="/storage/fotos/{{$user->foto_url}}" height="30px" width="30px" />   </td>
+                    @else
+                        <td><img src="/storage/fotos/unknown_user.jpg" height="30px" width="30px" />   </td>
+                    @endif
                     <td>{{$user->name}}</td>
                     <td> {{ $user->email }}</td>
                     <td>{{ $user->tSocioToString()}}</td>

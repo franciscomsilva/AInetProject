@@ -24,6 +24,14 @@
             <td>{{ $aeronave->num_lugares }}</td>
             <td>{{ $aeronave->conta_horas }}</td>
             <td>{{ $aeronave->preco_hora }}</td>
+            <td> <!-- IMPLEMENTAR VALIDAÇÃO PARA SO OS SOCIOS da direção -->
+                <a class="btn btn-xs btn-primary" href="{{route('aeronaves.edit', $aeronave)}}">Editar</a>
+                <form action="{{route('aeronaves.destroy', $aeronave)}}" method="POST" role="form" class="inline">
+                    {{ method_field('DELETE') }}
+                    {{ csrf_field() }}
+                    <button type="submit" class="btn btn-xs btn-danger">Apagar</button>
+                </form>
+            </td>
         </tr>
     @endforeach
     </table>
