@@ -19,8 +19,8 @@
             <tbody>
             @foreach($users as $user)
                 <tr>
-                    <td></td>
-                    <td>{{ $user->name  }}</td>
+                    <td><img src="/storage/fotos/{{$user->foto_url}}" height="30px" width="30px" />   </td>
+                    <td>{{$user->name}}</td>
                     <td> {{ $user->email }}</td>
                     <td>{{ $user->tipo_socio}}</td>
                     <td>{{$user->num_licenca}}</td>

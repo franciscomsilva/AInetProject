@@ -60,8 +60,16 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('user.home') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('home-form').submit();">
+                                        {{ __('Home') }}
+                                    </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                    <form id="home-form" action="{{ route('user.home') }}" method="GET" style="display: none;">
                                         @csrf
                                     </form>
                                 </div>
