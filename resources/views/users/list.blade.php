@@ -20,9 +20,9 @@
             @foreach($users as $user)
                 <tr>
                     @if($user->foto_url)
-                        <td><img src="/storage/fotos/{{$user->foto_url}}" height="30px" width="30px" />   </td>
+                        <td><img src="/storage/fotos/{{$user->foto_url}}" height="50px" width="50x" />   </td>
                     @else
-                        <td><img src="/storage/fotos/unknown_user.jpg" height="30px" width="30px" />   </td>
+                        <td><img src="/storage/fotos/unknown_user.jpg" height="50px" width="50px" />   </td>
                     @endif
                     <td>{{$user->name}}</td>
                     <td> {{ $user->email }}</td>

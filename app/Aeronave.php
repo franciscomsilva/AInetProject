@@ -11,7 +11,7 @@ class Aeronave extends Model
     ];
 
     protected $table = 'aeronaves';
-
+    protected $primaryKey = 'matricula';
     public $incrementing = false;
 
 }
