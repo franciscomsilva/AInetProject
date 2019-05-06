@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Add user')
+@section('title', 'Edit user')
 
 @section('content')
 
@@ -8,7 +8,7 @@
 
     @endif
 
-    <form action="{{route('users.store')}}" method="post" class="form-group">
+    <form action="{{route('user.store')}}" method="post" class="form-group">
         @include('users.partials.add-edit')
         <div class="form-group">
             <label for="inputPassword">Password</label>

@@ -7,6 +7,13 @@
         placeholder="Name" value="{{old('name', $user->name)}}" />
 </div>
 <div class="form-group">
+    <label for="inputFullname">Name</label>
+    <input
+            type="text" class="form-control"
+            name="name" id="inputName"
+            placeholder="Name" value="{{old('name', $user->name)}}" />
+</div>
+<div class="form-group">
     <label for="inputType">Type</label>
     <select name="type" id="inputType" class="form-control">
         <option disabled selected> -- select an option -- </option>
