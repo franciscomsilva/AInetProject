@@ -20,12 +20,12 @@ Route::middleware(['ativo'],['auth'],['verified'])->group(function () {
     Route::get('/home', 'HomeController@index')->name('user.home');
     // Sócios!
     Route::get('/socios', 'UserController@index');
-    Route::get('/socios/{id}', 'UserController@show');
+    Route::get('/socios/{user}', 'UserController@show');
     Route::get('/socios/create', 'UserController@create');
     Route::post('/socios/create', 'UserController@create');
-    Route::get('/socios/{id}/edit', 'UserController@edit');
-    Route::put('/socios/{id}/edit', 'UserController@edit');
-    Route::delete('/socios/{id}', 'UserController@delete');
+    Route::get('/socios/{user}/edit', 'UserController@edit');
+    Route::put('/socios/{user}/edit', 'UserController@edit');
+    Route::delete('/socios/{user}', 'UserController@delete');
 
     // Aeronaves!
     Route::get('/aeronaves', 'AeronaveController@index')->name('aeronaves.index');
