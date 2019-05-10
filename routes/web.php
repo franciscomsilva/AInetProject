@@ -19,11 +19,11 @@ Route::middleware(['ativo'],['auth'],['verified'])->group(function () {
     Route::get('/','HomeController@index')->name('homeAuth');
     Route::get('/home', 'HomeController@index')->name('user.home');
     // Sócios!
-    Route::get('/socios/{id}/edit', 'UserController@edit')->name('user.edit');
     Route::get('/socios', 'UserController@index');
+    Route::get('/socios/{user}/edit', 'UserController@edit')->name('user.edit');
     Route::get('/socios/create', 'UserController@create');
     Route::post('/socios/create', 'UserController@create');
-    Route::put('/socios/{user}/edit', 'UserController@edit');
+    Route::put('/socios/{user}/edit', 'UserController@update')->name('user.update');
     Route::delete('/socios/{user}', 'UserController@delete');
     Route::post('/socios/store','UserController@store')->name('user.store');
 
