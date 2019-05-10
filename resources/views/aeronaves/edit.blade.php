@@ -9,7 +9,7 @@
 @endif
 <!-- só os socios da direção é que pode acrescentar, alterar ou remover aeronaves! -->
 
-<form action="{{route('aeronaves.storeUpdate', $aeronave)}}" method="post" class="form-group">
+<form action="{{route('aeronaves.update', $aeronave)}}" method="post" class="form-group">
     {{method_field('PUT')}}
 
     <div class="form-group"><!-- Matricula -->
@@ -29,7 +29,7 @@
         <label for="inputNumLugares">Numero de Lugares</label>
         <input type="text" class="form-control" name="num_lugares" id="inputNum_lugares" value="{{old('num_lugares')}}"/>
     </div>
-    
+
     @include('aeronaves.partials.add-edit')
     <div class="form-group">
         <button type="submit" class="btn btn-success" name="ok">Guardar</button>

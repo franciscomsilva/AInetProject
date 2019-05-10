@@ -30,9 +30,9 @@ Route::middleware(['ativo'],['auth'],['verified'])->group(function () {
     // Aeronaves!
     Route::get('/aeronaves', 'AeronaveController@index')->name('aeronaves.index');
     Route::get('/aeronaves/create', 'AeronaveController@create')->name('aeronaves.create');   // criar aeronave
-    Route::post('/aeronaves/create', 'AeronaveController@storeUpdate')->name('aeronaves.storeUpdate');
+    Route::post('/aeronaves/create', 'AeronaveController@store')->name('aeronaves.store');
     Route::get('/aeronaves/{aeronave}/edit', 'AeronaveController@edit')->name('aeronaves.edit'); // editar aeronave
-    Route::put('/aeronaves/{aeronave}', 'AeronaveController@storeUpdate')->name('aeronaves.storeUpdate');
+    Route::put('/aeronaves/{aeronave}', 'AeronaveController@update')->name('aeronaves.update');
     Route::delete('/aeronaves/{aeronave}', 'AeronaveController@destroy')->name('aeronaves.destroy'); // eliminar aeronave
 
 
