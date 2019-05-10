@@ -41,7 +41,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        //
+        return $user->direcao || $user->id == $model->id;
     }
 
     /**
