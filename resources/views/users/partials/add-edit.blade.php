@@ -21,7 +21,7 @@
     <label for="inputInformalName">Nome Informal</label>
     <input
             type="text" class="form-control"
-            name="name" id="inputName"
+            name="nome_informal" id="inputName"
             placeholder="Nome Informal" value="{{old('nome_informal', $user->nome_informal)}}" />
 </div>
 <div class="form-group">
@@ -35,7 +35,7 @@
     <label for="birthDate">Data de Nascimento</label>
     <input
             type="date" class="form-control"
-            name="birthDate" id="birthDate"
+            name="data_nascimento" id="birthDate"
             placeholder="Data de Nascimento" value="{{old('email', $user->data_nascimento)}}"/>
 </div>
 <div class="form-group">
@@ -49,13 +49,13 @@
     <label for="phoneNumber">Número de Telefone</label>
     <input
             type="phone" class="form-control"
-            name="phoneNumber" id="phoneNumber"
+            name="telefone" id="phoneNumber"
             placeholder="Número de Telefone" value="{{old('telefone', $user->telefone)}}"/>
 </div>
 <div class="form-group">
     <label for="address">Endereço</label>
     <input
             type="address" class="form-control"
-            name="address" id="address"
+            name="endereco" id="address"
             placeholder="Endereço" value="{{old('endereco', $user->endereco)}}"/>
 </div>
