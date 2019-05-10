@@ -18,7 +18,6 @@ class AeronaveController extends Controller
         $aeronaves = Aeronave::paginate(15);//DB::table('aeronaves')->paginate(15);
         $title = 'List Aeronaves';
         return view('aeronaves.list', compact('title', 'aeronaves'));
-
     }
 
     /**
@@ -38,8 +37,9 @@ class AeronaveController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function storeUpdate(Request $request)
     {
+
         $this->validate($request, [
             'matricula' => 'required|alpha_dash|min:8|max:8',
             'marca' => 'required|alpha_dash',
@@ -66,7 +66,7 @@ class AeronaveController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -75,21 +75,10 @@ class AeronaveController extends Controller
      * @param  Aeronave  $aeronave
      * @return \Illuminate\Http\Response
      */
-    public function edit($aeronave)
+    public function edit($matricula)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        $aeronave = Aeronave::findOrFail($matricula);
+        return view('aeronaves.edit', compact('aeronave'));
     }
 
     /**
@@ -100,6 +89,16 @@ class AeronaveController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //soft deletes
+
+
+        //hard deletes
+    }
+    public function validateAddUpdate($matricula){
+        $aeronaves = Aeronave::all();
+
+        $aeronaves->find($matricula);
+
+
     }
 }
