@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Movimentos;
+use App\Movimento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,7 +15,7 @@ class MovimentoController extends Controller
      */
     public function index()
     {
-        $movimentos = DB::table('movimentos')->paginate(15);
+        $movimentos = Movimento::paginate(15);
         $title = 'List Movimentos';
         //return view('user.list', ['users' => $users]);
         return view('movimentos.list', compact('title', 'movimentos'));
@@ -29,6 +29,10 @@ class MovimentoController extends Controller
     public function create()
     {
         //
+        //$this->authorize('create', User::class);
+
+        $movimento = new Movimento();
+        return view('movimentos.add', compact('movimento'));
     }
 
     /**
@@ -45,10 +49,10 @@ class MovimentoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Movimentos  $movimentos
+     * @param  \App\Movimento  $movimentos
      * @return \Illuminate\Http\Response
      */
-    public function show(Movimentos $movimentos)
+    public function show(Movimento $movimentos)
     {
         //
     }
@@ -56,10 +60,10 @@ class MovimentoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Movimentos  $movimentos
+     * @param  \App\Movimento  $movimentos
      * @return \Illuminate\Http\Response
      */
-    public function edit(Movimentos $movimentos)
+    public function edit(Movimento $movimentos)
     {
         //
     }
@@ -68,10 +72,10 @@ class MovimentoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Movimentos  $movimentos
+     * @param  \App\Movimento  $movimentos
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Movimentos $movimentos)
+    public function update(Request $request, Movimento $movimentos)
     {
         //
     }
@@ -79,10 +83,10 @@ class MovimentoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Movimentos  $movimentos
+     * @param  \App\Movimento  $movimentos
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Movimentos $movimentos)
+    public function destroy(Movimento $movimentos)
     {
         //
     }
