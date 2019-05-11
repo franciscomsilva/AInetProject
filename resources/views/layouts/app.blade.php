@@ -90,7 +90,7 @@
                     @include('shared.success')
                 @endif
             @yield('content')
-        </div>
+         </div>
         </main>
     </div>
 </body>
