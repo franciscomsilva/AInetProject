@@ -36,7 +36,7 @@
     <input
             type="date" class="form-control"
             name="data_nascimento" id="birthDate"
-            placeholder="Data de Nascimento" value="{{old('email', $user->data_nascimento)}}"/>
+            placeholder="Data de Nascimento" value="{{old('data_nascimento', $user->data_nascimento)}}"/>
 </div>
 <div class="form-group">
     <label for="nif">NIF</label>
@@ -48,14 +48,14 @@
 <div class="form-group">
     <label for="phoneNumber">Número de Telefone</label>
     <input
-            type="phone" class="form-control"
+            type="number" class="form-control"
             name="telefone" id="phoneNumber"
             placeholder="Número de Telefone" value="{{old('telefone', $user->telefone)}}"/>
 </div>
 <div class="form-group">
     <label for="address">Endereço</label>
     <input
-            type="address" class="form-control"
+            type="text" class="form-control"
             name="endereco" id="address"
             placeholder="Endereço" value="{{old('endereco', $user->endereco)}}"/>
 </div>
