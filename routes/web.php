@@ -18,14 +18,14 @@ Auth::routes(['verify' => true,'register' => false]);
 Route::middleware(['ativo'],['auth'],['verified'])->group(function () {
     Route::get('/','HomeController@index')->name('homeAuth');
     Route::get('/home', 'HomeController@index')->name('user.home');
+
     // Sócios!
-    Route::get('/socios', 'UserController@index');
-    Route::get('/socios/{id}', 'UserController@show');
-    Route::get('/socios/create', 'UserController@create');
-    Route::post('/socios/create', 'UserController@create');
-    Route::get('/socios/{id}/edit', 'UserController@edit');
-    Route::put('/socios/{id}/edit', 'UserController@edit');
-    Route::delete('/socios/{id}', 'UserController@delete');
+    Route::get('/socios', 'UserController@index')->name('user.index');
+    Route::get('/socios/create', 'UserController@create')->name('user.create');
+    Route::post('/socios/create', 'UserController@store')->name('user.store');
+    Route::get('/socios/{user}/edit', 'UserController@edit')->name('user.edit');
+    Route::put('/socios/{user}/edit', 'UserController@update')->name('user.update');
+    Route::delete('/socios/{user}', 'UserController@delete')->name('user.delete');
 
     // Aeronaves!
     Route::get('/aeronaves', 'AeronaveController@index')->name('aeronaves.index');
