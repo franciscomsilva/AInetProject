@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 
 class SocioPiloto
 {
@@ -15,6 +16,10 @@ class SocioPiloto
      */
     public function handle($request, Closure $next)
     {
-        return $next($request);
+        if($request->user() && $request->user()->tipo_socio == 'P'){
+            return $next($request);
+        }
+
+        throw new AccessDeniedException('Unauthorized.');
     }
 }

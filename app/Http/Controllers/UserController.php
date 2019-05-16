@@ -119,8 +119,29 @@ class UserController extends Controller
         //
     }
 
+    /**
+     * @param User $user
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     * @throws AuthorizationException
+     */
     public function getCertificado(User $user){
+        $this->authorize('getCertificado',$user);
+
         $path = 'certificado_'.$user->id . '.pdf';
+
+        return response()->file(storage_path('app/docs_piloto/'. $path));
+    }
+
+    /**
+     * @param User $user
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     * @throws AuthorizationException
+     */
+    public function getLicenca(User $user){
+        $this->authorize('getLicenca',$user);
+
+
+        $path = 'licenca_'.$user->id . '.pdf';
 
         return response()->file(storage_path('app/docs_piloto/'. $path));
     }
