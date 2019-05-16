@@ -14,10 +14,9 @@ class AeronavePolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\User  $user
-     * @param  \App\User  $model
      * @return mixed
      */
-    public function view(User $user, Aeronave $model)
+    public function view(User $user)
     {
         //
     }
@@ -37,10 +36,9 @@ class AeronavePolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Aeronave  $model
      * @return mixed
      */
-    public function update(User $user, Aeronave $model)
+    public function update(User $user)
     {
         return $user->direcao;
     }
@@ -49,10 +47,9 @@ class AeronavePolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Aeronave  $model
      * @return mixed
      */
-    public function delete(User $user, Aeronave $model)
+    public function delete(User $user)
     {
         return $user->direcao;
     }
@@ -61,10 +58,9 @@ class AeronavePolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Aeronave  $model
      * @return mixed
      */
-    public function restore(User $user, Aeronave $model)
+    public function restore(User $user)
     {
         //
     }
@@ -73,10 +69,9 @@ class AeronavePolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Aeronave  $model
      * @return mixed
      */
-    public function forceDelete(User $user, Aeronave $model)
+    public function forceDelete(User $user)
     {
         //
     }
