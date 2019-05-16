@@ -3,6 +3,15 @@
 @section('title','Sócios')
 
 @section('content')
+    <form action="{{URL::Current()}}">
+            <label for="nrSocio">Nº Sócio</label>
+            <input
+                    type="number" class="form-control"
+                    name="nrSocio"
+                    placeholder="Nº de Sócio"/>
+
+        <button type="submit" class="btn btn-success" name="ok">Pesquisar</button>
+    </form>
     @can('create', App\User::class)
         <div>
             <a class="btn btn-primary" href="{{route('user.create')}}">Adicionar sócio</a>
@@ -26,7 +35,6 @@
             @foreach($users as $user)
                 @if($user->ativo)
                 <tr>
-
                     <td><img src="{{ $user->foto_url == null ? asset('storage/fotos/unknown_user.jpg') : asset('storage/fotos/' . $user->foto_url)}}" class="img-thumbnail"/> </td>
                     <td>{{$user->name}}</td>
                     <td> {{ $user->email }}</td>

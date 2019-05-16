@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Filters\UserFilters;
 use App\Http\Requests\UpdateUserRequest;
 use App\User;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -13,12 +15,16 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param UserFilters $filters
      * @return \Illuminate\Http\Response
      */
 
-    public function index()
+    public function index(UserFilters $filters)
     {
-        $users = User::paginate(15);
+
+        $users = User::filter($filters)->paginate();
+
+
         return view('users.list', compact( 'users'));
     }
     /**
@@ -58,7 +64,7 @@ class UserController extends Controller
      *
      * @param User $user
      * @return \Illuminate\Http\Ressponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws AuthorizationException
      */
     public function edit(User $user)
     {
@@ -72,7 +78,7 @@ class UserController extends Controller
      * @param UpdateUserRequest $request
      * @param User $user
      * @return void
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws AuthorizationException
      */
     public function update(UpdateUserRequest $request, User $user)
     {
