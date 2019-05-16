@@ -44,6 +44,15 @@ class UserPolicy
         return $user->direcao || $user->id == $model->id;
     }
 
+
+    public function getCertificado(User $user, User $model){
+        return $user->direcao || $user->id == $model->id;
+    }
+
+    public function getLicenca(User $user, User $model){
+        return $user->direcao || $user->id == $model->id;
+    }
+
     /**
      * Determine whether the user can delete the model.
      *
