@@ -131,4 +131,20 @@ class AeronaveController extends Controller
             ->route('aeronaves.index')
             ->with('success', 'Aeronave eliminada com sucesso.');
     }
+
+
+    //---------------------------------- pilotos idnex, adicionar piloto e remover piloto -------------------------
+    /**
+    * Display a listing of pilots of the plane.
+    * @param Aeronave $aeronave
+    * @param User $user
+    * @return \Illuminate\Http\Response
+    */
+    public function pilotosIndex($aeronave, $user)
+    {
+        $title = 'Pilotos da aeronave';
+        return view('aeronaves.pilotos.list', compact('title', 'aeronave', 'user'));
+    }
+
+
 }
