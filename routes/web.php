@@ -31,12 +31,15 @@ Route::middleware(['ativo'],['auth'],['verified'])->group(function () {
 
     // Aeronaves!
     Route::get('/aeronaves', 'AeronaveController@index')->name('aeronaves.index');
-    Route::get('/aeronaves/create', 'AeronaveController@create')->name('aeronaves.create');   // criar aeronave
+    Route::get('/aeronaves/create', 'AeronaveController@create')->name('aeronaves.create');
     Route::post('/aeronaves/create', 'AeronaveController@store')->name('aeronaves.store');
-    Route::get('/aeronaves/{aeronave}/edit', 'AeronaveController@edit')->name('aeronaves.edit'); // editar aeronave
-    Route::delete('/aeronaves/{aeronave}', 'AeronaveController@destroy')->name('aeronaves.destroy'); // eliminar aeronave
-
-
+    Route::get('/aeronaves/{aeronave}/edit', 'AeronaveController@edit')->name('aeronaves.edit');
+    Route::delete('/aeronaves/{aeronave}', 'AeronaveController@destroy')->name('aeronaves.destroy');
+    Route::get('/aeronaves/{aeronave}/pilotos', 'AeronaveController@pilotosIndex')->name('aeronaves.pilotosIndex');
+    Route::post('/aeronaves/{aeronave}/pilotos/{piloto}', 'AeronaveController@pilotoAdd')->name('aeronaves.pilotoAdd');
+    Route::delete('/aeronaves/{aeronave}/pilotos/{piloto}', 'AeronaveController@pilotoDestroy')->name('aeronaves.pilotoDestroy');
+    Route::get('/aeronaves/{aeronave}/precos_tempos', 'AeronaveController@precos_temposIndex')->name('aeronaves.precos_temposIndex');
+    
     //Movimentos!
     Route::get('/movimentos', 'MovimentoController@index')->name('movimentos.index');
     Route::get('/movimentos/{movimento}', 'MovimentoController@show')->name('movimentos.show');
