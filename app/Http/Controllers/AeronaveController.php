@@ -39,7 +39,7 @@ class AeronaveController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StoreAeronaveRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreAeronaveRequest $request)
@@ -53,12 +53,11 @@ class AeronaveController extends Controller
             return redirect()
             ->route('aeronaves.add')
             ->with('errors', 'Matricula já existe!');
-        }else{
-            $aeronave->save();
-            return redirect()
-                ->route('aeronaves.index')
-                ->with('success', 'Aeronave adicionada com sucesso!');
         }
+        $aeronave->save();
+        return redirect()
+            ->route('aeronaves.index')
+            ->with('success', 'Aeronave adicionada com sucesso!');
     }
 
     /**
@@ -81,38 +80,40 @@ class AeronaveController extends Controller
     public function edit($aeronave)
     {
         $this->authorize('update', $aeronave);
-        
-        //$aeronave = Aeronave::findOrFail($matricula);
         return view('aeronaves.edit', compact('aeronave'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  StoreAeronaveRequest  $request
+     * @param  Aeronave $aeronave
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $aeronave)
+    public function update(StoreAeronaveRequest $request, $aeronave)
     {
         $this->authorize('update', $aeronave);
-        /*
+        
         $aeronave = new Aeronave();
-        $aeronave->fill($request->validated());
-        $aeronave->save();*/
-
-        generalSave($request, $aeronave);
-
+        $aeronave->fill($request->validate());
+        
+        if (Aeronave::findOrFail(($aeronave['matricula'])) != null) {
+            return redirect()
+            ->route('aeronaves.add')
+            ->with('errors', 'Matricula já existe!');
+        }
+        $aeronave->save();
         return redirect()
             ->route('aeronaves.index')
-            ->with('success', 'Aeronave atualizada com sucesso!');
+            ->with('success', 'Aeronave adicionada com sucesso!');
+    
     }
 
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Aeronave $aeronave
      * @return \Illuminate\Http\Response
      */
     public function destroy($aeronave)
@@ -120,19 +121,13 @@ class AeronaveController extends Controller
         $this->authorize('delete', Aeronave::class);
         
         //soft deletes
-
+        $aeronave['deleted_at'] = date("Y-m-d h:i:s");
+        $aeronave->save();
 
         //hard deletes só para os duros mesmo!
-        $aeronave->delete();
+        //$aeronave->delete();
         return redirect()
             ->route('aeronaves.index')
             ->with('success', 'Aeronave eliminada com sucesso.');
-    }
-
-
-
-    private function aeronaveExists($matricula){
-        $aeronave = Aeronave::findOrFail($matricula);
-        return $aeronave != null ? true : false;
     }
 }

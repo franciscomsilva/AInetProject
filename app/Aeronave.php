@@ -10,6 +10,16 @@ class Aeronave extends Model
         'matricula', 'marca', 'modelo', 'num_lugares', 'conta_horas', 'preco_hora'
     ];
 
+    
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+     protected $casts = [
+        'deleted_at' => 'datetime',
+    ];
+
     protected $table = 'aeronaves';
     protected $primaryKey = 'matricula';
     public $incrementing = false;

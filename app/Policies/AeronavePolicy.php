@@ -3,7 +3,6 @@
 namespace App\Policies;
 
 use App\User;
-use App\Aeronave;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class AeronavePolicy
@@ -18,7 +17,7 @@ class AeronavePolicy
      */
     public function view(User $user)
     {
-        //
+        return true;
     }
 
     /**
@@ -54,25 +53,4 @@ class AeronavePolicy
         return $user->direcao;
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\User  $user
-     * @return mixed
-     */
-    public function restore(User $user)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\User  $user
-     * @return mixed
-     */
-    public function forceDelete(User $user)
-    {
-        //
-    }
 }

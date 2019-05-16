@@ -23,6 +23,9 @@
         </thead>
         <tbody>
             @foreach ($aeronaves as $aeronave)
+            @if($aeronave->deleted_at != NULL)
+                @continue
+            @endif
             <tr>
                 <td>{{ $aeronave->matricula }}</td>
                 <td>{{ $aeronave->marca }}</td>
