@@ -4,19 +4,36 @@
 
 @section('content')
     <form action="{{URL::Current()}}">
-            <label for="nrSocio">Nº Sócio</label>
-            <input
+        <input
                     type="number" class="form-control"
                     name="nrSocio"
                     placeholder="Nº de Sócio"/>
+        <input
+                type="text" class="form-control"
+                name="nome"
+                placeholder="Nome Informal"/>
+        <input
+                type="text" class="form-control"
+                name="email"
+                placeholder="E-Mail"/>
 
-        <button type="submit" class="btn btn-success" name="ok">Pesquisar</button>
+        <input type="radio" name="tSocio" value="P">Piloto
+        <input type="radio" name="tSocio" value="NP">Não-Piloto
+        <input type="radio" name="tSocio" value="A">Aeromodelista
+        <br>
+
+        <input
+                type="checkbox"
+                name="direcao"
+                value="1"/>Direção<br>
+
+        <button type="submit" class="btn btn-success" name="search">Pesquisar</button>
     </form>
     @can('create', App\User::class)
         <div>
             <a class="btn btn-primary" href="{{route('user.create')}}">Adicionar sócio</a>
         </div>
-        <br></br>
+        <br>
     @endcan
 <div class="container">
     @if (count($users))
@@ -51,8 +68,7 @@
             @endforeach
         </table>
 
-        {{ $users->links() }}
-
+        {{$users->links()}}
 
     @else
 
