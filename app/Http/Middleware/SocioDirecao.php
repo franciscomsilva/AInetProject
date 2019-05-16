@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 
-class isDirecao
+class SocioDirecao
 {
     /**
      * Handle an incoming request.

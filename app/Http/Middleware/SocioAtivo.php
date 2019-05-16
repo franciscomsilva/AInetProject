@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 
-class isAtivo
+class SocioAtivo
 {
     /**
      * Handle an incoming request.
