@@ -22,6 +22,7 @@ Route::middleware(['ativo'],['auth'],['verified'])->group(function () {
     // Sócios!
     Route::get('/socios', 'UserController@index')->name('user.index');
     Route::get('/socios/create', 'UserController@create')->name('user.create');
+    Route::get('/socios/{user}/certificado','UserController@getCertificado')->name('user.certificado')->middleware(['direcao']);
     Route::post('/socios/create', 'UserController@store')->name('user.store');
     Route::get('/socios/{user}/edit', 'UserController@edit')->name('user.edit');
     Route::put('/socios/{user}/edit', 'UserController@update')->name('user.update');

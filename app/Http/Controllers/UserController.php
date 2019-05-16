@@ -119,4 +119,10 @@ class UserController extends Controller
         //
     }
 
+    public function getCertificado(User $user){
+        $path = 'certificado_'.$user->id . '.pdf';
+
+        return response()->file(storage_path('app/docs_piloto/'. $path));
+    }
+
 }

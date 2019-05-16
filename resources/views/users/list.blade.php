@@ -33,8 +33,9 @@
         <div>
             <a class="btn btn-primary" href="{{route('user.create')}}">Adicionar sócio</a>
         </div>
-        <br>
+
     @endcan
+    <br>
 <div class="container">
     @if (count($users))
         <table class="table table-striped">
