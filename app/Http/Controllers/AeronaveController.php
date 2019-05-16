@@ -63,12 +63,13 @@ class AeronaveController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  string $matricula
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($matricula)
     {
-        
+        // sera que é mesmo preciso ?
+        //return view('aeronave.profile', ['aeronave' => Aeronave::findOrFail($matricula)]);
     }
 
     /**
