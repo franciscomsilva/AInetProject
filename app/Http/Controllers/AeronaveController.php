@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Aeronave;
+use App\User;
+
 
 use App\Http\Requests\Aeronave\CreateAeronaveResquest;
 use App\Http\Requests\Aeronave\StoreAeronaveResquest;
@@ -137,13 +139,15 @@ class AeronaveController extends Controller
     /**
     * Display a listing of pilots of the plane.
     * @param Aeronave $aeronave
-    * @param User $user
+    * 
     * @return \Illuminate\Http\Response
     */
-    public function pilotosIndex($aeronave, $user)
+    public function pilotosIndex()
     {
         $title = 'Pilotos da aeronave';
-        return view('aeronaves.pilotos.list', compact('title', 'aeronave', 'user'));
+        $pilotos = User::paginate(15);
+
+        return view('aeronaves.pilotos.list', compact('title', 'pilotos'));
     }
 
 
