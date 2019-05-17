@@ -49,7 +49,7 @@ class AeronaveController extends Controller
         $aeronave = new Aeronave();
         $aeronave->fill($request->validate());
         
-        if (Aeronave::findOrFail(($aeronave['matricula'])) != null) {
+        if (Aeronave::findOrFail($aeronave['matricula']) != null) {
             return redirect()
             ->route('aeronaves.add')
             ->with('errors', 'Matricula já existe!');

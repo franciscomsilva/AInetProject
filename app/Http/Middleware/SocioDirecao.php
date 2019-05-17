@@ -20,6 +20,6 @@ class SocioDirecao
             return $next($request);
         }
 
-        throw new AccessDeniedException('Unauthorized.');
+        abort(403);
     }
 }

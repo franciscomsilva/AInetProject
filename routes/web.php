@@ -15,15 +15,15 @@ Auth::routes(['verify' => true,'register' => false]);
 
 
 //GRUPO DE MIDDLEWARE PARA QUE TODAS ESTAS ROTAS SEJAM NECESSARIO ESTAR AUTENTICADO
-Route::middleware(['ativo'],['auth'],['verified'])->group(function () {
+Route::middleware(['ativo','auth','verified'])->group(function () {
     Route::get('/','HomeController@index')->name('homeAuth');
     Route::get('/home', 'HomeController@index')->name('user.home');
 
     // Sócios!
     Route::get('/socios', 'UserController@index')->name('user.index');
     Route::get('/socios/create', 'UserController@create')->name('user.create');
-    Route::get('/socios/{user}/certificado','UserController@getCertificado')->name('user.certificado')->middleware(['piloto'],['direcao']);
-    Route::get('/socios/{user}/licenca','UserController@getLicenca')->name('user.licenca')->middleware(['piloto'],['direcao']);
+    Route::get('/socios/{user}/certificado','UserController@getCertificado')->name('user.certificado')->middleware(['piloto','direcao']);
+    Route::get('/socios/{user}/licenca','UserController@getLicenca')->name('user.licenca')->middleware(['piloto','direcao']);
     Route::post('/socios/create', 'UserController@store')->name('user.store');
     Route::get('/socios/{user}/edit', 'UserController@edit')->name('user.edit');
     Route::put('/socios/{user}/edit', 'UserController@update')->name('user.update');

@@ -50,7 +50,8 @@ class UserPolicy
     }
 
     public function getLicenca(User $user, User $model){
-        return $user->direcao || $user->id == $model->id;
+        //return $user->direcao || $user->id == $model->id;
+        return $user->direcao || $user->is($model);
     }
 
     /**

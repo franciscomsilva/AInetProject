@@ -59,3 +59,35 @@
             name="endereco" id="address"
             placeholder="Endereço" value="{{old('endereco', $user->endereco)}}"/>
 </div>
+
+@if($user->tipo_socio = 'P')
+    <br>
+    <h1> Piloto </h1>
+    <div class="form-group">
+        <label for="nrLicenca">Nº de Licença</label>
+        <input
+                type="number" class="form-control"
+                name="nrLicenca" id="nrLicenca"
+                placeholder="Número de Licença" value="{{old('num_licenca', $user->num_licenca)}}"/>
+    </div>
+    <div class="form-group">
+        <label for="tLicenca">Tipo de Licença</label>
+        <input
+                type="text" class="form-control"
+                name="tLicenca" id="tLicenca"
+                placeholder="Tipo de Licença" value="{{old('tipo_licenca', $user->tipolicenca)}}"/>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+@endif

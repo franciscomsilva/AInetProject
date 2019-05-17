@@ -74,4 +74,13 @@ class User extends Authenticatable
         return '-';
     }
 
+
+    public function aeronaves(){
+        return $this->belongsToMany('App\Aeronave','aeronaves_pilotos');
+    }
+
+   /* public function tipoLicenca(){
+        return $this->hasOne('App\tipoLicenca')
+    }*/
+
 }
