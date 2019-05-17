@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Aeronave;
+use App\User;
+
 
 use App\Http\Requests\Aeronave\CreateAeronaveResquest;
 use App\Http\Requests\Aeronave\StoreAeronaveResquest;
@@ -131,4 +133,31 @@ class AeronaveController extends Controller
             ->route('aeronaves.index')
             ->with('success', 'Aeronave eliminada com sucesso.');
     }
+
+
+    //---------------------------------- pilotos idnex, adicionar piloto e remover piloto -------------------------
+    /**
+    * Display a listing of pilots of the plane.
+    * @param Aeronave $aeronave
+    * 
+    * @return \Illuminate\Http\Response
+    */
+    public function pilotosIndex($aeronave)
+    {
+        $title = 'Pilotos da aeronave';
+        //$pilotos = User::paginate(15);
+        
+        $pilotos_ids = DB::table('aeronaves_pilotos')->select('piloto_id')->groupBy('piloto_id')->get();
+
+        $pilotos = User::where('id', 'in', $pilotos_ids)->paginate(15);
+        
+        // acabar esta pesquisa. pilotos_ids esta a ser guardado como string e tem de ser guardado como inteiros...
+        /*$book_id = DB::table('wishlist')->select('book_id')
+        ->where('user_id' ,  '=' ,  $id)
+        ->get();
+            */
+        return view('aeronaves.pilotos.list', compact('title', 'pilotos'));
+    }
+
+
 }

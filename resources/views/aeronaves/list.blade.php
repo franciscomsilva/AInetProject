@@ -33,10 +33,11 @@
                 <td>{{ $aeronave->num_lugares }}</td>
                 <td>{{ $aeronave->conta_horas }}</td>
                 <td>{{ $aeronave->preco_hora }}</td>
-                <td style="display: inline-block;"> <!-- IMPLEMENTAR VALIDAÇÃO PARA SO OS SOCIOS da direção -->
+                <td> <!-- IMPLEMENTAR VALIDAÇÃO PARA SO OS SOCIOS da direção -->
+                    <a class="btn btn-xs btn-primary" href="{{route('aeronaves.pilotosIndex', $aeronave) }}">Mostrar pilotos</a>
                     @can('update', $aeronave)
                     <a class="btn btn-xs btn-primary" href="{{route('aeronaves.edit', $aeronave)}}">Editar</a>
-                    @endcan            
+                    @endcan
                     @can('delete', $aeronave)
                     <form action="{{route('aeronaves.destroy', $aeronave)}}" method="POST" role="form" class="inline">
                         {{ method_field('DELETE') }}
