@@ -22,7 +22,7 @@
             @foreach($pilotos as $piloto)
                 @if($piloto->ativo && $piloto->tipo_socio = "P")
                 <tr>
-                    <td><img src="{{ $piloto->foto_url == null ? asset('storage/fotos/unknown_user.jpg') : asset('storage/fotos/' . $piloto->foto_url)}}" class="img-thumbnail"/> </td>
+                    <td><img src="{{ $piloto->foto_url == null ? asset('storage/fotos/unknown_user.jpg') : asset('storage/fotos/' . $piloto->foto_url)}}"  height="150px" width="150px"  class="img-thumbnail"/> </td>
                     <td>{{ $piloto->name }}</td>
                     <td>{{ $piloto->email }}</td>
                     <td>{{ $piloto->tSocioToString() }}</td>

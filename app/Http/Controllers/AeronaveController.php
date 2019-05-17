@@ -125,12 +125,10 @@ class AeronaveController extends Controller
     {
         $this->authorize('delete', Aeronave::class);
         
-        //soft deletes
-        $aeronave['deleted_at'] = date("Y-m-d h:i:s");
-        $aeronave->save();
-
-        //hard deletes só para os duros mesmo!
-        //$aeronave->delete();
+        if (count($aeronave->movimentos) > 0)
+            $aeronave->delete(); // soft delete
+        $aeronave->forceDelete(); //hard delete
+        
         return redirect()
             ->route('aeronaves.index')
             ->with('success', 'Aeronave eliminada com sucesso.');

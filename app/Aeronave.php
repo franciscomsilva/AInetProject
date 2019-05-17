@@ -29,4 +29,8 @@ class Aeronave extends Model
         return $this->belongsToMany('App\User','aeronaves_pilotos','matricula','piloto_id');
     }
 
+    public function valores(){
+        return $this->
+    }
+
 }
