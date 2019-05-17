@@ -79,8 +79,8 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Aeronave','aeronaves_pilotos','piloto_id','matricula');
     }
 
-   /* public function tipoLicenca(){
-        return $this->hasOne('App\tipoLicenca')
-    }*/
+   public function tipoLicenca(){
+        return $this->belongsTo('App\TipoLicenca','tipo_licenca');
+    }
 
 }

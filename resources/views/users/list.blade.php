@@ -53,7 +53,7 @@
             @foreach($users as $user)
                 @if($user->ativo)
                 <tr>
-                    <td><img src="{{ $user->foto_url == null ? asset('storage/fotos/unknown_user.jpg') : asset('storage/fotos/' . $user->foto_url)}}" class="img-thumbnail"/> </td>
+                    <td><img src="{{ $user->foto_url == null ? asset('storage/fotos/unknown_user.jpg') : asset('storage/fotos/' . $user->foto_url)}}" height="50px" width="50px" class="img-thumbnail"/> </td>
                     <td>{{$user->name}}</td>
                     <td> {{ $user->email }}</td>
                     <td>{{ $user->tSocioToString()}}</td>
@@ -63,6 +63,9 @@
                         @can('update', $user)
                             <a class="btn btn-xs btn-primary" href="{{route('user.edit', $user)}}">Editar</a>
                         @endcan
+                        @can('view',$user)
+                                <a class="btn btn-xs btn-primary" href="{{route('user.show', $user)}}">Ver</a>
+                            @endcan
                     </td>
                 </tr>
                 @endif

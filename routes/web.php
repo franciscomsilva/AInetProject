@@ -21,6 +21,7 @@ Route::middleware(['ativo','auth','verified'])->group(function () {
 
     // Sócios!
     Route::get('/socios', 'UserController@index')->name('user.index');
+    Route::get('/socios/{user}','UserController@show')->name('user.show');
     Route::get('/socios/create', 'UserController@create')->name('user.create');
     Route::get('/socios/{user}/certificado','UserController@getCertificado')->name('user.certificado')->middleware(['piloto','direcao']);
     Route::get('/socios/{user}/licenca','UserController@getLicenca')->name('user.licenca')->middleware(['piloto','direcao']);
