@@ -75,7 +75,7 @@
         <input
                 type="text" class="form-control"
                 name="tLicenca" id="tLicenca"
-                placeholder="Tipo de Licença" value="{{old('tipo_licenca', $user->tipolicenca)}}"/>
+                placeholder="Tipo de Licença" value="{{old('tipo_licenca', $user->tipoLicenca->code)}}"/>
     </div>
     <div class="form-group">
         <label for="instrutor">Instrutor</label>
@@ -83,6 +83,13 @@
                 type="checkbox"
                 name="direcao"
                 value="{{old('direcao',$user->direcao)}}"/>
+    </div>
+    <div class="form-group">
+        <label for="confirmado">Certificado Confirmado</label>
+        <input
+                type="checkbox"
+                name="confirmado"
+                value="1"/>
     </div>
 
 
