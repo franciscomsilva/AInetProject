@@ -3,6 +3,8 @@
 @section('title', 'Pilotos')
 
 @section('content')
+
+
 <div class="container">
     @if (count($pilotos))
         <table class="table table-striped">
