@@ -77,6 +77,13 @@
                 name="tLicenca" id="tLicenca"
                 placeholder="Tipo de Licença" value="{{old('tipo_licenca', $user->tipolicenca)}}"/>
     </div>
+    <div class="form-group">
+        <label for="instrutor">Instrutor</label>
+        <input
+                type="checkbox"
+                name="direcao"
+                value="{{old('direcao',$user->direcao)}}"/>
+    </div>
 
 
 

@@ -63,6 +63,9 @@
                         @can('update', $user)
                             <a class="btn btn-xs btn-primary" href="{{route('user.edit', $user)}}">Editar</a>
                         @endcan
+                        @can('view',$user)
+                                <a class="btn btn-xs btn-primary" href="{{route('user.show', $user)}}">Ver</a>
+                            @endcan
                     </td>
                 </tr>
                 @endif

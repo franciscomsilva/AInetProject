@@ -18,7 +18,7 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        //
+        return $user->direcao || $user->is($model);
     }
 
     /**
@@ -41,16 +41,15 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return $user->direcao || $user->id == $model->id;
+        return $user->direcao || $user->is($model);
     }
 
 
     public function getCertificado(User $user, User $model){
-        return $user->direcao || $user->id == $model->id;
+        return $user->direcao || $user->is($model);
     }
 
     public function getLicenca(User $user, User $model){
-        //return $user->direcao || $user->id == $model->id;
         return $user->direcao || $user->is($model);
     }
 

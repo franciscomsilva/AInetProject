@@ -53,10 +53,12 @@ class UserController extends Controller
      *
      * @param User $user
      * @return \Illuminate\Http\Response
+     * @throws AuthorizationException
      */
     public function show(User $user)
     {
-        return view('user.show', ['user' => User::findOrFail($id)]);
+        $this->authorize('view',$user);
+        return view('users.view', compact('user'));
     }
 
     /**
