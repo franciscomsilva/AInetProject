@@ -22,12 +22,11 @@ class Aeronave extends Model
 
     protected $table = 'aeronaves';
     protected $primaryKey = 'matricula';
-    protected $incrementing = false;
-
+    public $incrementing = false;
 
 
     public function pilotos(){
-        return $this->belongsToMany('App\User','aeronaves_pilotos');
+        return $this->belongsToMany('App\User','aeronaves_pilotos','matricula','piloto_id');
     }
 
 }

@@ -77,8 +77,9 @@ class AeronaveController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Aeronave  $aeronave
+     * @param Aeronave $aeronave
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit($aeronave)
     {
@@ -89,9 +90,10 @@ class AeronaveController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  StoreAeronaveRequest  $request
-     * @param  Aeronave $aeronave
+     * @param StoreAeronaveRequest $request
+     * @param Aeronave $aeronave
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(StoreAeronaveRequest $request, $aeronave)
     {
@@ -142,20 +144,11 @@ class AeronaveController extends Controller
     * 
     * @return \Illuminate\Http\Response
     */
-    public function pilotosIndex($aeronave)
+    public function pilotosIndex(Aeronave $aeronave)
     {
-        $title = 'Pilotos da aeronave';
-        //$pilotos = User::paginate(15);
-        
-        $pilotos_ids = DB::table('aeronaves_pilotos')->select('piloto_id')->groupBy('piloto_id')->get();
+        $title = 'Pilotos da Aeronave';
+        $pilotos = $aeronave->pilotos()->paginate(15);
 
-        $pilotos = User::where('id', 'in', $pilotos_ids)->paginate(15);
-        
-        // acabar esta pesquisa. pilotos_ids esta a ser guardado como string e tem de ser guardado como inteiros...
-        /*$book_id = DB::table('wishlist')->select('book_id')
-        ->where('user_id' ,  '=' ,  $id)
-        ->get();
-            */
         return view('aeronaves.pilotos.list', compact('title', 'pilotos'));
     }
 
