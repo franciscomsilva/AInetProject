@@ -21,7 +21,7 @@ class AeronaveController extends Controller
     public function index()
     {
         $aeronaves = Aeronave::paginate(15);
-        $title = 'List Aeronaves';
+        $title = 'Aeronaves';
         return view('aeronaves.list', compact('title', 'aeronaves'));
     }
 
