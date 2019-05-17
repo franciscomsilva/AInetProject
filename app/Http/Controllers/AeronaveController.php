@@ -142,11 +142,20 @@ class AeronaveController extends Controller
     * 
     * @return \Illuminate\Http\Response
     */
-    public function pilotosIndex()
+    public function pilotosIndex($aeronave)
     {
         $title = 'Pilotos da aeronave';
-        $pilotos = User::paginate(15);
+        //$pilotos = User::paginate(15);
+        
+        $pilotos_ids = DB::table('aeronaves_pilotos')->select('piloto_id')->groupBy('piloto_id')->get();
 
+        $pilotos = User::where('id', 'in', $pilotos_ids)->paginate(15);
+        
+        // acabar esta pesquisa. pilotos_ids esta a ser guardado como string e tem de ser guardado como inteiros...
+        /*$book_id = DB::table('wishlist')->select('book_id')
+        ->where('user_id' ,  '=' ,  $id)
+        ->get();
+            */
         return view('aeronaves.pilotos.list', compact('title', 'pilotos'));
     }
 
