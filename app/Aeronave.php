@@ -30,7 +30,7 @@ class Aeronave extends Model
     }
 
     public function valores(){
-        return $this->
+       // return $this->belongsToMany('App\Aeronave', 'aeronaves_valores', '');
     }
 
 }

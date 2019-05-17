@@ -33,8 +33,8 @@
                 <td>{{ $aeronave->num_lugares }}</td>
                 <td>{{ $aeronave->conta_horas }}</td>
                 <td>{{ $aeronave->preco_hora }}</td>
-                <td> <!-- IMPLEMENTAR VALIDAÇÃO PARA SO OS SOCIOS da direção -->
-                    <a class="btn btn-xs btn-primary" href="{{route('aeronaves.pilotosIndex', $aeronave) }}">Mostrar pilotos</a>
+                <td>
+                    <a class="btn btn-xs btn-primary" href="{{route('aeronaves.pilotosIndex', $aeronave) }}">Pilotos Autorizados</a>
                     @can('update', $aeronave)
                     <a class="btn btn-xs btn-primary" href="{{route('aeronaves.edit', $aeronave)}}">Editar</a>
                     @endcan

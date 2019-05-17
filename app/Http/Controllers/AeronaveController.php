@@ -147,7 +147,22 @@ class AeronaveController extends Controller
         $title = 'Pilotos da Aeronave';
         $pilotos = $aeronave->pilotos()->paginate(15);
 
-        return view('aeronaves.pilotos.list', compact('title', 'pilotos'));
+        return view('aeronaves.pilotos.list', compact('title', 'pilotos', 'aeronave'));
+    }
+    /**
+    * Display a listing of NON autorized pilots of the plane.
+    * @param Aeronave $aeronave
+    * 
+    * @return \Illuminate\Http\Response
+    */
+    public function pilotosNaoAutorizadosIndex(Aeronave $aeronave)
+    {
+        $title = 'Pilotos não autorizados da Aeronave';
+
+        $pilotosDaAeronave = $aeronave->pilotos()->all();
+        $pilotos = User::all()->diff();
+
+        return view('aeronaves.pilotos.pilotosNaoAutorizados.list', compact('title', 'pilotos'));
     }
 
 
