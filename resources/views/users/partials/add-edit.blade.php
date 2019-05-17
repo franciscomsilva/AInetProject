@@ -3,7 +3,7 @@
     <label for="photo">Foto</label>
 
     <!-- MOSTRA FOTO DO USER  -->
-    <img src="{{ $user->foto_url == null ? asset('storage/fotos/unknown_user.jpg') : asset('storage/fotos/' . $user->foto_url)}}" height="150px" width="150px" class="img-thumbnail"/>
+    <img src="{{ $user->foto_url == null ? asset('storage/fotos/unknown_user.jpg') : asset('storage/fotos/' . $user->foto_url)}}" height="50px" width="50px" class="img-thumbnail"/>
 
     <!-- BOTAO PARA DAR UPLOAD DA FOTO  -->
     <br/><br/>
