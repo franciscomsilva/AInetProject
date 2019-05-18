@@ -4,10 +4,15 @@
 
 @section('content')
 <div class="container">
-    <div>
+    @if (count($errors) > 0)
+        @include('shared.errors')
+    @endif
+
+        <div>
         <a class="btn btn-primary" href="{{route('movimentos.create')}}">Adicionar</a>
     </div>
-    @if (count($movimentos))
+
+        @if (count($movimentos))
         <table class="table table-striped">
             <thead>
             <tr>
@@ -32,7 +37,7 @@
                 <th>Instrutor</th>
                 <th>Confirmado</th>
                 <th>Observações</th>
-                <th>Edit/Delete</th>
+                <th> </th>
             </tr>
             </thead>
             <tbody>
@@ -45,7 +50,7 @@
                     <td>{{date('H:i', strtotime($movimento->hora_descolagem))}}</td>
                     <td>{{$movimento->tempo_voo}} min</td>
                     <td>{{$movimento->naturezaMovimentoToString()}}</td>
-                    <td>{{$movimento->piloto_id}}</td>
+                    <td>{{$movimento->piloto->nome_informal}}</td>
                     <td>{{$movimento->aerodromo_partida}}</td>
                     <td>{{$movimento->aerodromo_chegada}}</td>
                     <td>{{$movimento->num_aterragens}}</td>
@@ -56,25 +61,25 @@
                     <td>{{$movimento->conta_horas_fim}}</td>
                     <td>{{$movimento->num_pessoas}}</td>
                     <td>{{$movimento->tipoInstrucaoToString()}}</td>
-                    <td>{{$movimento->instrutor_id}}</td>
+                    <td></td>
                     <td>
                         <div class="input-group mb-3">
                             <div class="input-group">
-                                <input type="checkbox" disabled {{$movimento->confirmado()}} aria-label="Checkbox for following text input">
+                                <input type="checkbox" disabled {{$movimento->confirmado()}}>
                             </div>
                         </div>
                     </td>
                     <td>{{$movimento->observacoes}}</td>
                     <td>
-                        <a class="btn btn-xs btn-primary" href="{{route('movimentos.show', $movimento)}}">Show</a>
-                            <a class="btn btn-xs btn-primary" href="{{route('movimentos.edit', $movimento)}}">Edit</a>
+                        <a class="btn btn-xs btn-primary" href="{{route('movimentos.show', $movimento)}}">Mostrar</a>
                         @can('update', $movimento)
+                            <a class="btn btn-xs btn-primary" href="{{route('movimentos.edit', $movimento)}}">Editar</a>
                         @endcan
                         @can('delete', $movimento)
                             <form action="{{route('movimentos.destroy', $movimento)}}" method="POST" role="form" class="inline">
-                                {{ method_field('DELETE') }}
-                                {{ csrf_field() }}
-                                <button type="submit" class="btn btn-xs btn-danger">Delete</button>
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-xs btn-danger">Apagar</button>
                             </form>
                         @endcan
                     </td>

@@ -7,10 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class Movimento extends Model
 {
     //
-    protected $fillable = [
-    ];
+    protected $fillable = ['data', 'hora_descolagem', 'hora_aterregem', 'aeronave', 'num_diario', 'piloto_id', 'instrutor_id'];
 
     protected $table = 'movimentos';
+
+    public function piloto(){
+        return $this->belongsTo('App\User');
+    }
+
+    public function instrutor(){
+        return $this->belongsTo('App\User');
+    }
 
     public function naturezaMovimentoToString(){
         switch ($this->natureza) {
@@ -36,6 +43,21 @@ class Movimento extends Model
         return 'Unknown';
     }
 
+    public function modoPagamentoToString(){
+        switch ($this->modo_pagamento) {
+            case 'N':
+                return 'Numerário';
+            case 'M':
+                return 'Multibanco';
+            case 'T':
+                return 'Transferência';
+            case 'P':
+                return 'Pacote de Horas';
+        }
+
+        return 'Unknown';
+    }
+
 
     public function confirmado(){
         switch ($this->confirmado) {
@@ -43,6 +65,16 @@ class Movimento extends Model
                 return 'checked';
             case 0:
                 return '';
+        }
+
+        return 'Unknown';
+    }
+    public function confirmadoToString(){
+        switch ($this->confirmado) {
+            case 1:
+                return 'Sim';
+            case 0:
+                return 'Não';
         }
 
         return 'Unknown';

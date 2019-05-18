@@ -73,4 +73,12 @@ class User extends Authenticatable
         return '-';
     }
 
+    public function movimentoPiloto(){
+        return $this->hasMany('App\Movimento', 'piloto_id', 'id');
+    }
+
+    protected function movimento()
+    {
+        return $this->hasMany('App\Movimento', 'instrutor_id', 'id');
+    }
 }
