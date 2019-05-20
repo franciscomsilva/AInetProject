@@ -8,8 +8,8 @@ use App\Aeronave;
 use App\User;
 
 
-use App\Http\Requests\Aeronave\CreateAeronaveResquest;
-use App\Http\Requests\Aeronave\StoreAeronaveResquest;
+use App\Http\Requests\Aeronave\CreateAeronaveRequest;
+use App\Http\Requests\Aeronave\StoreAeronaveRequest;
 
 class AeronaveController extends Controller
 {
@@ -99,8 +99,8 @@ class AeronaveController extends Controller
     {
         $this->authorize('update', $aeronave);
         
-        $aeronave = new Aeronave();
-        $aeronave->fill($request->validate());
+        //$aeronave = new Aeronave();
+        $aeronave->fill($request->validated());
         
         if (Aeronave::findOrFail(($aeronave['matricula'])) != null) {
             return redirect()
