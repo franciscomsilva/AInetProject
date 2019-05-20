@@ -8,6 +8,7 @@
                 <th>Quota paga</th>
                 <th>Nº de licença</th>
                 <th>Tipo de licença</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -22,7 +23,8 @@
                     <td>{{ $piloto->tipo_licenca }}</td>
                     <td>
                         @can('authorize', $piloto)
-                            <a class="btn btn-xs btn-primary" href="{{route('aeronaves.pilotoAdd', $piloto)}}">Autorizar Piloto</a>
+                            <a class="btn btn-xs btn-primary" style="color: #ffff;">{{ $textoButao }}</a> <!-- Apagar este e descomentar o outro... -->
+                            <!--a class="btn btn-xs btn-primary" style="color: #ffff;" href="{{ route( $adicionarRemover, $aeronave, $piloto ) }}">{{ $textoButao }}</a-->
                         @endcan
                     </td>
                 </tr>

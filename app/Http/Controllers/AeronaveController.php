@@ -123,11 +123,13 @@ class AeronaveController extends Controller
      */
     public function destroy($aeronave)
     {
-        $this->authorize('delete', Aeronave::class);
+        $this->authorize('delete', $aeronave);
         
-        if (count($aeronave->movimentos) > 0)
+        if ($aeronave->hasMovimentos()){
             $aeronave->delete(); // soft delete
-        $aeronave->forceDelete(); //hard delete
+        }else{
+            $aeronave->forceDelete(); //hard delete
+        }
         
         return redirect()
             ->route('aeronaves.index')
@@ -141,7 +143,7 @@ class AeronaveController extends Controller
     * @param Aeronave $aeronave
     * 
     * @return \Illuminate\Http\Response
-    */
+    **/
     public function pilotosIndex(Aeronave $aeronave)
     {
         $title = 'Pilotos da Aeronave';
@@ -159,11 +161,37 @@ class AeronaveController extends Controller
     {
         $title = 'Pilotos não autorizados da Aeronave';
 
-        $pilotosDaAeronave = $aeronave->pilotos()->all();
-        $pilotos = User::all()->diff();
+       //$pilotosDaAeronave = $aeronave->pilotos()->all();
+        $pilotos = User::all();
 
-        return view('aeronaves.pilotos.pilotosNaoAutorizados.list', compact('title', 'pilotos'));
+        return view('aeronaves.pilotos.nao-autorizados.list', compact('title', 'pilotos'));
     }
 
+    //------------------------------- modificar isto
+    /**
+    * Display a listing of NON autorized pilots of the plane.
+    * @param Aeronave $aeronave
+    * 
+    * @return \Illuminate\Http\Response
+    */
+    public function autorizarPiloto(Aeronave $aeronave)
+    {
+        return redirect()
+        ->route('aeronaves.pilotosIndex')
+        ->with('success', 'Piloto autorizado.');
+    }
 
+    
+    /**
+    * Display a listing of NON autorized pilots of the plane.
+    * @param Aeronave $aeronave
+    * 
+    * @return \Illuminate\Http\Response
+    */
+    public function removerPiloto(User $piloto)
+    {
+        return redirect()
+        ->route('aeronaves.pilotosIndex')
+        ->with('success', 'Revogada autorização de pilotar aeronave.');
+    }
 }

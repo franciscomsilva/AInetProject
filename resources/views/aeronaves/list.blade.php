@@ -13,12 +13,13 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <td>Matricula</td>
-                <td>Marca</td>
-                <td>Modelo</td>
-                <td>Numero de Lugares</td>
-                <td>Total Horas</td>
-                <td>Preço Hora</td>
+                <th>Matricula</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Numero de Lugares</th>
+                <th>Total Horas</th>
+                <th>Preço Hora</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>

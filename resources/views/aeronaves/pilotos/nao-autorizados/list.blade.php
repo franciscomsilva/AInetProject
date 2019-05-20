@@ -4,6 +4,10 @@
 
 @section('content')
 
+@php 
+$adicionarRemover = 'aeronaves.autorizarPiloto';
+$textoButao = 'Não Autorizar';
+@endphp
 
 <div class="container">
 @include('aeronaves.shared.list-pilotos') 
