@@ -24,7 +24,6 @@ class UserController extends Controller
 
         $users = User::filter($filters)->paginate();
 
-
         return view('users.list', compact( 'users'));
     }
     /**
@@ -139,7 +138,7 @@ class UserController extends Controller
 
         return redirect()
             ->route('user.index')
-            ->with('success', 'User updated successfully!');
+            ->with('success', 'Utilzador editado com sucesso!');
         
     }
 
@@ -179,6 +178,27 @@ class UserController extends Controller
         $path = 'licenca_'.$user->id . '.pdf';
 
         return response()->file(storage_path('app/docs_piloto/'. $path));
+    }
+
+    public function estado(User $user){
+        $this->authorize('mudarEstado',$user);
+
+        $user->ativo = $user->ativo == 1 ? 0 : 1;
+        $user->save();
+
+        return redirect()
+            ->route('user.index')
+            ->with('success', 'Estado do utilizador mudado com sucesso!');
+    }
+
+    public function quota(User $user){
+
+        $user->quota_paga = $user->quota_paga == 1 ? 0 : 1;
+        $user->save();
+
+        return redirect()
+            ->route('user.index')
+            ->with('success', 'Estado da quota do utilizador mudado com sucesso!');
     }
 
 }

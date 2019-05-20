@@ -70,12 +70,16 @@ class User extends Authenticatable
     }
 
     public function nrLicencaToString(){
-        if($this->num_licenca){
-            return $this->num_licenca;
-        }
-        return '-';
+        return $this->num_licenca != null ? $this->num_licenca : '-';
     }
 
+    public function ativoToString(){
+        return $this->ativo == 1 ? "Sim" : "Não";
+    }
+
+    public function quotasToString(){
+        return $this->quota_paga == 1 ? "Sim" : "Não";
+    }
 
     public function aeronaves(){
         return $this->belongsToMany('App\Aeronave','aeronaves_pilotos','piloto_id','matricula');
@@ -88,5 +92,6 @@ class User extends Authenticatable
     public function classeCertificado(){
         return $this->belongsTo('App\ClasseCertificado','classe_certificado');
     }
+
 
 }
