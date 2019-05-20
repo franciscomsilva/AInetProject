@@ -93,13 +93,36 @@ class UserController extends Controller
 
 
             $image = $request->file('image');
-            $name = $user->id . '_'. generateRandomString(13) . '.' . $image->getClientOriginalExtension();
+            $name = $user->id . '_' . generateRandomString(13) . '.' . $image->getClientOriginalExtension();
             $path = $request->file('image')->storeAs('public/fotos', $name);
 
 
             /*GUARDA O NOME DO FICHEIRO*/
             $user->foto_url = $name;
         }
+
+        /*VERIFICACAO DA LICENCA DO UTILIZADOR*/
+        if(!is_null($request['licenca'])) {
+            $name = 'licenca_' . $user->id . '.pdf';
+
+            /*APAGA QUAISQUER LICENÇA ANTERIORES*/
+            Storage::Delete("docs_piloto/" . $name);
+
+            /*UPLOAD DA LICENCA*/
+            $path = $request->file('licenca')->storeAs('docs_piloto', $name);
+        }
+
+
+        /*RESOLVE O PROBLEMA DAS CHECKBOXES*/
+
+        if(!$request->get('instrutor'))
+            $user->instrutor = 0;
+
+        if(!$request->get('licenca_confirmada'))
+            $user->licenca_confirmada = 0;
+
+        if(!$request->get('certificado_confirmado'))
+            $user->certificado_confirmado = 0;
 
         $user->fill($request->validated());
         $user->save();

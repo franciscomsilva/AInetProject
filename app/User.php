@@ -17,7 +17,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','nome_informal','data_nascimento','nif','telefone','endereco','img'
+        'name', 'email', 'password','nome_informal','data_nascimento','nif','telefone','endereco','img','certificado_confirmado',
+        'tipo_socio','quota_paga','ativo','password_inicial','direcao','num_licenca','tipo_licenca','instrutor','aluno',
+        'validade_licenca','licenca_confirmada','num_certificado','classe_certificado','validade_certificado','licenca'
     ];
 
     /**
@@ -81,6 +83,10 @@ class User extends Authenticatable
 
    public function tipoLicenca(){
         return $this->belongsTo('App\TipoLicenca','tipo_licenca');
+    }
+
+    public function classeCertificado(){
+        return $this->belongsTo('App\ClasseCertificado','classe_certificado');
     }
 
 }

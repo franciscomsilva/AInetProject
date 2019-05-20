@@ -70,14 +70,17 @@
     </div>
     <div class="form-group">
         <label for="tLicenca">Tipo de Licença</label>
-        <input disabled
-                type="text" class="form-control"
-                name="tLicenca" id="tLicenca"
-                placeholder="Tipo de Licença" value="{{old('tipo_licenca', $user->tipolicenca)}}"/>
+        <select disabled>
+            <option @if($user->tipoLicenca->nome == "Aluno - Private Pilot License Airplane") {{'selected'}} @endif value="ALUNO-PPL(A)">ALUNO-PPL(A)</option>
+            <option @if($user->tipoLicenca->nome == "Aluno - Piloto de Ultraleve") {{'selected'}} @endif value="ALUNO-PU">ALUNO-PU</option>
+            <option @if($user->tipoLicenca->nome == "Airline Transport Pilot License") {{'selected'}} @endif value="ATPL">ATPL</option>
+            <option @if($user->tipoLicenca->nome == "Comercial Pilot License Airplane") {{'selected'}} @endif value="CPL(A)">CPL(A)</option>
+            <option @if($user->tipoLicenca->nome == "Private Pilot License Airplane") {{'selected'}} @endif value="PPL(A)">PPL(A)</option>
+            <option @if($user->tipoLicenca->nome == "Piloto de Ultraleve") {{'selected'}} @endif value="PU">PU</option>
+        </select>
     </div>
 
     <!-- LISTA DE AERONAVES QUE PODE PILOTAR -->
-
 
 
 
