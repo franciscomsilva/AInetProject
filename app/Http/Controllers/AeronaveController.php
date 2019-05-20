@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Aeronave;
 use App\User;
-
+use Illuminate\Database\Eloquent\Model as Eloquent;
 
 use App\Http\Requests\Aeronave\CreateAeronaveRequest;
 use App\Http\Requests\Aeronave\StoreAeronaveRequest;
@@ -151,9 +151,10 @@ class AeronaveController extends Controller
     {
         $title = 'Pilotos não autorizados da Aeronave';
 
-       //$pilotosDaAeronave = $aeronave->pilotos()->all();
-        $pilotos = User::all();
-
+        $pilotosDaAeronave = $aeronave->pilotos()->get();
+        $pilotos =  User::where('tipo_socio','like', 'P', 'AND','id','<>', $pilotosDaAeronave)->paginate(15);
+        dd($pilotos);
+        
         return view('aeronaves.pilotos.nao-autorizados.list', compact('title', 'pilotos'));
     }
 
@@ -167,7 +168,7 @@ class AeronaveController extends Controller
     */
     public function autorizarPiloto(Aeronave $aeronave, User $piloto)
     {
-        dd($aeronave);
+        dd($aeronave, $piloto);
         return redirect()
         ->route('aeronaves.pilotosIndex')
         ->with('success', 'Piloto autorizado.');
@@ -184,7 +185,7 @@ class AeronaveController extends Controller
     public function removerPiloto(Aeronave $aeronave, User $piloto)
     {
         
-        dd($aeronave);
+        dd($aeronave, $piloto);
         return redirect()
         ->route('aeronaves.pilotosIndex')
         ->with('success', 'Revogada autorização de pilotar aeronave.');
