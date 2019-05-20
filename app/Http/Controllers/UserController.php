@@ -112,17 +112,27 @@ class UserController extends Controller
             $path = $request->file('licenca')->storeAs('docs_piloto', $name);
         }
 
+        /*VERIFICACAO DO CERTIFICADO DO UTILIZADOR*/
+        if(!is_null($request['certificado'])) {
+            $name = 'certificado_' . $user->id . '.pdf';
+
+            /*APAGA QUAISQUER CERTIFICADOS ANTERIORES*/
+            Storage::Delete("docs_piloto/" . $name);
+
+            /*UPLOAD DO CERTIFICADO*/
+            $path = $request->file('certificado')->storeAs('docs_piloto', $name);
+        }
+
 
         /*RESOLVE O PROBLEMA DAS CHECKBOXES*/
 
         if(!$request->get('instrutor'))
             $user->instrutor = 0;
 
-        if(!$request->get('licenca_confirmada'))
-            $user->licenca_confirmada = 0;
 
-        if(!$request->get('certificado_confirmado'))
-            $user->certificado_confirmado = 0;
+        $user->licenca_confirmada = 0;
+
+        $user->certificado_confirmado = 0;
 
         $user->fill($request->validated());
         $user->save();

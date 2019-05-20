@@ -97,19 +97,10 @@
                 {{$user->instrutor ?'checked' : ''}}/>
     </div>
     <div class="form-group">
-        <label for="licencaConfirmada">Licença Confirmada</label>
-        <input
-                type="checkbox"
-                name="licenca_confirmada"
-                value="1"
-                {{$user->licenca_confirmada == 1 ?'checked' : ''}}/>
-    </div>
-
-    <div class="form-group">
         <!-- MOSTRA LICENÇA DO USER  -->
         <a href="{{route('user.licenca',$user)}}"> Cópia Digital da Licença </a>
 
-        <!-- BOTAO PARA DAR UPLOAD DA FOTO  -->
+        <!-- BOTAO PARA DAR UPLOAD DA LICENCA  -->
         <br/><br/>
         <input type="file" name="licenca" class="form-control">
 
@@ -143,12 +134,13 @@
     </div>
 
     <div class="form-group">
-        <label for="certConfirmado">Certificado Confirmado</label>
-        <input
-                type="checkbox"
-                name="certificado_confirmado"
-                value="1"
-                {{$user->certificado_confirmado == 1 ?'checked' : ''}}/>
+        <!-- MOSTRA CERTIFICADO DO USER  -->
+        <a href="{{route('user.certificado',$user)}}"> Cópia Digital do Certificado </a>
+
+        <!-- BOTAO PARA DAR UPLOAD DO CERTIFICADO  -->
+        <br/><br/>
+        <input type="file" name="certificado" class="form-control">
+
     </div>
     <br>
     <!-- LISTA DE AERONAVES QUE PODE PILOTAR -->
