@@ -24,7 +24,6 @@ class UserController extends Controller
 
         $users = User::filter($filters)->paginate();
 
-
         return view('users.list', compact( 'users'));
     }
     /**
@@ -93,7 +92,7 @@ class UserController extends Controller
 
 
             $image = $request->file('image');
-            $name = $user->id . '_'. generateRandomString(13) . '.' . $image->getClientOriginalExtension();
+            $name = $user->id . '_' . generateRandomString(13) . '.' . $image->getClientOriginalExtension();
             $path = $request->file('image')->storeAs('public/fotos', $name);
 
 
@@ -101,12 +100,45 @@ class UserController extends Controller
             $user->foto_url = $name;
         }
 
+        /*VERIFICACAO DA LICENCA DO UTILIZADOR*/
+        if(!is_null($request['licenca'])) {
+            $name = 'licenca_' . $user->id . '.pdf';
+
+            /*APAGA QUAISQUER LICENÇA ANTERIORES*/
+            Storage::Delete("docs_piloto/" . $name);
+
+            /*UPLOAD DA LICENCA*/
+            $path = $request->file('licenca')->storeAs('docs_piloto', $name);
+        }
+
+        /*VERIFICACAO DO CERTIFICADO DO UTILIZADOR*/
+        if(!is_null($request['certificado'])) {
+            $name = 'certificado_' . $user->id . '.pdf';
+
+            /*APAGA QUAISQUER CERTIFICADOS ANTERIORES*/
+            Storage::Delete("docs_piloto/" . $name);
+
+            /*UPLOAD DO CERTIFICADO*/
+            $path = $request->file('certificado')->storeAs('docs_piloto', $name);
+        }
+
+
+        /*RESOLVE O PROBLEMA DAS CHECKBOXES*/
+
+        if(!$request->get('instrutor'))
+            $user->instrutor = 0;
+
+
+        $user->licenca_confirmada = 0;
+
+        $user->certificado_confirmado = 0;
+
         $user->fill($request->validated());
         $user->save();
 
         return redirect()
             ->route('user.index')
-            ->with('success', 'User updated successfully!');
+            ->with('success', 'Utilzador editado com sucesso!');
         
     }
 
@@ -146,6 +178,27 @@ class UserController extends Controller
         $path = 'licenca_'.$user->id . '.pdf';
 
         return response()->file(storage_path('app/docs_piloto/'. $path));
+    }
+
+    public function estado(User $user){
+        $this->authorize('mudarEstado',$user);
+
+        $user->ativo = $user->ativo == 1 ? 0 : 1;
+        $user->save();
+
+        return redirect()
+            ->route('user.index')
+            ->with('success', 'Estado do utilizador mudado com sucesso!');
+    }
+
+    public function quota(User $user){
+
+        $user->quota_paga = $user->quota_paga == 1 ? 0 : 1;
+        $user->save();
+
+        return redirect()
+            ->route('user.index')
+            ->with('success', 'Estado da quota do utilizador mudado com sucesso!');
     }
 
 }

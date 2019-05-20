@@ -20,10 +20,16 @@ class UpdateUserRequest extends FormRequest
             'email' => 'required|email',
             'data_nascimento' => 'date|before:today',
             'nif' => 'required|integer|digits:9',
-            'telefone' => 'required|integer|digits:9',
-            'endereco' => 'required'
-
-
+            'telefone' => 'required|min:9|max:14',
+            'endereco' => 'required',
+            'num_licenca' => 'required',
+            'tipo_licenca' => 'required',
+            'validade_licenca' => 'required |date|after:today|',
+            'instrutor' => 'between:0,1',
+            'licenca_confirmada' => 'between:0,1',
+            'classe_certificado' => '',
+            'validade_certificado' => 'required |date|after:today|',
+            'certificado_confirmado' => 'between:0,1'
         ];
     }
 }
