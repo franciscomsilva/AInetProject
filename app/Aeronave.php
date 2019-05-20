@@ -19,14 +19,15 @@ class Aeronave extends Model
         return $this->belongsToMany('App\User','aeronaves_pilotos','matricula','piloto_id');
     }
 
-    /*public function movimentos(){
+    public function movimentos(){
         return $this->hasMany(Movimento::class, 'aeronave', 'matricula');
-    }*/
+
+    }
+    
     public function hasMovimentos(Aeronave $aeronave){
         // usar um ou outro... finde procura pelo id
-        $movimentos = Movimento::find($aeronave['matricula']);
-        //$movimentos = Movimento::where('aeronave', '%like%', $aeronave['matricula']);
-        dd($movimentos);
+        //$movimentos = Movimento::find($aeronave['matricula']);
+        $movimentos = Movimento::where('aeronave', '%like%', $aeronave['matricula']);
         return $movimentos->count() > 0 ? true : false;
     }
 

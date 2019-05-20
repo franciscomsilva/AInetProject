@@ -46,9 +46,10 @@ class AeronaveController extends Controller
      */
     public function store(StoreAeronaveRequest $request)
     {
-        $this->authorize('create', Aeronave::class);
-    
         $aeronave = new Aeronave();
+
+        $this->authorize('create', $aeronave);
+    
         $aeronave->fill($request->validate());
         
         if (Aeronave::findOrFail($aeronave['matricula']) != null) {
@@ -63,18 +64,6 @@ class AeronaveController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  string $matricula
-     * @return \Illuminate\Http\Response
-     */
-    public function show($matricula)
-    {
-        // sera que é mesmo preciso ?
-        //return view('aeronave.profile', ['aeronave' => Aeronave::findOrFail($matricula)]);
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param Aeronave $aeronave
@@ -84,6 +73,7 @@ class AeronaveController extends Controller
     public function edit($aeronave)
     {
         $this->authorize('update', $aeronave);
+
         return view('aeronaves.edit', compact('aeronave'));
     }
 
@@ -169,13 +159,15 @@ class AeronaveController extends Controller
 
     //------------------------------- modificar isto
     /**
-    * Display a listing of NON autorized pilots of the plane.
+    * .
     * @param Aeronave $aeronave
+    * @param User $piloto
     * 
     * @return \Illuminate\Http\Response
     */
-    public function autorizarPiloto(Aeronave $aeronave)
+    public function autorizarPiloto(Aeronave $aeronave, User $piloto)
     {
+        dd($aeronave);
         return redirect()
         ->route('aeronaves.pilotosIndex')
         ->with('success', 'Piloto autorizado.');
@@ -183,13 +175,16 @@ class AeronaveController extends Controller
 
     
     /**
-    * Display a listing of NON autorized pilots of the plane.
+    * 
     * @param Aeronave $aeronave
+    * @param User $piloto
     * 
     * @return \Illuminate\Http\Response
     */
-    public function removerPiloto(User $piloto)
+    public function removerPiloto(Aeronave $aeronave, User $piloto)
     {
+        
+        dd($aeronave);
         return redirect()
         ->route('aeronaves.pilotosIndex')
         ->with('success', 'Revogada autorização de pilotar aeronave.');

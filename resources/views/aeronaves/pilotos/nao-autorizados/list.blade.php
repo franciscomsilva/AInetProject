@@ -5,8 +5,8 @@
 @section('content')
 
 @php 
-$adicionarRemover = 'aeronaves.autorizarPiloto';
-$textoButao = 'Não Autorizar';
+$autorizar = true;
+$textoButao = 'Autorizar piloto';
 @endphp
 
 <div class="container">

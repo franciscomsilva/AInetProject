@@ -35,7 +35,9 @@
                 <td>{{ $aeronave->conta_horas }}</td>
                 <td>{{ $aeronave->preco_hora }}</td>
                 <td>
+                    @can('authorize', $aeronave)
                     <a class="btn btn-xs btn-primary" href="{{route('aeronaves.pilotosIndex', $aeronave) }}">Pilotos Autorizados</a>
+                    @endcan
                     @can('update', $aeronave)
                     <a class="btn btn-xs btn-primary" href="{{route('aeronaves.edit', $aeronave)}}">Editar</a>
                     @endcan
