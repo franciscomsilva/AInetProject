@@ -38,6 +38,7 @@ Route::middleware(['ativo','auth','verified'])->group(function () {
     Route::get('/aeronaves/{aeronave}/edit', 'AeronaveController@edit')->name('aeronaves.edit');
     Route::delete('/aeronaves/{aeronave}', 'AeronaveController@destroy')->name('aeronaves.destroy');
     Route::get('/aeronaves/{aeronave}/pilotos', 'AeronaveController@pilotosIndex')->name('aeronaves.pilotosIndex');
+    Route::get('/aeronaves/{aeronave}/pilotos/pilotosNaoAutorizados', 'AeronaveController@pilotosNaoAutorizadosIndex')->name('aeronaves.pilotosNaoAutorizadosIndex'); //nova rota para pilotos nao autorizados
     Route::post('/aeronaves/{aeronave}/pilotos/{piloto}', 'AeronaveController@pilotoAdd')->name('aeronaves.pilotoAdd');
     Route::delete('/aeronaves/{aeronave}/pilotos/{piloto}', 'AeronaveController@pilotoDestroy')->name('aeronaves.pilotoDestroy');
     Route::get('/aeronaves/{aeronave}/precos_tempos', 'AeronaveController@precos_temposIndex')->name('aeronaves.precos_temposIndex');

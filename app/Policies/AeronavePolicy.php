@@ -43,12 +43,24 @@ class AeronavePolicy
     }
 
     /**
-     * Determine whether the user can delete the model.
-     *
-     * @param  \App\User  $user
-     * @return mixed
-     */
+    * Determine whether the user can delete the model.
+    *
+    * @param  \App\User  $user
+    * @return mixed
+    */
     public function delete(User $user)
+    {
+        return $user->direcao;
+    }
+
+
+    /**
+    * Determine whether the user can authorize the model.
+    *
+    * @param  \App\User  $user
+    * @return mixed
+    */
+    public function authorize(User $user)
     {
         return $user->direcao;
     }
