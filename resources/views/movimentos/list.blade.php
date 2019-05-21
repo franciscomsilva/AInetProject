@@ -19,24 +19,23 @@
                 <th>ID</th>
                 <th>Aeronave</th>
                 <th>Data Voo</th>
-                <th>Hora Aterragem</th>
-                <th>Hora Descolagem</th>
+                <!--th>Hora Aterragem</th>
+                <th>Hora Descolagem</th-->
                 <th>Tempo Voo</th>
                 <th>Natureza</th>
                 <th>Piloto Nome</th>
                 <th>Aeródromo Partida</th>
                 <th>Aeródromo Chegada</th>
-                <th>Nº Aterragens</th>
+                <!--th>Nº Aterragens</th>
                 <th>Nº Descolagens</th>
                 <th>Nº Diário</th>
                 <th>Nº Serviço</th>
                 <th>Conta-Horas Inicial</th>
                 <th>Conta-Horas Final</th>
-                <th>Nº Pessoas</th>
+                <th>Nº Pessoas</th-->
                 <th>Tipo Instrução</th>
                 <th>Instrutor</th>
                 <th>Confirmado</th>
-                <th>Observações</th>
                 <th> </th>
             </tr>
             </thead>
@@ -46,20 +45,20 @@
                     <td>{{$movimento->id}}</td>
                     <td> {{$movimento->aeronave}}</td>
                     <td>{{$movimento->data}}</td>
-                    <td>{{date('H:i', strtotime($movimento->hora_aterragem))}}</td>
-                    <td>{{date('H:i', strtotime($movimento->hora_descolagem))}}</td>
+                    <!--td>date('H:i', strtotime($movimento->hora_aterragem))</td-->
+                    <!--td>date('H:i', strtotime($movimento->hora_descolagem))</td-->
                     <td>{{$movimento->tempo_voo}} min</td>
                     <td>{{$movimento->naturezaMovimentoToString()}}</td>
                     <td>{{$movimento->piloto->nome_informal}}</td>
                     <td>{{$movimento->aerodromo_partida}}</td>
                     <td>{{$movimento->aerodromo_chegada}}</td>
-                    <td>{{$movimento->num_aterragens}}</td>
-                    <td>{{$movimento->num_descolagens}}</td>
-                    <td>{{$movimento->num_diario}}</td>
-                    <td>{{$movimento->num_servico}}</td>
-                    <td>{{$movimento->conta_horas_inicio}}</td>
-                    <td>{{$movimento->conta_horas_fim}}</td>
-                    <td>{{$movimento->num_pessoas}}</td>
+                    <!--td>$movimento->num_aterragens</td-->
+                    <!--td>$movimento->num_descolagens</td-->
+                    <!--td>$movimento->num_diario</td-->
+                    <!--td>$movimento->num_servico</td-->
+                    <!--td>$movimento->conta_horas_inicio</td-->
+                    <!--td>$movimento->conta_horas_fim</td-->
+                    <!--td>$movimento->num_pessoas</td-->
                     <td>{{$movimento->tipoInstrucaoToString()}}</td>
                     <td></td>
                     <td>
@@ -69,17 +68,16 @@
                             </div>
                         </div>
                     </td>
-                    <td>{{$movimento->observacoes}}</td>
                     <td>
-                        <a class="btn btn-xs btn-primary" href="{{route('movimentos.show', $movimento)}}">Mostrar</a>
+                        <a class="btn btn-xs btn-primary" href="{{route('movimentos.show', $movimento)}}"><img src="/imagens/eye.png" class="" alt="mostrar"></a>
                         @can('update', $movimento)
-                            <a class="btn btn-xs btn-primary" href="{{route('movimentos.edit', $movimento)}}">Editar</a>
+                            <a class="btn btn-xs btn-primary" href="{{route('movimentos.edit', $movimento)}}"><img src="/imagens/pencil.png" class="" alt="editar"></a>
                         @endcan
                         @can('delete', $movimento)
                             <form action="{{route('movimentos.destroy', $movimento)}}" method="POST" role="form" class="inline">
                                 @csrf
                                 @method('delete')
-                                <button type="submit" class="btn btn-xs btn-danger">Apagar</button>
+                                <button type="submit" class="btn btn-xs btn-danger"><img src="/imagens/delete.png" class="" alt="apagar"></button>
                             </form>
                         @endcan
                     </td>

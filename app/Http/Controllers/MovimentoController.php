@@ -37,12 +37,11 @@ class MovimentoController extends Controller
     public function create()
     {
         $this->authorize('create', Movimento::class);
-
-        //$pagetitle = "Add user";
         $aeronaves = Aeronave::all();
         $pilotos = User::all();
         $aerodromos = Aerodromo::all();
-        return view('movimentos.add', compact(['pilotos', 'aeronaves', 'aerodromos']));
+        $movimento = new Movimento();
+        return view('movimentos.add', compact(['movimento','pilotos', 'aeronaves', 'aerodromos']));
     }
 
     /**
@@ -86,7 +85,10 @@ class MovimentoController extends Controller
     {
         //
         $this->authorize('update', $movimento);
-        return view('movimentos.edit', compact('movimento'));
+        $aeronaves = Aeronave::all();
+        $pilotos = User::all();
+        $aerodromos = Aerodromo::all();
+        return view('movimentos.edit', compact(['movimento', 'pilotos', 'aeronaves', 'aerodromos']));
     }
 
     /**

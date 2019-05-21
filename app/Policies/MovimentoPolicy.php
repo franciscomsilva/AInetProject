@@ -31,6 +31,7 @@ class MovimentoPolicy
     public function create(User $user)
     {
         //
+        return $user->tipo_socio=="P";
     }
 
     /**
