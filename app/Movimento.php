@@ -11,14 +11,6 @@ class Movimento extends Model
 
     protected $table = 'movimentos';
 
-    public function piloto(){
-        return $this->belongsTo('App\User');
-    }
-
-    public function instrutor(){
-        return $this->belongsTo('App\User');
-    }
-
     public function naturezaMovimentoToString(){
         switch ($this->natureza) {
             case 'T':
@@ -69,6 +61,7 @@ class Movimento extends Model
 
         return 'Unknown';
     }
+  
     public function confirmadoToString(){
         switch ($this->confirmado) {
             case 1:
@@ -79,4 +72,16 @@ class Movimento extends Model
 
         return 'Unknown';
     }
+
+    public function piloto(){
+        return $this->belongsTo('App\User','piloto_id');
+    }
+
+    public function instrutor(){
+        return $this->belongsTo('App\User','instrutor_id');
+    }
+
+    /*public function aeronave(){
+        return $this->belongsTo(Aeronave::class, 'aeronave');
+    }*/
 }

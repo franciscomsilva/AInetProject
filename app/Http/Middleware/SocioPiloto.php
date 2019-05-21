@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 
-class isDirecao
+class SocioPiloto
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,7 @@ class isDirecao
      */
     public function handle($request, Closure $next)
     {
-        if($request->user() && $request->user()->direcao == 1){
+        if($request->user() && $request->user()->tipo_socio == 'P'){
             return $next($request);
         }
 

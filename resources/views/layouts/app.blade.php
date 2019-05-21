@@ -32,7 +32,17 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        @auth()
+                        <li>
+                            <a class="nav-item ml-3" href="{{ route('user.index') }}"> Sócios </a>
+                        </li>
+                        <li>
+                            <a class="nav-item ml-3" href="{{ route('aeronaves.index') }}"> Aeronaves </a>
+                        </li>
+                        <li>
+                            <a class="nav-item ml-3" href="{{ route('movimentos.index') }}"> Movimentos </a>
+                        </li>
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -59,6 +69,11 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('user.show',Auth::user()) }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('profile-form').submit();">
+                                        {{ __('Perfil') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('user.home') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('home-form').submit();">
@@ -66,6 +81,9 @@
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                    <form id="profile-form" action="{{ route('user.show',Auth::user()) }}" method="GET" style="display: none;">
                                         @csrf
                                     </form>
                                     <form id="home-form" action="{{ route('user.home') }}" method="GET" style="display: none;">

@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Aeronave;
+use App\User;
+use Illuminate\Database\Eloquent\Model as Eloquent;
 
-use App\Http\Requests\Aeronave\CreateAeronaveResquest;
-use App\Http\Requests\Aeronave\StoreAeronaveResquest;
+use App\Http\Requests\Aeronave\CreateAeronaveRequest;
+use App\Http\Requests\Aeronave\StoreAeronaveRequest;
 
 class AeronaveController extends Controller
 {
@@ -18,8 +20,8 @@ class AeronaveController extends Controller
      */
     public function index()
     {
-        $aeronaves = Aeronave::paginate(15);//DB::table('aeronaves')->paginate(15);
-        $title = 'List Aeronaves';
+        $aeronaves = Aeronave::paginate(15);
+        $title = 'Aeronaves';
         return view('aeronaves.list', compact('title', 'aeronaves'));
     }
 
@@ -30,6 +32,8 @@ class AeronaveController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Aeronave::class);
+
         $aeronave = new Aeronave();
         return view('aeronaves.add', compact('aeronave'));
     }
@@ -37,99 +41,153 @@ class AeronaveController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StoreAeronaveRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreAeronaveRequest $request)
     {
         $aeronave = new Aeronave();
+
+        $this->authorize('create', $aeronave);
+    
         $aeronave->fill($request->validate());
         
-        if (Aeronave::findOrFail(($aeronave['matricula'])) != null) {
+        if (Aeronave::findOrFail($aeronave['matricula']) != null) {
             return redirect()
             ->route('aeronaves.add')
             ->with('errors', 'Matricula já existe!');
-        }else{
-            $aeronave->save();
-            return redirect()
-                ->route('aeronaves.index')
-                ->with('success', 'Aeronave adicionada com sucesso!');
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        
+        $aeronave->save();
+        return redirect()
+            ->route('aeronaves.index')
+            ->with('success', 'Aeronave adicionada com sucesso!');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Aeronave  $aeronave
+     * @param Aeronave $aeronave
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function edit($matricula)
+    public function edit($aeronave)
     {
-        $aeronave = Aeronave::findOrFail($matricula);
+        $this->authorize('update', $aeronave);
+
         return view('aeronaves.edit', compact('aeronave'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param StoreAeronaveRequest $request
+     * @param Aeronave $aeronave
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(Request $request, $id)
+    public function update(StoreAeronaveRequest $request, $aeronave)
     {
-        $aeronave = new Aeronave();
+        $this->authorize('update', $aeronave);
+        
+        //$aeronave = new Aeronave();
         $aeronave->fill($request->validated());
+        
+        if (Aeronave::findOrFail(($aeronave['matricula'])) != null) {
+            return redirect()
+            ->route('aeronaves.add')
+            ->with('errors', 'Matricula já existe!');
+        }
         $aeronave->save();
-
         return redirect()
             ->route('aeronaves.index')
-            ->with('success', 'Aeronave atualizada com sucesso!');
+            ->with('success', 'Aeronave adicionada com sucesso!');
+    
     }
 
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Aeronave $aeronave
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($aeronave)
     {
-        //soft deletes
-
-
-        //hard deletes
-    }
-
-    private function generalSave(UpdateAeronaveRequest $request, $id, $message){
+        $this->authorize('delete', $aeronave);
         
-        $aeronave = new Aeronave();
-        $aeronave->fill($request->validated());
-
-        if (aeronaveExists($aeronave['matricula']))
-            return redirect()->route('aeronaves.add')->with('errors', 'Matricula já existe!');
-
-        $aeronave->save();
+        if ($aeronave->hasMovimentos()){
+            $aeronave->delete(); // soft delete
+        }else{
+            $aeronave->forceDelete(); //hard delete
+        }
+        
         return redirect()
             ->route('aeronaves.index')
-            ->with('success', $message);
+            ->with('success', 'Aeronave eliminada com sucesso.');
     }
 
 
-    private function aeronaveExists($matricula){
-        $aeronave = Aeronave::findOrFail($matricula);
-        return $aeronave != null ? true : false;
+    //---------------------------------- pilotos idnex, adicionar piloto e remover piloto -------------------------
+    /**
+    * Display a listing of pilots of the plane.
+    * @param Aeronave $aeronave
+    * 
+    * @return \Illuminate\Http\Response
+    **/
+    public function pilotosIndex(Aeronave $aeronave)
+    {
+        $title = 'Pilotos da Aeronave';
+        $pilotos = $aeronave->pilotos()->paginate(15);
+
+        return view('aeronaves.pilotos.list', compact('title', 'pilotos', 'aeronave'));
+    }
+    /**
+    * Display a listing of NON autorized pilots of the plane.
+    * @param Aeronave $aeronave
+    * 
+    * @return \Illuminate\Http\Response
+    */
+    public function pilotosNaoAutorizadosIndex(Aeronave $aeronave)
+    {
+        $title = 'Pilotos não autorizados da Aeronave';
+
+        $pilotosDaAeronave = $aeronave->pilotos()->get();
+        $pilotos =  User::where('tipo_socio','like', 'P', 'AND','id','<>', $pilotosDaAeronave)->paginate(15);
+        dd($pilotos);
+        
+        return view('aeronaves.pilotos.nao-autorizados.list', compact('title', 'pilotos'));
+    }
+
+    //------------------------------- modificar isto
+    /**
+    * .
+    * @param Aeronave $aeronave
+    * @param User $piloto
+    * 
+    * @return \Illuminate\Http\Response
+    */
+    public function autorizarPiloto(Aeronave $aeronave, User $piloto)
+    {
+        dd($aeronave, $piloto);
+        return redirect()
+        ->route('aeronaves.pilotosIndex')
+        ->with('success', 'Piloto autorizado.');
+    }
+
+    
+    /**
+    * 
+    * @param Aeronave $aeronave
+    * @param User $piloto
+    * 
+    * @return \Illuminate\Http\Response
+    */
+    public function removerPiloto(Aeronave $aeronave, User $piloto)
+    {
+        
+        dd($aeronave, $piloto);
+        return redirect()
+        ->route('aeronaves.pilotosIndex')
+        ->with('success', 'Revogada autorização de pilotar aeronave.');
     }
 }
