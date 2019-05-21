@@ -174,7 +174,6 @@ class UserController extends Controller
     public function getLicenca(User $user){
         $this->authorize('getLicenca',$user);
 
-
         $path = 'licenca_'.$user->id . '.pdf';
 
         return response()->file(storage_path('app/docs_piloto/'. $path));

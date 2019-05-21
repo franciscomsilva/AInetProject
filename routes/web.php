@@ -24,6 +24,8 @@ Route::middleware(['ativo','auth','verified'])->group(function () {
     Route::get('/socios', 'UserController@index')->name('user.index');
     Route::get('/socios/{user}','UserController@show')->name('user.show');
     Route::get('/socios/create', 'UserController@create')->name('user.create');
+    Route::get('/socios/{user}/certificado','UserController@getCertificado')->name('user.certificado')->middleware(['piloto']);
+    Route::get('/socios/{user}/licenca','UserController@getLicenca')->name('user.licenca')->middleware(['piloto']);
 
     Route::post('/socios/create', 'UserController@store')->name('user.store');
     Route::get('/socios/{user}/edit', 'UserController@edit')->name('user.edit');
@@ -62,8 +64,6 @@ Route::middleware(['ativo','auth','verified'])->group(function () {
 
     Route::middleware(['direcao'])->group(function () {
         //SOCIOS
-        Route::get('/socios/{user}/certificado','UserController@getCertificado')->name('user.certificado')->middleware(['piloto']);
-        Route::get('/socios/{user}/licenca','UserController@getLicenca')->name('user.licenca')->middleware(['piloto']);
         Route::patch('/socios/{user}/ativo','UserController@estado')->name('user.ativo');
         Route::patch('/socios/{user}/quota','UserController@quota')->name('user.quota');
     });
