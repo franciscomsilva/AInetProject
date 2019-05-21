@@ -16,8 +16,11 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'name' => 'required',
+            'num_socio' => 'unique:users|integer|min:1|max:99999',
             'nome_informal' => 'required',
             'email' => 'required|email',
+            'sexo' => 'in:M,F',
+            'tipo_socio' => 'in:P,NP,A',
             'data_nascimento' => 'date|before:today',
             'nif' => 'required|integer|digits:9',
             'telefone' => 'required|min:9|max:14',
@@ -29,7 +32,11 @@ class UpdateUserRequest extends FormRequest
             'licenca_confirmada' => 'between:0,1',
             'classe_certificado' => '',
             'validade_certificado' => 'required |date|after:today|',
-            'certificado_confirmado' => 'between:0,1'
+            'certificado_confirmado' => 'between:0,1',
+            'ativo' => 'between:0,1',
+            'quota_paga' => 'between:0,1',
+            'direcao' => 'between:0,1'
+
         ];
     }
 }

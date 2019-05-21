@@ -130,12 +130,25 @@ class UserController extends Controller
         if(!$request->get('instrutor'))
             $user->instrutor = 0;
 
+        if(!$request->get('ativo')){
+            $this->authorize('mudarEstado',$user);
+            $user->ativo = 0;
+        }
+
+        if(!$request->get('quota_paga'))
+            $user->quota_paga = 0;
+
+        if(!$request->get('direcao')){
+            $this->authorize('mudarDirecao',$user);
+            $user->direcao = 0;
+        }
 
         $user->licenca_confirmada = 0;
 
         $user->certificado_confirmado = 0;
 
         $user->fill($request->validated());
+
         $user->save();
 
         return redirect()

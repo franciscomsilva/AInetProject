@@ -8,7 +8,6 @@
         @include('shared.errors')
     @endif
 
-
     <form action="{{route('user.update',$user)}}" method="post" class="form-group" enctype="multipart/form-data">
         {{method_field('PUT')}}
         @include('users.partials.add-edit')

@@ -7,6 +7,58 @@
 
 
 </div>
+@if(Auth::user()->direcao)
+    <div class="form-group">
+        <label for="nrSocio">Nº de Sócio</label>
+        <input disabled
+                type="number" class="form-control"
+                name="num_socio" id="num_socio"
+                placeholder="Nº de Sócio" value="{{old('num_socio', $user->num_socio)}}"/>
+    </div>
+
+    <div class="form-group">
+        <label for="inputSexo">Sexo</label>
+        <select disabled name="sexo">
+            <option {{$user->sexo == "M" ? 'selected' : ''}} value="M">Masculino</option>
+            <option {{$user->sexo == "F" ? 'selected' : ''}}  value="F">Feminino</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="inputTSocio">Tipo de Socio</label>
+        <select disabled name="tipo_socio">
+            <option {{$user->tipo_socio == "P" ? 'selected' : ''}} value="P">Piloto</option>
+            <option {{$user->tipo_socio == "NP" ? 'selected' : ''}} value="NP">Não-Piloto</option>
+            <option {{$user->tipo_socio == "A" ? 'selected' : ''}} value="A">Aeromodelista</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="inputSocioAtivo">Sócio Ativo</label>
+        <input
+                type="checkbox"
+                name="ativo"
+                value="1"
+                onclick="return false;"
+                {{$user->ativo == 1 ?'checked' : ''}}/>
+    </div>
+    <div class="form-group">
+        <label for="inputQuota">Quota em Dia</label>
+        <input
+                type="checkbox"
+                name="quota_paga"
+                value="1"
+                onclick="return false;"
+                {{$user->quota_paga == 1 ?'checked' : ''}}/>
+    </div>
+    <div class="form-group">
+        <label for="inputDirecao">Direção</label>
+        <input
+                type="checkbox"
+                name="direcao"
+                value="1"
+                onclick="return false;"
+                {{$user->direcao == 1 ?'checked' : ''}}/>
+    </div>
+@endif
 <div class="form-group">
     <label for="inputFullname">Nome Completo</label>
     <input disabled

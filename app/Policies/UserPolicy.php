@@ -106,7 +106,22 @@ class UserPolicy
         //
     }
 
+    /**
+     * @param User $user
+     * @param User $model
+     * @return bool
+     */
     public function mudarEstado(User $user, User $model)
+    {
+        return $user->direcao && $user->id != $model->id;
+    }
+
+    /**
+     * @param User $user
+     * @param User $model
+     * @return bool
+     */
+    public function mudarDirecao(User $user, User $model)
     {
         return $user->direcao && $user->id != $model->id;
     }
