@@ -27,6 +27,7 @@ Route::middleware(['ativo','auth','verified'])->group(function () {
         Route::get('/socios/create', 'UserController@create')->name('user.create');
         Route::patch('/socios/{user}/ativo','UserController@estado')->name('user.ativo');
         Route::patch('/socios/{user}/quota','UserController@quota')->name('user.quota');
+        Route::post('/socios/{user}/send_reactivate_mail','UserController@reactivateEmail')->name('user.email');
         #endregion socios
     });
     #ENDREGION DIRECAO
