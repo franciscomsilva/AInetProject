@@ -108,8 +108,10 @@
             name="endereco" id="address"
             placeholder="Endereço" value="{{old('endereco', $user->endereco)}}"/>
 </div>
-@if($user->tipo_socio == 'P')
+{{$route = Route::current()->getName() }}
+@if($user->tipo_socio == 'P' || $route == 'user.create')
     <br>
+
     <h1> Piloto </h1>
     <h2>Licença de Piloto</h2>
     <div class="form-group">
@@ -122,12 +124,12 @@
     <div class="form-group">
         <label for="inputTLicenca">Tipo de Licença</label>
         <select name="tipo_licenca">
-            <option {{$user->tipoLicenca->nome == "Aluno - Private Pilot License Airplane" ? 'selected' : ''}} value="ALUNO-PPL(A)">ALUNO-PPL(A)</option>
-            <option {{$user->tipoLicenca->nome == "Aluno - Piloto de Ultraleve"? 'selected' : ''}} value="ALUNO-PU">ALUNO-PU</option>
-            <option {{$user->tipoLicenca->nome == "Airline Transport Pilot License" ? 'selected' : ''}} value="ATPL">ATPL</option>
-            <option {{$user->tipoLicenca->nome == "Comercial Pilot License Airplane" ? 'selected' : ''}} value="CPL(A)">CPL(A)</option>
-            <option {{$user->tipoLicenca->nome == "Private Pilot License Airplane" ? 'selected' : ''}} value="PPL(A)">PPL(A)</option>
-            <option {{$user->tipoLicenca->nome == "Piloto de Ultraleve" ? 'selected' : ''}}  value="PU">PU</option>
+            <option {{$route != 'user.create' ? ($user->tipoLicenca->nome == "Aluno - Private Pilot License Airplane" ? 'selected' : '' ): ''}} value="ALUNO-PPL(A)">ALUNO-PPL(A)</option>
+            <option {{$route != 'user.create' ? ($user->tipoLicenca->nome == "Aluno - Piloto de Ultraleve"? 'selected' : ''): ''}} value="ALUNO-PU">ALUNO-PU</option>
+            <option {{$route != 'user.create' ? ($user->tipoLicenca->nome == "Airline Transport Pilot License" ? 'selected' : '') : ''}} value="ATPL">ATPL</option>
+            <option {{$route != 'user.create' ? ($user->tipoLicenca->nome == "Comercial Pilot License Airplane" ? 'selected' : '') : ''}} value="CPL(A)">CPL(A)</option>
+            <option {{$route != 'user.create' ? ($user->tipoLicenca->nome == "Private Pilot License Airplane" ? 'selected' : '') : ''}} value="PPL(A)">PPL(A)</option>
+            <option {{$route != 'user.create' ? ($user->tipoLicenca->nome == "Piloto de Ultraleve" ? 'selected' : '') : ''}}  value="PU">PU</option>
         </select>
     </div>
     <div class="form-group">
@@ -168,9 +170,9 @@
     <div class="form-group">
         <label for="inputClasseCertificado">Classe do Certificado</label>
         <select name="classe_certificado">
-            <option {{$user->classeCertificado->nome == "Class 1 medical certificate" ? 'selected' : ''}} value="Class 1">Class 1</option>
-            <option {{$user->classeCertificado->nome == "Class 2 medical certificate"? 'selected' : ''}} value="Class 2">Class 2</option>
-            <option {{$user->classeCertificado->nome == "Light Aircraft Pilot Licence Medical" ? 'selected' : ''}} value="Class 3">Class 3</option>
+            <option {{$route != 'user.create' ? ($user->classeCertificado->nome == "Class 1 medical certificate" ? 'selected' : '') : ''}} value="Class 1">Class 1</option>
+            <option {{$route != 'user.create' ? ($user->classeCertificado->nome == "Class 2 medical certificate"? 'selected' : ''): ''}} value="Class 2">Class 2</option>
+            <option {{$route != 'user.create' ? ($user->classeCertificado->nome == "Light Aircraft Pilot Licence Medical" ? 'selected' : ''): ''}} value="Class 3">Class 3</option>
         </select>
     </div>
 
@@ -191,38 +193,4 @@
         <input type="file" name="certificado" class="form-control">
 
     </div>
-    <br>
-    <!-- LISTA DE AERONAVES QUE PODE PILOTAR -->
-    <h3>Lista de Aeronaves Autorizadas</h3>
-    @if(count($user->aeronaves) > 0)
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <td>Matricula</td>
-                <td>Marca</td>
-                <td>Modelo</td>
-                <td>Numero de Lugares</td>
-                <td>Total Horas</td>
-                <td>Preço Hora</td>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach ($user->aeronaves as $aeronave)
-                @if($aeronave->deleted_at != NULL)
-                    @continue
-                @endif
-                <tr>
-                    <td>{{ $aeronave->matricula }}</td>
-                    <td>{{ $aeronave->marca }}</td>
-                    <td>{{ $aeronave->modelo }}</td>
-                    <td>{{ $aeronave->num_lugares }}</td>
-                    <td>{{ $aeronave->conta_horas }}</td>
-                    <td>{{ $aeronave->preco_hora }}</td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-        @endif
-
-
 @endif
