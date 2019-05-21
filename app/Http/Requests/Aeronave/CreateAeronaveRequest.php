@@ -4,7 +4,7 @@ namespace App\Http\Requests\Aeronave;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateAeronaveResquest extends FormRequest
+class CreateAeronaveRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

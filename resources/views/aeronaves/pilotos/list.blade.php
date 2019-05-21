@@ -4,11 +4,15 @@
 
 @section('content')
 
+@php 
+$autorizar = false;
+    $textoButao = 'Não Autorizar';
+@endphp
 
 <div class="container">
-    @can('create', $aeronave)
+    @can('authorize', $aeronave)
     <div>
-        <a class="btn btn-primary" href="{{route('aeronaves.pilotosNaoAutorizadosIndex', $aeronave)}}">Autorizar Piloto(s)</a>
+        <a class="btn btn-primary" href="{{route( 'aeronaves.pilotosNaoAutorizadosIndex', $aeronave)}}">Autorizar Piloto(s)</a>
     </div>
     @endcan
     

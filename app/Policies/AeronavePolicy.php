@@ -43,7 +43,7 @@ class AeronavePolicy
     }
 
     /**
-    * Determine whether the user can delete the model.
+    * Determine whether the user can delete the aeronave.
     *
     * @param  \App\User  $user
     * @return mixed

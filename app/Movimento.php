@@ -47,4 +47,8 @@ class Movimento extends Model
 
         return 'Unknown';
     }
+
+    /*public function aeronave(){
+        return $this->belongsTo(Aeronave::class, 'aeronave');
+    }*/
 }
