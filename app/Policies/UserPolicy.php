@@ -106,10 +106,23 @@ class UserPolicy
         return $user->direcao;
     }
 
+    /**
+     * @param User $user
+     * @return mixed
+     */
     public function enviarEmail(User $user){
 
         return $user->direcao;
     }
+
+    /**
+     * @param User $user
+     * @return mixed
+     */
+    public function resetQuotas(User $user){
+        return $user->direcao;
+    }
+
 
     /**
      * @param User $user

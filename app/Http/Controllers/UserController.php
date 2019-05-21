@@ -238,6 +238,7 @@ class UserController extends Controller
      * @param User $user
      * @return void
      * @throws AuthorizationException
+     * @throws \Exception
      */
     public function destroy(User $user)
     {
@@ -254,6 +255,12 @@ class UserController extends Controller
         }
 
     }
+
+    /**
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws AuthorizationException
+     */
     public function reenviarEmail(User $user){
         $this->authorize('enviarEmail',User::class);
         $user->sendEmailVerificationNotification();
@@ -261,6 +268,17 @@ class UserController extends Controller
         return redirect()
             ->route('user.edit',$user)
             ->with('success', 'Email enviado com sucesso!');
+    }
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function resetQuotas(){
+        $users = User::where('quota_paga',1)->update(['quota_paga' => 0]);
+
+        return redirect()
+                ->route('user.index')
+                ->with('success', 'Quotas resetadas com sucesso!');
     }
 
 

@@ -23,6 +23,7 @@ Route::middleware(['ativo','auth','verified'])->group(function () {
     #REGION DIRECAO
     Route::middleware(['direcao'])->group(function () {
         #region socios
+        Route::patch('/socios/reset_quotas','UserController@resetQuotas')->name('user.resetQuotas');
         Route::delete('/socios/{user}','UserController@destroy')->name('user.destroy');
         Route::get('/socios/create', 'UserController@create')->name('user.create');
         Route::patch('/socios/{user}/ativo','UserController@estado')->name('user.ativo');

@@ -52,12 +52,21 @@
 
         <button type="submit" class="btn btn-success" name="search">Pesquisar</button>
     </form>
-    @can('create', App\User::class)
-        <div>
-            <a class="btn btn-primary" href="{{route('user.create')}}">Adicionar sócio</a>
-        </div>
-    @endcan
-    <br>
+    <div class="form-group">
+        @can('create', App\User::class)
+
+                <a class="btn btn-primary" href="{{route('user.create')}}">Adicionar sócio</a>
+
+        @endcan
+        @can('resetQuotas',App\User::class)
+            <form action="{{route('user.resetQuotas')}}" method="post" class="form-group">
+                    {{ method_field('PATCH') }}
+                    {{csrf_field()}}
+                    <button type="submit" class="btn btn-primary" name="resetQuotas">Reset Quotas</button>
+            </form>
+        @endcan
+    </div>
+
 <div class="container">
     @if (count($users))
         <table class="table table-striped">

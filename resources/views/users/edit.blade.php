@@ -7,7 +7,7 @@
     @if (count($errors) > 0)
         @include('shared.errors')
     @endif
-    
+
 <div>
     <form action="{{route('user.update',$user)}}" method="post" class="form-group" enctype="multipart/form-data">
         {{method_field('PUT')}}
