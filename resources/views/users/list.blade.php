@@ -82,16 +82,16 @@
             </tr>
             </thead>
             <tbody>
+        @if(Auth::user()->direcao)
             @foreach($users as $user)
                 <tr>
-
                         <td><img src="{{ $user->foto_url == null ? asset('storage/fotos/unknown_user.jpg') : asset('storage/fotos/' . $user->foto_url)}}" height="50px" width="50px" class="img-thumbnail"/> </td>
                         <td>{{$user->name}}</td>
                         <td> {{ $user->email }}</td>
                         <td>{{ $user->tSocioToString()}}</td>
                         <td>{{$user->nrLicencaToString()}}</td>
                         <td>{{$user->direcaoToString()}}</td>
-              
+
                         <td>
                             @can('viewAtivo',App\User::class)
                                 {{$user->ativoToString()}}
@@ -128,11 +128,62 @@
                                     <a class="btn btn-xs btn-primary" href="{{route('user.show', $user)}}">Ver</a>
                                 @endcan
                         </td>
+                </tr>
             @endforeach
+            @else
+            @foreach($users as $user)
+                <tr>
+                    @if($user->ativo)
+                    <td><img src="{{ $user->foto_url == null ? asset('storage/fotos/unknown_user.jpg') : asset('storage/fotos/' . $user->foto_url)}}" height="50px" width="50px" class="img-thumbnail"/> </td>
+                    <td>{{$user->name}}</td>
+                    <td> {{ $user->email }}</td>
+                    <td>{{ $user->tSocioToString()}}</td>
+                    <td>{{$user->nrLicencaToString()}}</td>
+                    <td>{{$user->direcaoToString()}}</td>
+
+                    <td>
+                        @can('viewAtivo',App\User::class)
+                            {{$user->ativoToString()}}
+                        @endcan
+                    </td>
+                    <td>
+                        @can('viewQuota',App\User::class)
+                            {{$user->quotasToString()}}
+                        @endcan
+                    </td>
+                    <td>
+                        @can('viewAtivo',$user)
+                            <form action="{{route('user.ativo',$user)}}" method="post" class="form-group">
+                                {{ method_field('PATCH') }}
+                                {{csrf_field()}}
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-xs btn-primary" name="ok">Ativar/Desativar</button>
+                                </div>
+                            </form>
+                        @endcan
+                        @can('viewQuota',$user)
+                            <form action="{{route('user.quota',$user)}}" method="post" class="form-group">
+                                {{ method_field('PATCH') }}
+                                {{csrf_field()}}
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-xs btn-primary" name="ok">Paga/Por pagar</button>
+                                </div>
+                            </form>
+                        @endcan
+                        @can('update', $user)
+                            <a class="btn btn-xs btn-primary" href="{{route('user.edit', $user)}}">Editar</a>
+                        @endcan
+                        @can('view',$user)
+                            <a class="btn btn-xs btn-primary" href="{{route('user.show', $user)}}">Ver</a>
+                        @endcan
+                    </td>
+                    @endif
+                </tr>
+            @endforeach
+            @endif
         </table>
 
         {{$users->links()}}
-
     @else
 
         <h2>No users found</h2>
