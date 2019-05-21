@@ -107,11 +107,15 @@ class UserController extends Controller
 
         $user->fill($request->validated());
 
-        /*RESETAR OS CAMPOS QUANDO NAO E PILOT*/
+        /*RESETAR OS CAMPOS QUANDO NAO E PILOTO*/
         if($user->tipo_socio != 'P'){
             $user->tipo_licenca = null;
             $user->classe_certificado = null;
         }
+
+        /*MANDA EMAIL DE VERIFICACAO*/
+        $user->SendEmailVerificationNotification();
+
 
         $user->save();
 
