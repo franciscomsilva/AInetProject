@@ -17,28 +17,38 @@
                 name="email"
                 placeholder="E-Mail"/>
 
-        <input type="radio" name="tSocio" value="P">Piloto
-        <input type="radio" name="tSocio" value="NP">Não-Piloto
-        <input type="radio" name="tSocio" value="A">Aeromodelista
+        <label for="inputTSocio">Tipo de Sócio</label>
+        <select name="tSocio" >
+            <option disabled selected value></option>
+            <option  value="P">Piloto</option>
+            <option  value="NP">Não-Piloto</option>
+            <option  value="A">Aeromodelista</option>
+        </select>
         <br>
 
-        <input
-                type="checkbox"
-                name="direcao"
-                value="1"/>Direção<br>
-
+        <label for="inputDirecao">Direção</label>
+        <select name="direcao">
+            <option disabled selected value></option>
+            <option  value="1">Sim</option>
+            <option  value="0">Não</option>
+        </select>
         @can('viewAtivo',App\User::class)
-            <input
-                    type="checkbox"
-                    name="ativo"
-                    value="1"/>Sócio Ativo<br>
+            <label for="inputAtivo">Sócio Ativo</label>
+            <select name="ativo">
+                <option disabled selected value></option>
+                <option  value="1">Sim</option>
+                <option  value="0">Não</option>
+            </select>
         @endcan
         @can('viewQuota',App\User::class)
-            <input
-                    type="checkbox"
-                    name="quotaPaga"
-                    value="1"/>Quotas em Dia<br>
+            <label for="inputQuota">Quota em Dia</label>
+            <select name="quotaPaga">
+                <option disabled selected value></option>
+                <option  value="1">Sim</option>
+                <option  value="0">Não</option>
+            </select>
         @endcan
+        <br>
 
         <button type="submit" class="btn btn-success" name="search">Pesquisar</button>
     </form>
@@ -46,7 +56,6 @@
         <div>
             <a class="btn btn-primary" href="{{route('user.create')}}">Adicionar sócio</a>
         </div>
-
     @endcan
     <br>
 <div class="container">
@@ -75,12 +84,14 @@
             <tbody>
             @foreach($users as $user)
                 <tr>
+
                         <td><img src="{{ $user->foto_url == null ? asset('storage/fotos/unknown_user.jpg') : asset('storage/fotos/' . $user->foto_url)}}" height="50px" width="50px" class="img-thumbnail"/> </td>
                         <td>{{$user->name}}</td>
                         <td> {{ $user->email }}</td>
                         <td>{{ $user->tSocioToString()}}</td>
                         <td>{{$user->nrLicencaToString()}}</td>
                         <td>{{$user->direcaoToString()}}</td>
+              
                         <td>
                             @can('viewAtivo',App\User::class)
                                 {{$user->ativoToString()}}
