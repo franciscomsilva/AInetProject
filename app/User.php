@@ -98,4 +98,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\Movimento');
     }
 
+    public function movimentoPiloto(){
+        return $this->hasMany('App\Movimento', 'piloto_id', 'id');
+    }
+
+    protected function movimento()
+    {
+        return $this->hasMany('App\Movimento', 'instrutor_id', 'id');
+    }
 }
