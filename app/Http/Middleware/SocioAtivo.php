@@ -19,6 +19,6 @@ class SocioAtivo
         if($request->user() && $request->user()->ativo == 1){
             return $next($request);
         }
-        throw new AccessDeniedException('Unauthorized.');
+        abort(403);
     }
 }

@@ -103,7 +103,12 @@ class UserPolicy
      */
     public function forceDelete(User $user, User $model)
     {
-        //
+        return $user->direcao;
+    }
+
+    public function enviarEmail(User $user){
+
+        return $user->direcao;
     }
 
     /**

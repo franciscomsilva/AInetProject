@@ -114,7 +114,7 @@ class UserController extends Controller
         }
 
         /*MANDA EMAIL DE VERIFICACAO*/
-        $user->SendEmailVerificationNotification();
+        $user->sendEmailVerificationNotification();
 
 
         $user->save();
@@ -249,10 +249,20 @@ class UserController extends Controller
 
             /*HARD DELETE*/
         }else {
+            $this->authorize('forceDelete',User::class);
             $user->forceDelete();
         }
 
     }
+    public function reenviarEmail(User $user){
+        $this->authorize('enviarEmail',User::class);
+        $user->sendEmailVerificationNotification();
+
+        return redirect()
+            ->route('user.edit',$user)
+            ->with('success', 'Email enviado com sucesso!');
+    }
+
 
     /**
      * @param User $user
