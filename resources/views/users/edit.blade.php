@@ -13,6 +13,7 @@
         @include('users.partials.add-edit')
         <div class="form-group">
             <button type="submit" class="btn btn-success" name="ok">Guardar</button>
+            <a type="submit" class="btn btn-danger" href="{{route('user.destroy',$user)}}">Apagar</a>
             <a type="submit" class="btn btn-default" href="{{route('user.index')}}">Cancelar</a>
         </div>
     </form>

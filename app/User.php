@@ -94,4 +94,8 @@ class User extends Authenticatable
     }
 
 
+    public function movimentos(){
+        return $this->hasMany('App\Movimento');
+    }
+
 }

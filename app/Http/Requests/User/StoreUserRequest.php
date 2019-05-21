@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateUserRequest extends FormRequest
+class StoreUserRequest extends FormRequest
 {
 
     /**
@@ -16,22 +16,22 @@ class CreateUserRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'num_socio' => 'unique:users|integer|min:1|max:99999',
+            'num_socio' => 'required|min:1|max:9999',
             'nome_informal' => 'required',
-            'email' => 'required|email',
+            'email' => 'required||unique:users|email',
             'sexo' => 'in:M,F',
             'tipo_socio' => 'in:P,NP,A',
             'data_nascimento' => 'date|before:today',
             'nif' => 'required|integer|digits:9',
             'telefone' => 'required|min:9|max:14',
             'endereco' => 'required',
-            'num_licenca' => 'required',
-            'tipo_licenca' => 'required',
-            'validade_licenca' => 'required |date|after:today|',
+            'num_licenca' => '',
+            'tipo_licenca' => '',
+            'validade_licenca' => 'nullable|date|after:today',
             'instrutor' => 'between:0,1',
             'licenca_confirmada' => 'between:0,1',
             'classe_certificado' => '',
-            'validade_certificado' => 'required |date|after:today|',
+            'validade_certificado' => 'nullable|date|after:today',
             'certificado_confirmado' => 'between:0,1',
             'ativo' => 'between:0,1',
             'quota_paga' => 'between:0,1',

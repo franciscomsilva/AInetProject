@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Filters\UserFilters;
+use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
 
@@ -26,10 +28,12 @@ class UserController extends Controller
 
         return view('users.list', compact( 'users'));
     }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
+     * @throws AuthorizationException
      */
     public function create()
     {
@@ -41,12 +45,80 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StoreUserRequest $request
      * @return \Illuminate\Http\Response
+     * @throws AuthorizationException
      */
-    public function store(CreateUserRequest $request)
+    public function store(StoreUserRequest $request)
     {
-        //
+        $this->authorize('create',User::class);
+        $user = new User;
+
+        /*VERIFICACAO DA FOTO DO UTILIZADOR*/
+        if(! is_null($request['image'])) {
+
+
+            $image = $request->file('image');
+            $name = $user->id . '_' . generateRandomString(13) . '.' . $image->getClientOriginalExtension();
+            $path = $request->file('image')->storeAs('public/fotos', $name);
+
+
+            /*GUARDA O NOME DO FICHEIRO*/
+            $user->foto_url = $name;
+        }
+
+        /*VERIFICACAO DA LICENCA DO UTILIZADOR*/
+        if(!is_null($request['licenca'])) {
+            $name = 'licenca_' . $user->id . '.pdf';
+
+            /*UPLOAD DA LICENCA*/
+            $path = $request->file('licenca')->storeAs('docs_piloto', $name);
+        }
+
+        /*VERIFICACAO DO CERTIFICADO DO UTILIZADOR*/
+        if(!is_null($request['certificado'])) {
+            $name = 'certificado_' . $user->id . '.pdf';
+
+            /*UPLOAD DO CERTIFICADO*/
+            $path = $request->file('certificado')->storeAs('docs_piloto', $name);
+        }
+
+        /*RESOLVE O PROBLEMA DAS CHECKBOXES*/
+
+        if(!$request->get('instrutor'))
+            $user->instrutor = 0;
+
+        if(!$request->get('ativo')){
+            $this->authorize('mudarEstado',$user);
+            $user->ativo = 0;
+        }
+
+        if(!$request->get('quota_paga'))
+            $user->quota_paga = 0;
+
+        if(!$request->get('direcao')) {
+            $this->authorize('mudarDirecao', $user);
+            $user->direcao = 0;
+
+        }
+
+        /*DEFINE A PASSWORD COMO DATA DE NASCIMENTO*/
+        $user->password = Hash::make($request->data_nascimento);
+
+        $user->fill($request->validated());
+
+        /*RESETAR OS CAMPOS QUANDO NAO E PILOT*/
+        if($user->tipo_socio != 'P'){
+            $user->tipo_licenca = null;
+            $user->classe_certificado = null;
+        }
+
+        $user->save();
+
+        return redirect()
+            ->route('user.index')
+            ->with('success', 'Utilzador adicionado com sucesso!');
+
     }
 
     /**
@@ -96,7 +168,6 @@ class UserController extends Controller
             $image = $request->file('image');
             $name = $user->id . '_' . generateRandomString(13) . '.' . $image->getClientOriginalExtension();
             $path = $request->file('image')->storeAs('public/fotos', $name);
-
 
             /*GUARDA O NOME DO FICHEIRO*/
             $user->foto_url = $name;
@@ -160,12 +231,23 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return void
+     * @throws AuthorizationException
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $this->authorize('delete',User::class);
+
+        /*SOFT DELETE*/
+        if($user->movimentos() != null){
+            $user->delete();
+
+            /*HARD DELETE*/
+        }else {
+            $user->forceDelete();
+        }
+
     }
 
     /**

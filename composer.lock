@@ -733,16 +733,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.51",
+            "version": "1.0.52",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "755ba7bf3fb9031e6581d091db84d78275874396"
+                "reference": "c5a5097156387970e6f0ccfcdf03f752856f3391"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/755ba7bf3fb9031e6581d091db84d78275874396",
-                "reference": "755ba7bf3fb9031e6581d091db84d78275874396",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/c5a5097156387970e6f0ccfcdf03f752856f3391",
+                "reference": "c5a5097156387970e6f0ccfcdf03f752856f3391",
                 "shasum": ""
             },
             "require": {
@@ -813,7 +813,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2019-03-30T13:22:34+00:00"
+            "time": "2019-05-20T20:21:14+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -3853,16 +3853,16 @@
         },
         {
             "name": "nunomaduro/phpinsights",
-            "version": "v1.3.0",
+            "version": "v1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/phpinsights.git",
-                "reference": "7e07191aff793da3dd5e51a66005c64f4214a86a"
+                "reference": "141e28c130fc45b29971b1ef803f15927bcd3b15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/phpinsights/zipball/7e07191aff793da3dd5e51a66005c64f4214a86a",
-                "reference": "7e07191aff793da3dd5e51a66005c64f4214a86a",
+                "url": "https://api.github.com/repos/nunomaduro/phpinsights/zipball/141e28c130fc45b29971b1ef803f15927bcd3b15",
+                "reference": "141e28c130fc45b29971b1ef803f15927bcd3b15",
                 "shasum": ""
             },
             "require": {
@@ -3926,7 +3926,7 @@
                 "quality",
                 "source"
             ],
-            "time": "2019-05-20T07:22:53+00:00"
+            "time": "2019-05-20T18:18:10+00:00"
         },
         {
             "name": "object-calisthenics/phpcs-calisthenics-rules",

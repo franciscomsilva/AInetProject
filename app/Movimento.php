@@ -48,6 +48,14 @@ class Movimento extends Model
         return 'Unknown';
     }
 
+    public function piloto(){
+        return $this->belongsTo('App\User','piloto_id');
+    }
+
+    public function instrutor(){
+        return $this->belongsTo('App\User','instrutor_id');
+    }
+
     /*public function aeronave(){
         return $this->belongsTo(Aeronave::class, 'aeronave');
     }*/

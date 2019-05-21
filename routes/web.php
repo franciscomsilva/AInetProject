@@ -22,6 +22,7 @@ Route::middleware(['ativo','auth','verified'])->group(function () {
     #REGION DIRECAO
     Route::middleware(['direcao'])->group(function () {
         #region socios
+        Route::delete('/socios/{user}','UserController@destroy')->name('user.destroy');
         Route::get('/socios/create', 'UserController@create')->name('user.create');
         Route::patch('/socios/{user}/ativo','UserController@estado')->name('user.ativo');
         Route::patch('/socios/{user}/quota','UserController@quota')->name('user.quota');
@@ -39,7 +40,6 @@ Route::middleware(['ativo','auth','verified'])->group(function () {
 
     Route::get('/socios/{user}/edit', 'UserController@edit')->name('user.edit');
     Route::put('/socios/{user}/edit', 'UserController@update')->name('user.update');
-    Route::delete('/socios/{user}', 'UserController@delete')->name('user.delete');
     #endregion socios
 
     // Aeronaves!
