@@ -149,10 +149,12 @@
     </div>
     <div class="form-group">
         <!-- MOSTRA LICENÇA DO USER  -->
+        @if($route != 'user.create')
         <a href="{{route('user.licenca',$user)}}"> Cópia Digital da Licença </a>
+            <br/><br/>
+        @endif
 
         <!-- BOTAO PARA DAR UPLOAD DA LICENCA  -->
-        <br/><br/>
         <input type="file" name="licenca" class="form-control">
 
     </div>
@@ -186,10 +188,11 @@
 
     <div class="form-group">
         <!-- MOSTRA CERTIFICADO DO USER  -->
+        @if($route != 'user.create')
         <a href="{{route('user.certificado',$user)}}"> Cópia Digital do Certificado </a>
-
+            <br/><br/>
+        @endif
         <!-- BOTAO PARA DAR UPLOAD DO CERTIFICADO  -->
-        <br/><br/>
         <input type="file" name="certificado" class="form-control">
 
     </div>
