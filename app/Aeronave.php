@@ -31,8 +31,4 @@ class Aeronave extends Model
         return $movimentos->count() > 0 ? true : false;
     }
 
-    public function valores(){
-       // return $this->belongsToMany('App\Aeronave', 'aeronaves_valores', '');
-    }
-
 }
