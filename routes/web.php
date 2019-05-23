@@ -71,5 +71,6 @@ Route::middleware(['ativo','auth','verified'])->group(function () {
     Route::post('/movimentos', 'MovimentoController@store')->name('movimentos.store');
     Route::put('/movimentos/{movimento}', 'MovimentoController@update')->name('movimentos.update');
     Route::delete('/movimentos/{movimento}', 'MovimentoController@destroy')->name('movimentos.destroy');
+    #endregion movimentos
 });
 

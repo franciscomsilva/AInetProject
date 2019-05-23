@@ -52,11 +52,6 @@ class AeronaveController extends Controller
     
         $aeronave->fill($request->validate());
         
-        if (Aeronave::findOrFail($aeronave['matricula']) != null) {
-            return redirect()
-            ->route('aeronaves.add')
-            ->with('errors', 'Matricula já existe!');
-        }
         $aeronave->save();
         return redirect()
             ->route('aeronaves.index')
@@ -92,15 +87,15 @@ class AeronaveController extends Controller
         //$aeronave = new Aeronave();
         $aeronave->fill($request->validated());
         
-        if (Aeronave::findOrFail(($aeronave['matricula'])) != null) {
+        /*if (Aeronave::findOrFail(($aeronave['matricula'])) != null) {
             return redirect()
             ->route('aeronaves.add')
             ->with('errors', 'Matricula já existe!');
-        }
+        }*/
         $aeronave->save();
         return redirect()
             ->route('aeronaves.index')
-            ->with('success', 'Aeronave adicionada com sucesso!');
+            ->with('success', 'Aeronave atualizada com sucesso!');
     
     }
 
@@ -136,6 +131,8 @@ class AeronaveController extends Controller
     **/
     public function pilotosIndex(Aeronave $aeronave)
     {
+        $this->authorize('authorize', $aeronave);
+
         $title = 'Pilotos da Aeronave';
         $pilotos = $aeronave->pilotos()->paginate(15);
 
@@ -149,13 +146,16 @@ class AeronaveController extends Controller
     */
     public function pilotosNaoAutorizadosIndex(Aeronave $aeronave)
     {
+        $this->authorize('authorize', $aeronave);
+
         $title = 'Pilotos não autorizados da Aeronave';
 
         $pilotosDaAeronave = $aeronave->pilotos()->get();
-        $pilotos =  User::where('tipo_socio','like', 'P', 'AND','id','<>', $pilotosDaAeronave)->paginate(15);
-        dd($pilotos);
+        $pilotos =  User::where('tipo_socio','like', 'P')->paginate(15);
         
-        return view('aeronaves.pilotos.nao-autorizados.list', compact('title', 'pilotos'));
+        //dd($pilotos);
+        
+        return view('aeronaves.pilotos.nao-autorizados.list', compact(['pilotos', 'aeronave']));
     }
 
     //------------------------------- modificar isto
@@ -168,6 +168,7 @@ class AeronaveController extends Controller
     */
     public function autorizarPiloto(Aeronave $aeronave, User $piloto)
     {
+        $this->authorize('authorize', $piloto);
         dd($aeronave, $piloto);
         return redirect()
         ->route('aeronaves.pilotosIndex')
@@ -184,6 +185,7 @@ class AeronaveController extends Controller
     */
     public function removerPiloto(Aeronave $aeronave, User $piloto)
     {
+        $this->authorize('authorize', $piloto);
         
         dd($aeronave, $piloto);
         return redirect()

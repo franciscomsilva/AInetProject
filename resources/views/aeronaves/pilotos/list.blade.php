@@ -5,8 +5,7 @@
 @section('content')
 
 @php 
-$autorizar = false;
-    $textoButao = 'Não Autorizar';
+$autorizar = 0;
 @endphp
 
 <div class="container">

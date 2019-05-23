@@ -10,7 +10,7 @@
                 <th>Quota paga</th>
                 <th>Nº de licença</th>
                 <th>Tipo de licença</th>
-                <th></th>
+                <th>Ola tudo bem?</th>
             </tr>
             </thead>
             <tbody>
@@ -24,9 +24,8 @@
                     <td>{{ $piloto->quota_paga }}</td>
                     <td>{{ $piloto->nrLicencaToString() }}</td>
                     <td>{{ $piloto->tipo_licenca }}</td>
-                    <td>
-                        <!--@can('authorize', $piloto)-->
-                            @if($autorizar)
+                        @can('authorize', $piloto)
+                            @if($autorizar === 1)
                                 <a class="btn btn-xs btn-primary" href="{{ route( 'aeronaves.autorizarPiloto', $aeronave, $piloto ) }}"> Autorizar </a>
                             @else
                                 <form action="{{route('aeronaves.removerPiloto', $aeronave, $piloto ) }}" method="POST" role="form" class="inline">
@@ -35,7 +34,7 @@
                                     <button type="submit" class="btn btn-xs btn-danger">Não Autorizar</button>
                                 </form>
                             @endif
-                        <!--@endcan-->
+                        @endcan
                     </td>
                 </tr>
                 <!--@endif -->

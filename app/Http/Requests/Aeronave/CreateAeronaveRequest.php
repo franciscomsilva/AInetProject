@@ -24,7 +24,12 @@ class CreateAeronaveRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'matricula' => 'required|alpha_dash|size:8|only|unique',
+            'marca' => 'required|alpha_dash',
+            'modelo' => 'required|alpha_dash',
+            'num_lugares' => 'required|min:0',
+            'conta_horas' => 'required',
+            'preco_hora' => 'required',
         ];
     }
 }

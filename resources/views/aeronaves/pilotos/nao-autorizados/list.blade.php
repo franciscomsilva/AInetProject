@@ -5,8 +5,7 @@
 @section('content')
 
 @php 
-$autorizar = true;
-$textoButao = 'Autorizar piloto';
+$autorizar = 1;
 @endphp
 
 <div class="container">
