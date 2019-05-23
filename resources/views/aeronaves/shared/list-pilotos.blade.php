@@ -26,6 +26,7 @@
                     @can('authorize', $aeronave)
                         @if($autorizar == 1)
                             <form action="{{route('aeronaves.autorizarPiloto', [$aeronave, $piloto] )}}" method="POST" class="form-group">
+                                {{ csrf_field() }}
                                 <button type="submit" class="btn btn-xs btn-success">Autorizar</button>
                             </form>
                         @else

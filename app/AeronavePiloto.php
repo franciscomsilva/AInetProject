@@ -15,6 +15,6 @@ class AeronavePiloto extends Model
     protected $table = 'aeronaves_pilotos';
     protected $primaryKey = 'id';
     public $incrementing = true;
+    public $timestamps = false;
 
-    
 }

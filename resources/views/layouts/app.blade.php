@@ -107,6 +107,9 @@
                 @if (session('success'))
                     @include('shared.success')
                 @endif
+                @if (session('errors'))
+                    @include('shared.errors')
+                @endif
             @yield('content')
          </div>
         </main>

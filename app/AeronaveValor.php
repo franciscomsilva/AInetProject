@@ -18,6 +18,7 @@ class AeronaveValor extends Model
     protected $table = 'aeronaves_valores';
     protected $primaryKey = 'id';
     public $incrementing = true;
+    public $timestamps = false;
 
     public function aeronaves() {
         return $this->belongsTo('App\Aeronave', 'matricula');

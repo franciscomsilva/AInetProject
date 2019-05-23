@@ -3,6 +3,8 @@
 @section('title', 'Aeronaves')
 
 @section('content')
+
+
 <div class="container">
     @can('create', App\Aeronave::class)
     <div>

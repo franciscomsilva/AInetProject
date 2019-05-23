@@ -49,9 +49,9 @@ class AeronaveController extends Controller
      */
     public function store(CreateAeronaveRequest $request)
     {
+        $this->authorize('create', Aeronave::class);
         $aeronave = new Aeronave();
 
-        $this->authorize('create', $aeronave);
     
         $aeronave->fill($request->validate());
 
@@ -137,7 +137,7 @@ class AeronaveController extends Controller
      */
     public function update(StoreAeronaveRequest $request, Aeronave $aeronave)
     {
-        $this->authorize('update', $aeronave);
+        $this->authorize('update', $request);
         
         //$aeronave = new Aeronave();
         $aeronave->fill($request->validated());
@@ -190,7 +190,7 @@ class AeronaveController extends Controller
 
         $title = 'Pilotos da Aeronave';
         $pilotos = $aeronave->pilotos()->paginate(15);
-        $autorizar = 1;
+        $autorizar = 0;
 
         return view('aeronaves.pilotos.list', compact('title', 'pilotos', 'aeronave', 'autorizar'));
     }
@@ -207,16 +207,19 @@ class AeronaveController extends Controller
         $title = 'Pilotos não autorizados da Aeronave';
 
         $pilotosDaAeronave = $aeronave->pilotos()->get();
-       
-        $pilotos =  User::where('tipo_socio','like', 'P')->where('id', '<>', $pilotosDaAeronave)->paginate(15);
-        //dd($pilotosDaAeronave);
-        //dd($pilotosDaAeronave, $pilotos);
+
+        if ($pilotosDaAeronave->count() == 0)
+            $pilotos = User::where('tipo_socio', 'like', 'P')->paginate(15);
+        else{
+            $pilotos = AeronavePiloto::where('matricula', 'like', $aeronave->matricula)->get('piloto_id');
+
+            $pilotos =  User::where('tipo_socio','like', 'P')->whereNotIn('id', $pilotos)->paginate(15);
+        }
         $autorizar = 1;
         
         return view('aeronaves.pilotos.nao-autorizados.list', compact('title', 'pilotos', 'aeronave', 'autorizar'));//compact(['pilotos', 'aeronave']));
     }
 
-    //------------------------------- modificar isto
     /**
     * .
     * @param Aeronave $aeronave
@@ -225,22 +228,30 @@ class AeronaveController extends Controller
     * @return \Illuminate\Http\Response
     */
     public function autorizarPiloto(Aeronave $aeronave, User $piloto)
-    {
+    {   
+        $aeronavePiloto = AeronavePiloto::where('piloto_id', $piloto->id)->where('matricula', 'like', $aeronave->matricula)->first();
+        if ($aeronavePiloto != null) {
+            return redirect()
+            ->route('aeronaves.pilotosIndex', $aeronave)
+            ->with('errors', 'Piloto já se encontra autorizado.');
+        }
+
         $aeronavePiloto = new AeronavePiloto();
 
-        $this->authorize('authorize', $aeronavePiloto);
+        $this->authorize('authorize', $aeronave);
+       
         
         $aeronavePiloto->matricula = $aeronave->matricula;
         $aeronavePiloto->piloto_id = $piloto->id;
         
-        dd($aeronave, $piloto, $aeronavePiloto);
-
         $aeronavePiloto->save();
-
+        
+        ///dd($aeronave, $piloto, $aeronavePiloto);
+        
         return redirect()
-        ->route('aeronaves.pilotosIndex')
+        ->route('aeronaves.pilotosIndex', $aeronave)
         ->with('success', 'Piloto autorizado.');
-    }
+      }
 
     
     /**
@@ -252,18 +263,20 @@ class AeronaveController extends Controller
     */
     public function removerPiloto(Aeronave $aeronave, User $piloto)
     {
+        $this->authorize('authorize', $aeronave);
 
-        $aeronavePiloto = AeronavePiloto::where('matricula', 'like', $aeronave->matricula)->where('piloto_id', $piloto->id)->get();
+        $aeronavePiloto = AeronavePiloto::where('matricula', 'like', $aeronave->matricula)->where('piloto_id', $piloto->id)->first();
 
-
-        $this->authorize('authorize', $aeronavePiloto);
+        if ($aeronavePiloto == null) {
+            return redirect()
+            ->route('aeronaves.pilotosIndex', $aeronave)
+            ->with('errors', 'O piloto em causa já não esta autorizado.');
+        }
         
-        dd($aeronavePiloto, $piloto);
-        
-        $aeronavePiloto->delete();
+        $aeronavePiloto->forceDelete();
         
         return redirect()
-        ->route('aeronaves.pilotosIndex')
+        ->route('aeronaves.pilotosIndex', $aeronave)
         ->with('success', 'Revogada autorização de pilotar aeronave.');
     }
     #endregion aeronave/pilotos

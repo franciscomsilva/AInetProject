@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\User;
+use App\Aeronave;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class AeronavePolicy
@@ -10,36 +11,62 @@ class AeronavePolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view the model.
+     * Determine whether the user can view the aeronave.
      *
      * @param  \App\User  $user
+     * @param  \App\Aeronave  $aeronave
      * @return mixed
      */
-    public function view(User $user)
+    public function view(User $user, Aeronave $aeronave)
     {
         return true;
     }
 
     /**
-     * Determine whether the user can create models.
-     *
-     * @param  \App\User  $user
-     * @return mixed
-     */
+    * Determine whether the user can create models.
+    *
+    * @param  \App\User  $user
+    * @return mixed
+    */
     public function create(User $user)
     {
-        return $user->direcao;
+        return $user->direcao == 1;
     }
 
     /**
-     * Determine whether the user can update the model.
-     *
-     * @param  \App\User  $user
-     * @return mixed
-     */
-    public function update(User $user)
+    * Determine whether the user can store the model.
+    *
+    * @param  \App\User  $user
+    * @param  \App\Aeronave  $aeronave
+    * @return mixed
+    */
+    public function store(User $user, Aeronave $aeronave)
     {
-        return $user->direcao;
+        return $user->direcao == 1;
+    }
+
+    /**
+    * Determine whether the user can edit the models.
+    *
+    * @param  \App\User  $user
+    * @param  \App\Aeronave  $aeronave
+    * @return mixed
+    */
+    public function edit(User $user, Aeronave $aeronave)
+    {
+        return $user->direcao == 1;
+    }
+
+    /**
+    * Determine whether the user can update the model.
+    *
+    * @param  \App\User  $user
+    * @param  \App\Aeronave $aeronave
+    * @return mixed
+    */
+    public function update(User $user, Aeronave $aeronave)
+    {
+        return $user->direcao == 1 || $user->id == $aeronave->pilotos()->find($user->id); // ou é piloto da aeronave
     }
 
     /**
@@ -50,7 +77,7 @@ class AeronavePolicy
     */
     public function delete(User $user)
     {
-        return $user->direcao;
+        return $user->direcao == 1;
     }
 
 
@@ -62,7 +89,6 @@ class AeronavePolicy
     */
     public function authorize(User $user)
     {
-        return $user->direcao;
+        return $user->direcao == 1;
     }
-
 }
