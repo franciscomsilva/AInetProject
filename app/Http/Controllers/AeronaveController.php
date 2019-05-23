@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Aeronave;
+use App\AeroanvePiloto;
 use App\User;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
@@ -151,11 +152,13 @@ class AeronaveController extends Controller
         $title = 'Pilotos não autorizados da Aeronave';
 
         $pilotosDaAeronave = $aeronave->pilotos()->get();
-        $pilotos =  User::where('tipo_socio','like', 'P')->paginate(15);
+       
+        $pilotos =  User::where('tipo_socio','like', 'P')->where('id', '<>', $pilotosDaAeronave)->paginate(15);
+        //dd($pilotosDaAeronave);
+        //dd($pilotosDaAeronave, $pilotos);
         
-        //dd($pilotos);
         
-        return view('aeronaves.pilotos.nao-autorizados.list', compact(['pilotos', 'aeronave']));
+        return view('aeronaves.pilotos.nao-autorizados.list', compact('title', 'pilotos', 'aeronave'));//compact(['pilotos', 'aeronave']));
     }
 
     //------------------------------- modificar isto
@@ -168,8 +171,19 @@ class AeronaveController extends Controller
     */
     public function autorizarPiloto(Aeronave $aeronave, User $piloto)
     {
-        $this->authorize('authorize', $piloto);
-        dd($aeronave, $piloto);
+        $aeronavePiloto = new AeroanvePiloto();
+
+        $this->authorize('authorize', $aeronavePiloto);
+        
+
+
+        $aeronavePiloto->matricula = $aeronave->matricula;
+        $aeronavePiloto->piloto_id = $piloto->id;
+        
+        dd($aeronave, $piloto, $aeronavePiloto);
+
+        $aeronavePiloto->save();
+
         return redirect()
         ->route('aeronaves.pilotosIndex')
         ->with('success', 'Piloto autorizado.');
@@ -185,9 +199,16 @@ class AeronaveController extends Controller
     */
     public function removerPiloto(Aeronave $aeronave, User $piloto)
     {
-        $this->authorize('authorize', $piloto);
+
+        $aeronavePiloto = AeronavePiloto::where('matricula', 'like', $aeronave->matricula)->where('piloto_id', $piloto->id)->get();
+
+
+        $this->authorize('authorize', $aeronavePiloto);
         
-        dd($aeronave, $piloto);
+        dd($aeronavePiloto, $piloto);
+        
+        $aeronavePiloto->delete();
+        
         return redirect()
         ->route('aeronaves.pilotosIndex')
         ->with('success', 'Revogada autorização de pilotar aeronave.');
