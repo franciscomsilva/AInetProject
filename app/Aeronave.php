@@ -32,7 +32,7 @@ class Aeronave extends Model
     public function hasMovimentos(Aeronave $aeronave){
         // usar um ou outro... finde procura pelo id
         //$movimentos = Movimento::find($aeronave['matricula']);
-        $movimentos = Movimento::where('aeronave', '%like%', $aeronave['matricula']);
+        $movimentos = Movimento::where('aeronave', '%like%', $aeronave['matricula'])->get();
         return $movimentos->count() > 0 ? true : false;
     }
 

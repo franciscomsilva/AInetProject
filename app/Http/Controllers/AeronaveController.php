@@ -137,16 +137,10 @@ class AeronaveController extends Controller
      */
     public function update(StoreAeronaveRequest $request, Aeronave $aeronave)
     {
-        $this->authorize('update', $request);
-        
-        //$aeronave = new Aeronave();
+        $this->authorize('update', $aeronave);
+
         $aeronave->fill($request->validated());
         
-        /*if (Aeronave::findOrFail(($aeronave['matricula'])) != null) {
-            return redirect()
-            ->route('aeronaves.add')
-            ->with('errors', 'Matricula já existe!');
-        }*/
         $aeronave->save();
         return redirect()
             ->route('aeronaves.index')
@@ -163,11 +157,12 @@ class AeronaveController extends Controller
      */
     public function destroy(Aeronave $aeronave)
     {
-        $this->authorize('delete', $aeronave);
+        $this->authorize('delete', Aeronave::class);
         
-        if ($aeronave->hasMovimentos()){
+        if ($aeronave->hasMovimentos($aeronave)){
             $aeronave->delete(); // soft delete
         }else{
+            $this->authorize('forceDelete', Aeronave::class);
             $aeronave->forceDelete(); //hard delete
         }
         

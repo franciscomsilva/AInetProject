@@ -34,30 +34,6 @@ class AeronavePolicy
     }
 
     /**
-    * Determine whether the user can store the model.
-    *
-    * @param  \App\User  $user
-    * @param  \App\Aeronave  $aeronave
-    * @return mixed
-    */
-    public function store(User $user, Aeronave $aeronave)
-    {
-        return $user->direcao == 1;
-    }
-
-    /**
-    * Determine whether the user can edit the models.
-    *
-    * @param  \App\User  $user
-    * @param  \App\Aeronave  $aeronave
-    * @return mixed
-    */
-    public function edit(User $user, Aeronave $aeronave)
-    {
-        return $user->direcao == 1;
-    }
-
-    /**
     * Determine whether the user can update the model.
     *
     * @param  \App\User  $user
@@ -76,6 +52,17 @@ class AeronavePolicy
     * @return mixed
     */
     public function delete(User $user)
+    {
+        return $user->direcao == 1;
+    }
+
+    /**
+    * Determine whether the user can delete the aeronave.
+    *
+    * @param  \App\User  $user
+    * @return mixed
+    */
+    public function forceDelete(User $user)
     {
         return $user->direcao == 1;
     }
