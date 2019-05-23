@@ -4,9 +4,7 @@
 
 @section('content')
 
-@php 
-$autorizar = 0;
-@endphp
+@php ($autorizar = 0)
 
 <div class="container">
     @can('authorize', $aeronave)

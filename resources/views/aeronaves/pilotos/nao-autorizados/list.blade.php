@@ -4,9 +4,7 @@
 
 @section('content')
 
-@php 
-$autorizar = 1;
-@endphp
+@php ($autorizar = 1)
 
 <div class="container">
 @include('aeronaves.shared.list-pilotos') 

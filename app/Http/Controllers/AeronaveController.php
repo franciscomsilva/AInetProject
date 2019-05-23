@@ -190,8 +190,9 @@ class AeronaveController extends Controller
 
         $title = 'Pilotos da Aeronave';
         $pilotos = $aeronave->pilotos()->paginate(15);
+        $autorizar = 1;
 
-        return view('aeronaves.pilotos.list', compact('title', 'pilotos', 'aeronave'));
+        return view('aeronaves.pilotos.list', compact('title', 'pilotos', 'aeronave', 'autorizar'));
     }
     /**
     * Display a listing of NON autorized pilots of the plane.
@@ -210,9 +211,9 @@ class AeronaveController extends Controller
         $pilotos =  User::where('tipo_socio','like', 'P')->where('id', '<>', $pilotosDaAeronave)->paginate(15);
         //dd($pilotosDaAeronave);
         //dd($pilotosDaAeronave, $pilotos);
+        $autorizar = 1;
         
-        
-        return view('aeronaves.pilotos.nao-autorizados.list', compact('title', 'pilotos', 'aeronave'));//compact(['pilotos', 'aeronave']));
+        return view('aeronaves.pilotos.nao-autorizados.list', compact('title', 'pilotos', 'aeronave', 'autorizar'));//compact(['pilotos', 'aeronave']));
     }
 
     //------------------------------- modificar isto
@@ -229,8 +230,6 @@ class AeronaveController extends Controller
 
         $this->authorize('authorize', $aeronavePiloto);
         
-
-
         $aeronavePiloto->matricula = $aeronave->matricula;
         $aeronavePiloto->piloto_id = $piloto->id;
         

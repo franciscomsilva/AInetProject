@@ -23,17 +23,19 @@
                 <td>{{ $piloto->nrLicencaToString() }}</td>
                 <td>{{ $piloto->tipo_licenca }}</td>
                 <td>
-                    <!--@can('authorize', $piloto)
-                        -->@if($autorizar == 1)
-                            <a class="btn btn-xs btn-primary" href="{{ route( 'aeronaves.autorizarPiloto', $aeronave, $piloto ) }}"> Autorizar </a>
+                    @can('authorize', $aeronave)
+                        @if($autorizar == 1)
+                            <form action="{{route('aeronaves.autorizarPiloto', [$aeronave, $piloto] )}}" method="POST" class="form-group">
+                                <button type="submit" class="btn btn-xs btn-success">Autorizar</button>
+                            </form>
                         @else
-                            <form action="{{route('aeronaves.removerPiloto', $aeronave, $piloto ) }}" method="POST" role="form" class="inline">
+                            <form action="{{route('aeronaves.removerPiloto', [$aeronave, $piloto] ) }}" method="POST" role="form" class="form-group">
                                 {{ method_field('DELETE') }}
                                 {{ csrf_field() }}
                                 <button type="submit" class="btn btn-xs btn-danger">Não Autorizar</button>
                             </form>
-                        @endif<!--
-                    @endcan-->
+                        @endif
+                    @endcan
                 </td>
             </tr>
         @endforeach
