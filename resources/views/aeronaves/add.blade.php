@@ -3,10 +3,7 @@
 @section('title', 'Adicionar Aeronave')
 
 @section('content')
- 
-@if (count($errors) > 0)
-    @include('shared.errors')
-@endif
+
 <!-- só os socios da direção é que pode acrescentar, alterar ou remover aeronaves! -->
 
 
