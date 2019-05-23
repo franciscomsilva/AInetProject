@@ -15,6 +15,7 @@ use App\Http\Requests\Aeronave\StoreAeronaveRequest;
 
 class AeronaveController extends Controller
 {
+    #region aeronave
     /**
      * Display a listing of the resource.
      *
@@ -54,16 +55,16 @@ class AeronaveController extends Controller
     
         $aeronave->fill($request->validate());
 
-        calculaTabelaPrecos($request->preco_hora, $Aeronave->matricula);
+        storePrecosUnidade($request->preco_hora, $Aeronave->matricula);
         
         $aeronave->save();
         return redirect()
             ->route('aeronaves.index')
             ->with('success', 'Aeronave adicionada com sucesso!');
     }
-    #region funcoes tabela de ContaHoras
+    #region funcoes auxiliares da tabela de ContaHoras
 
-    private function calculaTabelaPrecos($precoHora, $matricula){
+    private function storePrecosUnidade($precoHora, $matricula){
         for ($i = 1; $i <= 10; $i++){
             $aeronaveValor = new AeronaveValor();
             
@@ -79,7 +80,9 @@ class AeronaveController extends Controller
     private function roundPrecoUnidade($precoHora, $minutos){
         $precoUnidade = $precoHora * $minutos / 60;
 
-        dd(ceil($precoUnidade));
+        $precoUnidade = ceil($precoUnidade);
+        dd($precoUnidade);
+        return $precoUnidade;
     }
 
     private function roundContaHoras($unidade){
@@ -117,7 +120,7 @@ class AeronaveController extends Controller
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function edit($aeronave)
+    public function edit(Aeronave $aeronave)
     {
         $this->authorize('update', $aeronave);
 
@@ -132,7 +135,7 @@ class AeronaveController extends Controller
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(StoreAeronaveRequest $request, $aeronave)
+    public function update(StoreAeronaveRequest $request, Aeronave $aeronave)
     {
         $this->authorize('update', $aeronave);
         
@@ -158,7 +161,7 @@ class AeronaveController extends Controller
      * @param  Aeronave $aeronave
      * @return \Illuminate\Http\Response
      */
-    public function destroy($aeronave)
+    public function destroy(Aeronave $aeronave)
     {
         $this->authorize('delete', $aeronave);
         
@@ -172,9 +175,9 @@ class AeronaveController extends Controller
             ->route('aeronaves.index')
             ->with('success', 'Aeronave eliminada com sucesso.');
     }
+    #endregion aeronave
 
-
-    //---------------------------------- pilotos idnex, adicionar piloto e remover piloto -------------------------
+    #region aeronave/pilotos
     /**
     * Display a listing of pilots of the plane.
     * @param Aeronave $aeronave
@@ -264,14 +267,14 @@ class AeronaveController extends Controller
         ->route('aeronaves.pilotosIndex')
         ->with('success', 'Revogada autorização de pilotar aeronave.');
     }
+    #endregion aeronave/pilotos
 
+    #region precos_tempos
     public function precos_temposIndex(Aeronave $aeronave){
-        
-
         $precos_tempos = $aeronave->valores()->get();
 
-        return view('aeronaves.precos-tempos', compact('precos_tempos'));
+        return view('aeronaves.precos-tempos', compact('precos_tempos', 'aeronave'));
     }
-
+    #endregion precos_tempos
 
 }

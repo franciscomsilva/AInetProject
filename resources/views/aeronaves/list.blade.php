@@ -19,6 +19,8 @@
                 <th>Numero de Lugares</th>
                 <th>Total Horas</th>
                 <th>Preço Hora</th>
+                <th>Pilotos</th>
+                <th></th>
                 <th></th>
             </tr>
         </thead>
@@ -33,17 +35,22 @@
                 <td>{{ $aeronave->modelo }}</td>
                 <td>{{ $aeronave->num_lugares }}</td>
                 <td>{{ $aeronave->conta_horas }}</td>
-                <td>{{ $aeronave->preco_hora }}</td>
-                <td>
+                <td>{{ $aeronave->preco_hora }} / 
                     @can('view', $aeronave)
-                    <a class="btn btn-xs btn-primary" href="{{route('aeronaves.precos_temposIndex', $aeronave) }}">Tabela de Preços</a>
+                    <a class="link" href="{{route('aeronaves.precos_temposIndex', $aeronave) }}">Mais preços</a>
                     @endcan
+                </td>
+                <td>
                     @can('authorize', $aeronave)
-                    <a class="btn btn-xs btn-primary" href="{{route('aeronaves.pilotosIndex', $aeronave) }}">Pilotos Autorizados</a>
+                    <a class="link" href="{{route('aeronaves.pilotosIndex', $aeronave) }}">Pilotos Autorizados</a>
                     @endcan
+                </td>
+                <td>
                     @can('update', $aeronave)
-                    <a class="btn btn-xs btn-primary" href="{{route('aeronaves.edit', $aeronave)}}">Editar</a>
+                    <a class="btn  btn-primary" href="{{route('aeronaves.edit', $aeronave)}}">Editar</a>
                     @endcan
+                </td>
+                <td>
                     @can('delete', $aeronave)
                     <form action="{{route('aeronaves.destroy', $aeronave)}}" method="POST" role="form" class="inline">
                         {{ method_field('DELETE') }}
