@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model, Illuminate\Database\Eloquent\SoftDeletes
 
 class Aeronave extends Model
 {
+    use SoftDeletes;
     protected $fillable = [
         'matricula', 'marca', 'modelo', 'num_lugares', 'conta_horas', 'preco_hora'
     ];
@@ -20,8 +21,12 @@ class Aeronave extends Model
     }
 
     public function movimentos(){
-        return $this->hasMany(Movimento::class, 'aeronave', 'matricula');
+        return $this->hasMany('App\Movimento', 'aeronave', 'matricula');
 
+    }
+
+    public function valores(){
+        return $this->hasMany('App\AeronaveValor', 'matricula');
     }
     
     public function hasMovimentos(Aeronave $aeronave){

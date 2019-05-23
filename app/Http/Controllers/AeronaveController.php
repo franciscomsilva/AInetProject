@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Aeronave;
-use App\AeroanvePiloto;
+use App\AeronavePiloto;
+use App\AeronaveValor;
 use App\User;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
@@ -42,22 +43,72 @@ class AeronaveController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StoreAeronaveRequest  $request
+     * @param  CreateAeronaveRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAeronaveRequest $request)
+    public function store(CreateAeronaveRequest $request)
     {
         $aeronave = new Aeronave();
 
         $this->authorize('create', $aeronave);
     
         $aeronave->fill($request->validate());
+
+        calculaTabelaPrecos($request->preco_hora, $Aeronave->matricula);
         
         $aeronave->save();
         return redirect()
             ->route('aeronaves.index')
             ->with('success', 'Aeronave adicionada com sucesso!');
     }
+    #region funcoes tabela de ContaHoras
+
+    private function calculaTabelaPrecos($precoHora, $matricula){
+        for ($i = 1; $i <= 10; $i++){
+            $aeronaveValor = new AeronaveValor();
+            
+            $aeronaveValor->minutos = roundContaHoras($i);
+            $aeronaveValor->preco = roundPrecoUnidade($precoHora, $aeronaveValor->minutos);
+            $aeronaveValor->unidade_conta_horas = $i;
+            $aeronaveValor->matricula = $matricula;
+
+            $aeronaveValor->save();
+        }
+    }
+
+    private function roundPrecoUnidade($precoHora, $minutos){
+        $precoUnidade = $precoHora * $minutos / 60;
+
+        dd(ceil($precoUnidade));
+    }
+
+    private function roundContaHoras($unidade){
+        switch ($unidade) {
+            case 1:
+                return 5;
+            case 2:
+                return 10;
+            case 3:
+                return 20;
+            case 4:
+                return 25;
+            case 5:
+                return 30;
+            case 6:
+                return 35;
+            case 7:
+                return 40;
+            case 8:
+                return 50;
+            case 9:
+                return 55;
+            case 10:
+                return 60;
+            default:
+                return $unidade*6;
+        }
+    }
+    #endregion funcoes tabela de ContaHoras
 
     /**
      * Show the form for editing the specified resource.
@@ -171,7 +222,7 @@ class AeronaveController extends Controller
     */
     public function autorizarPiloto(Aeronave $aeronave, User $piloto)
     {
-        $aeronavePiloto = new AeroanvePiloto();
+        $aeronavePiloto = new AeronavePiloto();
 
         $this->authorize('authorize', $aeronavePiloto);
         
@@ -213,4 +264,14 @@ class AeronaveController extends Controller
         ->route('aeronaves.pilotosIndex')
         ->with('success', 'Revogada autorização de pilotar aeronave.');
     }
+
+    public function precos_temposIndex(Aeronave $aeronave){
+        
+
+        $precos_tempos = $aeronave->valores()->get();
+
+        return view('aeronaves.precos-tempos', compact('precos_tempos'));
+    }
+
+
 }

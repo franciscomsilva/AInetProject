@@ -27,9 +27,9 @@ class StoreAeronaveRequest extends FormRequest
             'matricula' => 'required|alpha_dash|size:8|only|unique',
             'marca' => 'required|alpha_dash',
             'modelo' => 'required|alpha_dash',
-            'num_lugares' => 'required|min:0',
-            'conta_horas' => 'required',
-            'preco_hora' => 'required',
+            'num_lugares' => 'required|number|min:0',
+            'conta_horas' => 'required|number|min:0',
+            'preco_hora' => 'required|number|min:0',
         ];
     }
 }
