@@ -4,8 +4,6 @@
 
 @section('content')
 
-<!-- só os socios da direção é que pode acrescentar, alterar ou remover aeronaves! -->
-
 
 <form action="{{route('aeronaves.create')}}" method="post" class="form-group">
     
