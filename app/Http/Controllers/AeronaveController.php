@@ -53,9 +53,9 @@ class AeronaveController extends Controller
         $aeronave = new Aeronave();
 
     
-        $aeronave->fill($request->validate());
-
-        $aeronave->storePrecosUnidade($request->preco_hora, $aeronave->matricula);
+        $aeronave->fill($request->validated());
+        //dd($aeronave);
+        $aeronave->storePrecosUnidade($aeronave->preco_hora, $aeronave->matricula);
         
         $aeronave->save();
         return redirect()
