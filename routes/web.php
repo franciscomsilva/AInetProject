@@ -19,6 +19,8 @@ Auth::routes(['verify' => true,'register' => false]);
 Route::middleware(['ativo','auth','verified'])->group(function () {
     Route::get('/', 'HomeController@index');
     Route::get('/home', 'HomeController@index')->name('user.home');
+    Route::get('/password','UserController@password')->name('user.password');
+    Route::patch('/password','UserController@updatePassword')->name('user.updatePassword');
 
     #REGION DIRECAO
     Route::middleware(['direcao'])->group(function () {

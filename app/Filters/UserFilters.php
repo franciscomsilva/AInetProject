@@ -52,10 +52,18 @@ class UserFilters extends QueryFilters
         return $this->builder->where('direcao','=',$direcao);
     }
 
+    /**
+     * @param string $ativo
+     * @return Builder
+     */
     public function ativo($ativo = ''){
         return $this->builder->where('ativo','=',$ativo);
     }
 
+    /**
+     * @param string $quota
+     * @return Builder
+     */
     public function quotaPaga($quota = ''){
         return $this->builder->where('quota_paga','=',$quota);
     }

@@ -143,11 +143,12 @@ class AeronaveController extends Controller
 
     #region aeronave/pilotos
     /**
-    * Display a listing of pilots of the plane.
-    * @param Aeronave $aeronave
-    * 
-    * @return \Illuminate\Http\Response
-    **/
+     * Display a listing of pilots of the plane.
+     * @param Aeronave $aeronave
+     *
+     * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function pilotosIndex(Aeronave $aeronave)
     {
         $this->authorize('authorize', $aeronave);
@@ -158,12 +159,14 @@ class AeronaveController extends Controller
 
         return view('aeronaves.pilotos.list', compact('title', 'pilotos', 'aeronave', 'autorizar'));
     }
+
     /**
-    * Display a listing of NON autorized pilots of the plane.
-    * @param Aeronave $aeronave
-    * 
-    * @return \Illuminate\Http\Response
-    */
+     * Display a listing of NON autorized pilots of the plane.
+     * @param Aeronave $aeronave
+     *
+     * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function pilotosNaoAutorizadosIndex(Aeronave $aeronave)
     {
         $this->authorize('authorize', $aeronave);
@@ -185,12 +188,13 @@ class AeronaveController extends Controller
     }
 
     /**
-    * .
-    * @param Aeronave $aeronave
-    * @param User $piloto
-    * 
-    * @return \Illuminate\Http\Response
-    */
+     * .
+     * @param Aeronave $aeronave
+     * @param User $piloto
+     *
+     * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function autorizarPiloto(Aeronave $aeronave, User $piloto)
     {   
         $aeronavePiloto = AeronavePiloto::where('piloto_id', $piloto->id)->where('matricula', 'like', $aeronave->matricula)->first();
