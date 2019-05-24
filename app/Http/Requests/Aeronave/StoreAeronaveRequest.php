@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Aeronave;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Route;
 
 class StoreAeronaveRequest extends FormRequest
 {
@@ -31,8 +33,11 @@ class StoreAeronaveRequest extends FormRequest
      */
     public function rules()
     {
+        $aeronave = Route::current()->parameter('aeronave');
         return [
-            'matricula' => 'required|alpha_dash|max:8|min:6',
+            'matricula' => [
+                'required','alpha_dash','max:8','min:6',Rule::unique('aeronaves')->ignore($aeronave->matricula, 'matricula'),
+            ],
             'marca' => 'required|alpha_dash|max:40',
             'modelo' => 'required|alpha_dash|max:40',
             'num_lugares' => 'required|numeric|min:0',

@@ -55,9 +55,11 @@ class AeronaveController extends Controller
     
         $aeronave->fill($request->validated());
         //dd($aeronave);
+        $aeronave->save();
+
+        //calcula os precos por unidade_hora da aeronave.
         $aeronave->storePrecosUnidade($aeronave->preco_hora, $aeronave->matricula);
         
-        $aeronave->save();
         return redirect()
             ->route('aeronaves.index')
             ->with('success', 'Aeronave adicionada com sucesso!');

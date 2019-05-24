@@ -63,7 +63,7 @@ class Aeronave extends Model
         return $precoUnidade;
     }
 
-    private function roundContaHoras($unidade){
+    public function roundContaHoras($unidade){
         switch ($unidade) {
             case 1:
                 return 5;
