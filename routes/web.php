@@ -26,6 +26,7 @@ Route::middleware(['ativo','auth','verified'])->group(function () {
     Route::middleware(['direcao'])->group(function () {
         #region socios
         Route::patch('/socios/reset_quotas','UserController@resetQuotas')->name('user.resetQuotas');
+        Route::patch('/socios/desativar_sem_quotas','UserController@desativarSQuotas')->name('user.desativarSQuotas');
         Route::delete('/socios/{user}','UserController@destroy')->name('user.destroy');
         Route::get('/socios/create', 'UserController@create')->name('user.create');
         Route::patch('/socios/{user}/ativo','UserController@estado')->name('user.ativo');

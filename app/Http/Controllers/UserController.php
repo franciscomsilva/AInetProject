@@ -275,15 +275,28 @@ class UserController extends Controller
 
     /**
      * @return \Illuminate\Http\RedirectResponse
+     * @throws AuthorizationException
      */
     public function resetQuotas(){
-        $users = User::where('quota_paga',1)->update(['quota_paga' => 0]);
+        $this->authorize('resetQuotas',User::class);
+
+        User::where('quota_paga',1)->update(['quota_paga' => 0]);
 
         return redirect()
                 ->route('user.index')
                 ->with('success', 'Quotas resetadas com sucesso!');
     }
 
+    public function desativarSQuotas(){
+        $this->authorize('resetQuotas',User::class);
+
+        User::where('quota_paga',0)->update(['ativo' => 0]);
+
+        return redirect()
+            ->route('user.index')
+            ->with('success', 'Utilizadores com quota por pagar desativados com sucesso!');
+
+    }
 
     /**
      * @param User $user
@@ -312,6 +325,10 @@ class UserController extends Controller
     }
 
     public function estado(User $user){
+        if($user == null){
+            User::where('quota_paga',0)->update(['ativo' => 0]);
+        }
+
         $this->authorize('mudarEstado',$user);
 
         $user->ativo = $user->ativo == 1 ? 0 : 1;

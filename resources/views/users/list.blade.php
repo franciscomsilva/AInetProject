@@ -65,8 +65,14 @@
                     <button type="submit" class="btn btn-primary" name="resetQuotas">Reset Quotas</button>
             </form>
         @endcan
+            @can('resetQuotas',App\User::class)
+                <form action="{{route('user.desativarSQuotas')}}" method="post" class="form-group">
+                    {{ method_field('PATCH') }}
+                    {{csrf_field()}}
+                    <button type="submit" class="btn btn-dark" name="desativaUserQuotas">Desativar p/pagar</button>
+                </form>
+            @endcan
     </div>
-
 <div class="container">
     @if (count($users))
         <table class="table table-striped">
@@ -112,31 +118,37 @@
                             @endcan
                         </td>
                         <td>
+                        @can('update', $user)
+                            <a class="btn btn-xs btn-primary" href="{{route('user.edit', $user)}}">Editar</a>
+                        @endcan
+
+                        @can('view',$user)
+                            <a class="btn btn-xs btn-success" href="{{route('user.show', $user)}}">Ver</a>
+                        @endcan
+                        </td>
+                        <td>
                             @can('viewAtivo',$user)
                                 <form action="{{route('user.ativo',$user)}}" method="post" class="form-group">
                                     {{ method_field('PATCH') }}
                                     {{csrf_field()}}
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-xs btn-primary" name="ok">Ativar/Desativar</button>
+                                        <button type="submit" class="btn btn-xs btn-danger" name="ok">Ativar/Desativar</button>
                                     </div>
                                 </form>
                             @endcan
-                                @can('viewQuota',$user)
-                                    <form action="{{route('user.quota',$user)}}" method="post" class="form-group">
-                                        {{ method_field('PATCH') }}
-                                        {{csrf_field()}}
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-xs btn-primary" name="ok">Paga/Por pagar</button>
-                                        </div>
-                                    </form>
-                                @endcan
-                            @can('update', $user)
-                                <a class="btn btn-xs btn-primary" href="{{route('user.edit', $user)}}">Editar</a>
-                            @endcan
-                            @can('view',$user)
-                                    <a class="btn btn-xs btn-primary" href="{{route('user.show', $user)}}">Ver</a>
-                                @endcan
                         </td>
+                        <td>
+                            @can('viewQuota',$user)
+                                <form action="{{route('user.quota',$user)}}" method="post" class="form-group">
+                                    {{ method_field('PATCH') }}
+                                    {{csrf_field()}}
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-xs btn-info" name="ok">Alterar Quota</button>
+                                    </div>
+                                </form>
+                            @endcan
+                        </td>
+
                 </tr>
             @endforeach
             @else
