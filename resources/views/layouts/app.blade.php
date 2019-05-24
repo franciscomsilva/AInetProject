@@ -74,6 +74,11 @@
                                                      document.getElementById('profile-form').submit();">
                                         {{ __('Perfil') }}
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('user.password') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('password-form').submit();">
+                                        {{ __('Alterar Password') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('user.home') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('home-form').submit();">
@@ -84,6 +89,9 @@
                                         @csrf
                                     </form>
                                     <form id="profile-form" action="{{ route('user.show',Auth::user()) }}" method="GET" style="display: none;">
+                                        @csrf
+                                    </form>
+                                    <form id="password-form" action="{{ route('user.password') }}" method="GET" style="display: none;">
                                         @csrf
                                     </form>
                                     <form id="home-form" action="{{ route('user.home') }}" method="GET" style="display: none;">
