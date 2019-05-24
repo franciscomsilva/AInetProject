@@ -5,7 +5,7 @@
 @section('content')
 <div class="container">
 
-    <h3>Aeronave {{ $aeronave->matricula }}</h3>
+    <h3>{{ $aeronave->marca }} {{ $aeronave->modelo }} ({{$aeronave->matricula }})</h3>
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
             <thead>

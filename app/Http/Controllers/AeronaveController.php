@@ -55,63 +55,13 @@ class AeronaveController extends Controller
     
         $aeronave->fill($request->validate());
 
-        storePrecosUnidade($request->preco_hora, $Aeronave->matricula);
+        $aeronave->storePrecosUnidade($request->preco_hora, $aeronave->matricula);
         
         $aeronave->save();
         return redirect()
             ->route('aeronaves.index')
             ->with('success', 'Aeronave adicionada com sucesso!');
     }
-    #region funcoes auxiliares da tabela de ContaHoras
-
-    private function storePrecosUnidade($precoHora, $matricula){
-        for ($i = 1; $i <= 10; $i++){
-            $aeronaveValor = new AeronaveValor();
-            
-            $aeronaveValor->minutos = roundContaHoras($i);
-            $aeronaveValor->preco = roundPrecoUnidade($precoHora, $aeronaveValor->minutos);
-            $aeronaveValor->unidade_conta_horas = $i;
-            $aeronaveValor->matricula = $matricula;
-
-            $aeronaveValor->save();
-        }
-    }
-
-    private function roundPrecoUnidade($precoHora, $minutos){
-        $precoUnidade = $precoHora * $minutos / 60;
-
-        $precoUnidade = ceil($precoUnidade);
-        dd($precoUnidade);
-        return $precoUnidade;
-    }
-
-    private function roundContaHoras($unidade){
-        switch ($unidade) {
-            case 1:
-                return 5;
-            case 2:
-                return 10;
-            case 3:
-                return 20;
-            case 4:
-                return 25;
-            case 5:
-                return 30;
-            case 6:
-                return 35;
-            case 7:
-                return 40;
-            case 8:
-                return 50;
-            case 9:
-                return 55;
-            case 10:
-                return 60;
-            default:
-                return $unidade*6;
-        }
-    }
-    #endregion funcoes tabela de ContaHoras
 
     /**
      * Show the form for editing the specified resource.
@@ -139,13 +89,30 @@ class AeronaveController extends Controller
     {
         $this->authorize('update', $aeronave);
 
-        $aeronave->fill($request->validated());
+        if ($aeronave->matricula != $request->matricula) {
+            $aeronave->fill($request->only('matricula'));
+        }
+        if ($aeronave->marca != $request->marca) {
+            $aeronave->fill($request->only('marca'));
+        }
+        if ($aeronave->modelo != $request->modelo) {
+            $aeronave->fill($request->only('modelo'));
+        }
+        if ($aeronave->num_lugares != $request->num_lugares) {
+            $aeronave->fill($request->only('num_lugares'));
+        }
+        if ($aeronave->conta_horas != $request->conta_horas) {
+            $aeronave->fill($request->only('conta_horas'));
+        }
+        if ($aeronave->preco_hora != $request->preco_hora) {
+            $aeronave->fill($request->only('preco_hora'));
+            $aeronave->storePrecosUnidade($request->preco_hora, $aeronave->matricula);
+        }
         
         $aeronave->save();
         return redirect()
             ->route('aeronaves.index')
             ->with('success', 'Aeronave atualizada com sucesso!');
-    
     }
 
 

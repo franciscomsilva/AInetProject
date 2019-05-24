@@ -6,11 +6,6 @@
 
 
 <div class="container">
-    @can('create', App\Aeronave::class)
-    <div>
-        <a class="btn btn-primary" href="{{route('aeronaves.create')}}">Adicionar</a>
-    </div>
-    @endcan
     @if(count($aeronaves) > 0)
     <table class="table table-striped">
         <thead>
@@ -45,6 +40,7 @@
                 <td>
                     @can('authorize', $aeronave)
                     <a class="link" href="{{route('aeronaves.pilotosIndex', $aeronave) }}">Pilotos Autorizados</a>
+                    ({{ $aeronave->pilotos()->count() }})
                     @endcan
                 </td>
                 <td>
@@ -71,6 +67,12 @@
     @else
         <h2>Nenhuma aeronave encontrada</h2>
     @endif
+    
+    @can('create', App\Aeronave::class)
+    <div>
+        <a class="btn btn-primary" href="{{route('aeronaves.create')}}">Adicionar</a>
+    </div>
+    @endcan
 
 </div>
 @endsection
