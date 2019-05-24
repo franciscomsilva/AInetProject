@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Aerodromo;
 use App\Aeronave;
+use App\Filters\MovimentoFilters;
 use App\Movimento;
+use App\TipoLicenca;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,13 +22,14 @@ class MovimentoController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param MovimentoFilters $filters
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(MovimentoFilters $filters)
     {
-        $movimentos = Movimento::paginate(15);
-        $title = 'List Movimentos';
-        return view('movimentos.list', compact('title', 'movimentos'));
+        $movimentos = Movimento::filter($filters)->paginate();
+        $aeronaves = Aeronave::all();
+        return view('movimentos.list', compact( ['movimentos', 'aeronaves']));
     }
 
     /**
@@ -40,8 +43,9 @@ class MovimentoController extends Controller
         $aeronaves = Aeronave::all();
         $pilotos = User::all();
         $aerodromos = Aerodromo::all();
+        $tipoLicencas = TipoLicenca::all();
         $movimento = new Movimento();
-        return view('movimentos.add', compact(['movimento','pilotos', 'aeronaves', 'aerodromos']));
+        return view('movimentos.add', compact(['movimento','pilotos', 'aeronaves', 'aerodromos', 'tipoLicencas']));
     }
 
     /**
@@ -52,6 +56,7 @@ class MovimentoController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request);
         //
         //$this->authorize('create', Movimento::class);
 
@@ -113,7 +118,7 @@ class MovimentoController extends Controller
     {
         //$this->authorize('delete', $movimento);
         $errors = [];
-        if ($movimento->confirmado==0){
+        if ($movimento->confirmado==1){
             $movimento->delete();
             return redirect()
                 ->route('movimentos.index')

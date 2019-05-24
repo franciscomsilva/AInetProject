@@ -2,12 +2,18 @@
 
 namespace App;
 
+use App\Filters\Filterable;
 use Illuminate\Database\Eloquent\Model;
 
 class Movimento extends Model
 {
+    use Filterable;
     //
-    protected $fillable = ['data', 'hora_descolagem', 'hora_aterregem', 'aeronave', 'num_diario', 'piloto_id', 'instrutor_id'];
+    protected $fillable = ['id','data','hora_descolagem','hora_aterragem','aeronave','num_diario','num_servico','piloto_id','num_licenca_piloto',
+        'validade_licenca_piloto','tipo_licenca_piloto','num_certificado_piloto','validade_certificado_piloto', 'classe_certificado_piloto', 'natureza', 'aerodromo_partida',
+        'aerodromo_chegada', 'num_aterragens', 'num_descolagens', 'num_pessoas', 'conta_horas_inicio', 'conta_horas_fim', 'tempo_voo', 'preco_voo', 'modo_pagamento', 'num_recibo',
+        'observacoes', 'confirmado', 'tipo_instrucao', 'instrutor_id', 'num_licenca_instrutor', 'validade_licenca_instrutor', 'tipo_licenca_instrutor', 'num_certificado_instrutor',
+        'validade_certificado_instrutor', 'classe_certificado_instrutor', 'created_at', 'updated_at', 'tipo_conflito', 'justificacao_conflito'];
 
     protected $table = 'movimentos';
 
@@ -32,7 +38,7 @@ class Movimento extends Model
                 return 'Solo';
         }
 
-        return 'Unknown';
+        return '';
     }
 
     public function modoPagamentoToString(){

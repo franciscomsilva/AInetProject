@@ -43,7 +43,7 @@ class MovimentoPolicy
      */
     public function update(User $user, Movimento $movimento)
     {
-        return $user->id==$movimento->piloto_id || $user->id==$movimento->instrutor_id;
+        return  $movimento->confirmado==0 && ($user->direcao==1 || $user->id==$movimento->piloto_id || $user->id==$movimento->instrutor_id);
     }
 
     /**
@@ -55,8 +55,7 @@ class MovimentoPolicy
      */
     public function delete(User $user, Movimento $movimento)
     {
-        return $user->id==$movimento->piloto_id || $user->id==$movimento->instrutor_id;
-        //
+        return  $movimento->confirmado==0 && ($user->direcao==1 || $user->id==$movimento->piloto_id || $user->id==$movimento->instrutor_id);
     }
 
     /**
