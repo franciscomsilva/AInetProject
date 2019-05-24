@@ -64,10 +64,10 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a class="dropdown-item" href="{{ route('user.home') }}"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                                     document.getElementById('home-form').submit();">
+                                        {{ __('Home') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('user.show',Auth::user()) }}"
                                        onclick="event.preventDefault();
@@ -79,10 +79,10 @@
                                                      document.getElementById('password-form').submit();">
                                         {{ __('Alterar Password') }}
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('user.home') }}"
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('home-form').submit();">
-                                        {{ __('Home') }}
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
