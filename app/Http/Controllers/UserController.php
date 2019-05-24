@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Filters\UserFilters;
+use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\MessageBag;
 
 class UserController extends Controller
 {
@@ -272,15 +275,28 @@ class UserController extends Controller
 
     /**
      * @return \Illuminate\Http\RedirectResponse
+     * @throws AuthorizationException
      */
     public function resetQuotas(){
-        $users = User::where('quota_paga',1)->update(['quota_paga' => 0]);
+        $this->authorize('resetQuotas',User::class);
+
+        User::where('quota_paga',1)->update(['quota_paga' => 0]);
 
         return redirect()
                 ->route('user.index')
                 ->with('success', 'Quotas resetadas com sucesso!');
     }
 
+    public function desativarSQuotas(){
+        $this->authorize('resetQuotas',User::class);
+
+        User::where('quota_paga',0)->update(['ativo' => 0]);
+
+        return redirect()
+            ->route('user.index')
+            ->with('success', 'Utilizadores com quota por pagar desativados com sucesso!');
+
+    }
 
     /**
      * @param User $user
@@ -309,6 +325,10 @@ class UserController extends Controller
     }
 
     public function estado(User $user){
+        if($user == null){
+            User::where('quota_paga',0)->update(['ativo' => 0]);
+        }
+
         $this->authorize('mudarEstado',$user);
 
         $user->ativo = $user->ativo == 1 ? 0 : 1;
@@ -327,6 +347,39 @@ class UserController extends Controller
         return redirect()
             ->route('user.index')
             ->with('success', 'Estado da quota do utilizador mudado com sucesso!');
+    }
+
+    public function password(){
+        return view('password');
+    }
+
+    /**
+     * @param ChangePasswordRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updatePassword(ChangePasswordRequest $request){
+
+        $user = Auth::user();
+
+        if(!Hash::check($request->get('old_password'),$user->password)){
+            return redirect()
+                ->route('user.password')
+                ->with('errors',new MessageBag(['Password antiga não corresponde!']));
+        }
+
+       $user->fill($request->validated());
+        $user->password = Hash::make($user->password);
+
+        /*SE FOR PRIMEIRA VEZ A ALTERAR PASSWORD METE CAMPO PASSWORD ORIGINAL A 0*/
+        if($user->password_inicial)
+            $user->password_inicial = 0;
+
+        $user->save();
+
+        return redirect()
+            ->route('user.show',$user)
+            ->with('success','Password alterada com sucesso!');
+
     }
 
 }

@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Flight-Club') }}</title>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -64,26 +64,34 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a class="dropdown-item" href="{{ route('user.home') }}"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                                     document.getElementById('home-form').submit();">
+                                        {{ __('Home') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('user.show',Auth::user()) }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('profile-form').submit();">
                                         {{ __('Perfil') }}
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('user.home') }}"
+                                    <a class="dropdown-item" href="{{ route('user.password') }}"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('home-form').submit();">
-                                        {{ __('Home') }}
+                                                     document.getElementById('password-form').submit();">
+                                        {{ __('Alterar Password') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
                                     <form id="profile-form" action="{{ route('user.show',Auth::user()) }}" method="GET" style="display: none;">
+                                        @csrf
+                                    </form>
+                                    <form id="password-form" action="{{ route('user.password') }}" method="GET" style="display: none;">
                                         @csrf
                                     </form>
                                     <form id="home-form" action="{{ route('user.home') }}" method="GET" style="display: none;">
@@ -106,6 +114,9 @@
                 @endif
                 @if (session('success'))
                     @include('shared.success')
+                @endif
+                @if (session('errors'))
+                    @include('shared.errors')
                 @endif
             @yield('content')
          </div>

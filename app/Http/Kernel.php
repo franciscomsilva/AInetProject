@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'ativo' => \App\Http\Middleware\SocioAtivo::class,
         'direcao' => \App\Http\Middleware\SocioDirecao::class,
         'piloto' => \App\Http\Middleware\SocioPiloto::class,
+        'passwordInicial' => \App\Http\Middleware\SocioPasswordInicial::class
     ];
 
     /**

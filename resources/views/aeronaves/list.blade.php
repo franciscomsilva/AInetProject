@@ -3,23 +3,30 @@
 @section('title', 'Aeronaves')
 
 @section('content')
+
+
 <div class="container">
-    @can('create', App\Aeronave::class)
-    <div>
-        <a class="btn btn-primary" href="{{route('aeronaves.create')}}">Adicionar</a>
-    </div>
-    @endcan
+
+
     @if(count($aeronaves) > 0)
-    <table class="table table-striped">
+    <table class="table table-striped" style="text-alighn: center;">
         <thead>
             <tr>
-                <th>Matricula</th>
+                <th>Matrícula</th>
                 <th>Marca</th>
                 <th>Modelo</th>
-                <th>Numero de Lugares</th>
-                <th>Total Horas</th>
+                <th>Nº de Lugares</th>
+                <th>Horas e Minutos</th>
                 <th>Preço Hora</th>
+                <th>Pilotos</th>
                 <th></th>
+                <th>
+                    @can('create', App\Aeronave::class)
+                        <div>
+                            <a class="btn btn-primary" href="{{route('aeronaves.create')}}">Adicionar</a>
+                        </div>
+                    @endcan
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -27,20 +34,40 @@
             @if($aeronave->deleted_at != NULL)
                 @continue
             @endif
-            <tr>
+           <tr>
                 <td>{{ $aeronave->matricula }}</td>
                 <td>{{ $aeronave->marca }}</td>
                 <td>{{ $aeronave->modelo }}</td>
                 <td>{{ $aeronave->num_lugares }}</td>
-                <td>{{ $aeronave->conta_horas }}</td>
-                <td>{{ $aeronave->preco_hora }}</td>
+                <td> 
+                    @if( $aeronave->conta_horas > 0)
+                        {{ floor($aeronave->conta_horas / 10) }}h {{ $aeronave->roundContaHoras($aeronave->conta_horas- floor($aeronave->conta_horas / 10) * 10) }}m 
+                    @else
+                        0h
+                    @endif
+                </td>
+                <td>{{ $aeronave->preco_hora }}
+                    @can('view', $aeronave)
+                    / 
+                    <a class="link" href="{{route('aeronaves.precos_temposIndex', $aeronave) }}">Mais preços</a>
+                    @endcan
+                </td>
                 <td>
                     @can('authorize', $aeronave)
-                    <a class="btn btn-xs btn-primary" href="{{route('aeronaves.pilotosIndex', $aeronave) }}">Pilotos Autorizados</a>
+                        @if($aeronave->pilotos()->count() > 0)
+                            <a class="link" href="{{route('aeronaves.pilotosIndex', $aeronave) }}">Pilotos Autorizados</a>
+                            ({{ $aeronave->pilotos()->count() }})
+                        @else
+                            <a class="link" href="{{route('aeronaves.pilotosNaoAutorizadosIndex', $aeronave) }}">Autorizar Pilotos</a>
+                        @endif
                     @endcan
+                </td>
+                <td>
                     @can('update', $aeronave)
-                    <a class="btn btn-xs btn-primary" href="{{route('aeronaves.edit', $aeronave)}}">Editar</a>
+                    <a class="btn  btn-primary" href="{{route('aeronaves.edit', $aeronave)}}">Editar</a>
                     @endcan
+                </td>
+                <td>
                     @can('delete', $aeronave)
                     <form action="{{route('aeronaves.destroy', $aeronave)}}" method="POST" role="form" class="inline">
                         {{ method_field('DELETE') }}
@@ -57,8 +84,16 @@
     {{ $aeronaves->links() }}
 
     @else
+        @can('create', App\Aeronave::class)
+            <div>
+                <a class="btn btn-primary" href="{{route('aeronaves.create')}}">Adicionar</a>
+            </div>
+            <br>
+        @endcan
+
         <h2>Nenhuma aeronave encontrada</h2>
     @endif
+
 
 </div>
 @endsection
