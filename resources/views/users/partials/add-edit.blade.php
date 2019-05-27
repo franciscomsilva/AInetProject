@@ -28,7 +28,7 @@
 </div>
 <div class="form-group">
     <label for="inputTSocio">Tipo de Socio</label>
-    <select name="tipo_socio">
+    <select id='select-tipoSocio' name="tipo_socio" onchange="showHideDiv()">
         <option {{$user->tipo_socio == "P" ? 'selected' : ''}} value="P">Piloto</option>
         <option {{$user->tipo_socio == "NP" ? 'selected' : ''}} value="NP">Não-Piloto</option>
         <option {{$user->tipo_socio == "A" ? 'selected' : ''}} value="A">Aeromodelista</option>
@@ -108,8 +108,9 @@
             name="endereco" id="address"
             placeholder="Endereço" value="{{old('endereco', $user->endereco)}}"/>
 </div>
-{{$route = Route::current()->getName() }}
+<div display="none">{{$route = Route::current()->getName() }}</div>
 @if($user->tipo_socio == 'P' || $route == 'user.create')
+<div id="div-piloto">
     <br>
 
     <h1> Piloto </h1>
@@ -196,4 +197,22 @@
         <input type="file" name="certificado" class="form-control">
 
     </div>
+</div>
 @endif
+
+<!-- SCRIPT PARA MOSTRAR AREA DE PILOTO-->
+<script type="text/javascript">
+
+    function showHideDiv(){
+
+            var selectBox = document.getElementById("select-tipoSocio");
+            var divPiloto = document.getElementById("div-piloto");
+            var value = selectBox.options[selectBox.selectedIndex].value;
+            if(value != 'P'){
+                divPiloto.style.display ='none';
+            }else{
+                divPiloto.style.display ='inline';
+            }
+
+    }
+</script>
