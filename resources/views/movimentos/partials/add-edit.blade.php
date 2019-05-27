@@ -20,11 +20,7 @@
     <label for="inputAeronave">Aeronave</label>
     <select name="aeronaves" id="inputAeronaves" class="form-control">
         @foreach($aeronaves as $aeronave)
-            @if(old('aeronaves', $movimento->aeronave)==$aeronave->matricula)
-                <option value="{{$aeronave->matricula}}" selected>{{$aeronave->matricula}}</option>
-                @else
-                <option value="{{$aeronave->matricula}}">{{$aeronave->matricula}}</option>
-                @endif
+            <option value="{{$aeronave->matricula}}" {{old('aeronaves', $movimento->aeronave)==$aeronave->matricula? 'selected' : ''}}>{{$aeronave->matricula}}</option>
             @endforeach
         </select>
     </div>
@@ -43,14 +39,38 @@
     <label for="inputPiloto">Piloto</label>
     <select name="pilotos" id="inputPilotos" class="form-control">
         @foreach($pilotos as $piloto)
-            <option value="{{$piloto->name}}" {{ $piloto->name == Auth::user()->name ? 'selected' : ''}}>{{$piloto->name}}</option>
+            <option value="{{$piloto->id}}" {{ $piloto->name == Auth::user()->name ? 'selected' : ''}}>{{$piloto->name}}</option>
         @endforeach
     </select>
 </div>
 <!--Num Licença-->
 <div class="form-group">
-    <label for="inputNumLincenca"> Número Licença</label>
+    <label for="inputNumLincenca">Número Licença</label>
     <input type="number" class="form-control" id="inputNumLincenca" name="inputNumLincenca" value="{{old('inputNumLincenca', $movimento->num_licenca_piloto)}}"/>
+</div>
+<!--Validade Licença-->
+<div class="form-group">
+    <label for="inputValidadeLincenca">Validade Licença</label>
+    <input type="date" class="form-control" id="inputValidadeLincenca" name="inputValidadeLincenca" value="{{old('inputValidadeLincenca', $movimento->validade_licenca_piloto)}}"/>
+</div>
+<!--Tipo Licença-->
+<div class="form-group">
+    <label for="inputTipoLicenca">Tipo Licença</label>
+    <select name="tipoLicenca" id="inputTipoLicenca" class="form-control">
+        @foreach($tipoLicencas as $tipoLicenca)
+            <option value="{{$tipoLicenca->code}}" {{ old('inputTipoLicenca', $movimento->tipo_licenca_piloto) ? 'selected' : ''}}>{{$tipoLicenca->nome}}</option>
+        @endforeach
+    </select>
+</div>
+<!--Num Certificado-->
+<div class="form-group">
+    <label for="inputNumCertificado">Número Certificado</label>
+    <input type="number" class="form-control" id="inputNumCertificado" name="inputNumCertificado" value="{{old('inputNumCertificado', $movimento->num_Certificado_piloto)}}"/>
+</div>
+<!--Validade Certificado-->
+<div class="form-group">
+    <label for="inputValidadeCertificado">Validade Certificado</label>
+    <input type="date" class="form-control" id="inputValidadeCertificado" name="inputValidadeCertificado" value="{{old('inputValidadeCertificado', $movimento->validade_Certificado_piloto)}}"/>
 </div>
 <!--Natureza-->
 <div class="form-group">
@@ -135,5 +155,54 @@
 <div class="form-group">
     <label for="inputObservacao">Observações</label>
     <textarea id="inputObservacao" name="observacao" value="{{old('observacao', $movimento->observacoes)}}" class="form-control disabled"></textarea>
+</div>
+<!--Confirmado-->
+<!--Tipo Instrucao-->
+<div class="form-group">
+    <label for="inputtipoInstrucao">Tipo Instrução</label>
+    <select name="tipoInstrucao" id="inputtipoInstrucao" class="form-control">
+        <option value="" disabled> -- Não é instrução -- </option>
+        <option value="D" {{ old('tipoInstrucao', $movimento->tipo_instrucao)=='D' ? 'selected' : ''}}>Duplo Comando</option>
+        <option value="S" {{ old('tipoInstrucao', $movimento->tipo_instrucao)=='S' ? 'selected' : ''}}>Solo</option>
+    </select>
+</div>
+<!--Instrutor-->
+<div class="form-group">
+    <label for="inputInstrutor">Instrutor</label>
+    <select name="Instrutors" id="inputInstrutors" class="form-control">
+        <option value=""></option>
+        @foreach($pilotos as $Instrutor)
+            <option value="{{$Instrutor->id}}" {{ $Instrutor->name == Auth::user()->name ? 'selected' : ''}}>{{$Instrutor->name}}</option>
+        @endforeach
+    </select>
+</div>
+<!--Num Licença-->
+<div class="form-group">
+    <label for="inputNumLincenca">Número Licença</label>
+    <input type="number" class="form-control" id="inputNumLincenca" name="inputNumLincenca" value="{{old('inputNumLincenca', $movimento->num_licenca_instrutor)}}"/>
+</div>
+<!--Validade Licença-->
+<div class="form-group">
+    <label for="inputValidadeLincenca">Validade Licença</label>
+    <input type="date" class="form-control" id="inputValidadeLincenca" name="inputValidadeLincenca" value="{{old('inputValidadeLincenca', $movimento->validade_licenca_instrutor)}}"/>
+</div>
+<!--Tipo Licença-->
+<div class="form-group">
+    <label for="inputTipoLicenca">Tipo Licença</label>
+    <select name="tipoLicenca" id="inputTipoLicenca" class="form-control">
+        @foreach($tipoLicencas as $tipoLicenca)
+            <option value="{{$tipoLicenca->code}}" {{ old('inputTipoLicenca', $movimento->tipo_licenca_Instrutor) ? 'selected' : ''}}>{{$tipoLicenca->nome}}</option>
+        @endforeach
+    </select>
+</div>
+<!--Num Certificado-->
+<div class="form-group">
+    <label for="inputNumCertificado">Número Certificado</label>
+    <input type="number" class="form-control" id="inputNumCertificado" name="inputNumCertificado" value="{{old('inputNumCertificado', $movimento->num_Certificado_instrutor)}}"/>
+</div>
+<!--Validade Certificado-->
+<div class="form-group">
+    <label for="inputValidadeCertificado">Validade Certificado</label>
+    <input type="date" class="form-control" id="inputValidadeCertificado" name="inputValidadeCertificado" value="{{old('inputValidadeCertificado', $movimento->validade_Certificado_instrutor)}}"/>
 </div>
 
