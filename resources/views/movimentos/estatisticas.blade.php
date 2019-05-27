@@ -13,18 +13,16 @@
 
             <label for="inputPiloto">Piloto</label>
             <select id='select-piloto' name="piloto">
-                g
-
-                <option {{$user->tipo_socio == "P" ? 'selected' : ''}} value="P">Piloto</option>
-                <option {{$user->tipo_socio == "NP" ? 'selected' : ''}} value="NP">Não-Piloto</option>
-                <option {{$user->tipo_socio == "A" ? 'selected' : ''}} value="A">Aeromodelista</option>
+                @foreach ($users as $user)
+                    <option value="{{$user->id}}">{{$user->nome_informal}}({{$user->num_socio}})</option>
+                @endforeach
             </select>
 
             <label for="inputAeronave">Aeronave</label>
             <select id='select-aeronave' name="aeronave">
-                <option {{$user->tipo_socio == "P" ? 'selected' : ''}} value="P">Piloto</option>
-                <option {{$user->tipo_socio == "NP" ? 'selected' : ''}} value="NP">Não-Piloto</option>
-                <option {{$user->tipo_socio == "A" ? 'selected' : ''}} value="A">Aeromodelista</option>
+                @foreach ($aeronaves as $aeronave)
+                    <option value="{{$aeronave->matricula}}">{{$aeronave->matricula}}</option>
+                @endforeach
             </select>
         </div>
     @endif

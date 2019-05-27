@@ -134,9 +134,9 @@ class MovimentoController extends Controller
 
     public function estatisticas(){
 
-        $users = User::where('tipo_socio','P');
+        $users = User::all()->where('tipo_socio','=','P');
         $aeronaves = Aeronave::all();
-        return view('movimentos.estatisticas',compact($users,$aeronaves));
+        return view('movimentos.estatisticas',compact(['users','aeronaves']));
     }
 
 
