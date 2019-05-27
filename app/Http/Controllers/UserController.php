@@ -108,6 +108,9 @@ class UserController extends Controller
         /*DEFINE A PASSWORD COMO DATA DE NASCIMENTO*/
         $user->password = Hash::make($request->data_nascimento);
 
+        /*METE PASSWORD INICIAL A 1*/
+        $user->password_inicial = 1;
+
         $user->fill($request->validated());
 
         /*RESETAR OS CAMPOS QUANDO NAO E PILOTO*/
@@ -221,9 +224,26 @@ class UserController extends Controller
             $user->direcao = 0;
         }
 
-        $user->licenca_confirmada = 0;
 
-        $user->certificado_confirmado = 0;
+
+        /*VERIFICAÇÃO SE OS CAMPOS RELATIVOS À LICENCA FORAM ALTERADOS*/
+        if($request->get('num_licenca') != $user->num_licenca || $request->get('tipo_licenca') != $user->tipoLicenca->toString()
+        || $request->get('validade_licenca') != $user->validade_licenca || $request->get('instrutor') != $user->instrutor ){
+            $user->licenca_confirmada = 0;
+        }
+
+
+
+        /*VERIFICAÇÃO SE OS CAMPOS RELATIVOS AO CERTIFICADO MÉDICO FORAM ALTERADOS*/
+        if($request->get('num_certificado') != $user->num_certificado || $request->get('classe_certificado') != $user->classeCertificado->toString()
+        || $request->get('validade_certificado') != $user->validade_certificado){
+            $user->certificado_confirmado = 0;
+        }
+
+
+
+
+
 
         $user->fill($request->validated());
 

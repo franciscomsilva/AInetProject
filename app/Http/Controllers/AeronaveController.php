@@ -32,6 +32,7 @@ class AeronaveController extends Controller
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function create()
     {
@@ -192,7 +193,7 @@ class AeronaveController extends Controller
      * @param Aeronave $aeronave
      * @param User $piloto
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Httqp\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function autorizarPiloto(Aeronave $aeronave, User $piloto)
