@@ -73,6 +73,7 @@ Route::middleware(['ativo','auth','verified'])->group(function () {
         //Movimentos!
         #region movimentos
         Route::get('/movimentos', 'MovimentoController@index')->name('movimentos.index');
+        Route::get('/movimentos/estatisticas','MovimentoController@estatisticas')->name('movimentos.estatisticas');
         Route::get('/movimentos/create', 'MovimentoController@create')->name('movimentos.create');
         Route::get('/movimentos/{movimento}', 'MovimentoController@show')->name('movimentos.show');
         Route::get('/movimentos/{movimento}/edit', 'MovimentoController@edit')->name('movimentos.edit');

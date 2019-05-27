@@ -143,4 +143,20 @@ class UserPolicy
     {
         return $user->direcao && $user->id != $model->id;
     }
+
+    /**
+     * @param User $user
+     * @return mixed
+     */
+    public function confirmCertificado(User $user){
+        return $user->direcao;
+    }
+
+    /**
+     * @param User $user
+     * @return mixed
+     */
+    public function confirmLicenca(User $user){
+        return $user->direcao;
+    }
 }

@@ -132,6 +132,14 @@ class MovimentoController extends Controller
         }
     }
 
+    public function estatisticas(){
+
+        $users = User::where('tipo_socio','P');
+        $aeronaves = Aeronave::all();
+        return view('movimentos.estatisticas',compact($users,$aeronaves));
+    }
+
+
     /*private function validateDestroy(Movimento $movimento){
         $deleted = DB::table('movimentos')->where([
             ['id', '=', $movimento->id],
