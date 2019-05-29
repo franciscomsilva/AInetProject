@@ -73,15 +73,19 @@ Route::middleware(['ativo','auth','verified'])->group(function () {
         //Movimentos!
         #region movimentos
         Route::get('/movimentos', 'MovimentoController@index')->name('movimentos.index');
-        Route::get('/movimentos/estatisticas','MovimentoController@estatisticas')->name('movimentos.estatisticas');
-        Route::get('/movimentos/create', 'MovimentoController@create')->name('movimentos.create');
-        Route::get('/movimentos/{movimento}', 'MovimentoController@show')->name('movimentos.show');
-        Route::get('/movimentos/{movimento}/edit', 'MovimentoController@edit')->name('movimentos.edit');
-        Route::post('/movimentos', 'MovimentoController@store')->name('movimentos.store');
-        Route::put('/movimentos/{movimento}', 'MovimentoController@update')->name('movimentos.update');
-        Route::delete('/movimentos/{movimento}', 'MovimentoController@destroy')->name('movimentos.destroy');
-        #endregion movimentos
+        Route::get('/movimentos/estatisticas', 'EstatisticasController@estatisticas')->name('movimentos.estatisticas');
+        Route::post('movimentos/estatisticas', 'EstatisticasController@getEstatisticas')->name('movimentos.getEstatisticas');
 
+        //SO PERMITE SE FOR DIRECAO E/OU PILOTO
+        Route::middleware(['direcao','piloto'])->group(function () {
+            Route::get('/movimentos/create', 'MovimentoController@create')->name('movimentos.create');
+            Route::get('/movimentos/{movimento}', 'MovimentoController@show')->name('movimentos.show');
+            Route::get('/movimentos/{movimento}/edit', 'MovimentoController@edit')->name('movimentos.edit');
+            Route::post('/movimentos', 'MovimentoController@store')->name('movimentos.store');
+            Route::put('/movimentos/{movimento}', 'MovimentoController@update')->name('movimentos.update');
+            Route::delete('/movimentos/{movimento}', 'MovimentoController@destroy')->name('movimentos.destroy');
+            #endregion movimentos
+        });
     });
 });
 

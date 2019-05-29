@@ -44,6 +44,9 @@
                         <li>
                             <a class="nav-item ml-3" href="{{ route('movimentos.index') }}"> Movimentos </a>
                         </li>
+                         <li>
+                                <a class="nav-item ml-3" href="{{ route('movimentos.estatisticas') }}"> Estatísticas </a>
+                         </li>
                         @endauth
                     </ul>
 
