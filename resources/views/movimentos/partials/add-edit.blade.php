@@ -123,16 +123,16 @@
 <!--Conta Horas Final-->
 <div class="form-group">
     <label for="inputContaHorasFinal">Conta Horas Final</label>
-    <input type="number" id="inputContaHorasFinal" name="numContaHorasFinal" value="{{old('numContaHorasFinal', $movimento->conta_horas_fim)}}" class="form-control">
+    <input type="number" id="inputContaHorasFinal" name="numContaHorasFinal" onchange="calcularPrecoETempoVoo()" value="{{old('numContaHorasFinal', $movimento->conta_horas_fim)}}" class="form-control">
 </div>
 <!--Tempo Voo-->
 <div class="form-group">
-    <label for="inputTempoVoo">Tempo Voo</label>
+    <label for="inputTempoVoo">Tempo Voo (min)</label>
     <input type="number" id="inputTempoVoo" name="numTempoVoo" value="{{old('numTempoVoo', $movimento->tempo_voo)}}" class="form-control disabled">
 </div>
 <!--Preço Voo-->
 <div class="form-group">
-    <label for="inputPrecoVoo">Preço Voo</label>
+    <label for="inputPrecoVoo">Preço Voo (€)</label>
     <input type="number" id="inputPrecoVoo" name="numPrecoVoo" value="{{old('numPrecoVoo', $movimento->preco_voo)}}" class="form-control disabled">
 </div>
 <!--Modo Pagamento-->
@@ -206,3 +206,45 @@
     <input type="date" class="form-control" id="inputValidadeCertificado" name="inputValidadeCertificado" value="{{old('inputValidadeCertificado', $movimento->validade_Certificado_instrutor)}}"/>
 </div>
 
+<!-- SCRIPT PARA MOSTRAR TEMPO E PREÇO DE VOO -->
+<script type="text/javascript">
+
+    function calcularPrecoETempoVoo(){
+
+        //OBTEM E CALCULA AS UNIDADES DE CONTA HORAS DO VOO
+        var contaHorasInicial = document.getElementById('inputContaHorasInicial').value;
+        var contaHorasFinal = document.getElementById('inputContaHorasFinal').value;
+        var valoresContaHoras = contaHorasFinal - contaHorasInicial;
+
+
+        //OBTEM OS CAMPOS A PREEENCHER
+        var inputPreco = document.getElementById('inputPrecoVoo');
+        var inputTempoVoo = document.getElementById('inputTempoVoo');
+
+
+        //OBTEM A MATRICULA DA AERONAVE EM QUESTAO
+        var aeronave = document.getElementById('inputAeronaves');
+        var matricula = aeronave.options[aeronave.selectedIndex].value;
+
+
+        //OBTEM A TABELA JSON COM OS PRECOS POR UNIDADE DE CONTA HORAS EM JSON
+        fetch("http://ainet.prj.test/aeronaves/"+matricula+"/precos_tempos")
+            .then(function(resp){
+            return resp.json();
+        }).then(function(data){
+
+            //OBTEM O PRECO E MINUTOS POR 1 UNIDADE DE CONTA HORAS
+            var preco = data[0].preco;
+            var minutosVoo = data[0].minutos;
+
+            //CALCULA E PREENCHE O PRECO DO VOO
+            inputPreco.value = Number(valoresContaHoras * preco);
+
+            //CALCULA E PREENCHE O TEMPO DE VOO EM MINUTOS
+            inputTempoVoo.value = minutosVoo * valoresContaHoras;
+
+        });
+
+
+    }
+</script>
