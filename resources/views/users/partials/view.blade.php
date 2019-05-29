@@ -149,7 +149,7 @@
     </div>
     <div class="form-group">
         <label for="licencaConfirmada">Licença Confirmada</label>
-        <input disabled
+        <input
                 type="checkbox"
                 name="licenca_confirmada"
                 value="1"

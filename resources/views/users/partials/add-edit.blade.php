@@ -148,6 +148,16 @@
                 value="1"
                 {{$user->instrutor ?'checked' : ''}}/>
     </div>
+    @can('confirmLicenca',Auth::user())
+        <div class="form-group">
+            <label for="licencaConfirmada">Licença Confirmada</label>
+            <input
+                   type="checkbox"
+                   name="licenca_confirmada"
+                   value="1"
+                   {{$user->licenca_confirmada == 1 ?'checked' : ''}}/>
+        </div>
+    @endcan
     <div class="form-group">
         <!-- MOSTRA LICENÇA DO USER  -->
         @if($route != 'user.create')
@@ -186,7 +196,16 @@
                 name="validade_certificado" id="expiryDateCert"
                 placeholder="Validade do Certificado" value="{{old('validade_certificado', $user->validade_certificado)}}"/>
     </div>
-
+    @can('confirmCertificado',Auth::user())
+        <div class="form-group">
+            <label for="certConfirmado">Certificado Confirmado</label>
+            <input
+                    type="checkbox"
+                    name="certificado_confirmado"
+                    value="1"
+                    {{$user->certificado_confirmado == 1 ?'checked' : ''}}/>
+        </div>
+    @endcan
     <div class="form-group">
         <!-- MOSTRA CERTIFICADO DO USER  -->
         @if($route != 'user.create')

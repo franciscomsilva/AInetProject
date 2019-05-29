@@ -105,6 +105,17 @@ class UserController extends Controller
 
         }
 
+        if(!$request->get('licenca_confirmada')){
+            $this->authorize('confirmLicenca',$user);
+            $user->licenca_confirmada = 0;
+        }
+
+        if(!$request->get('certificado_confirmado')){
+            $this->authorize('confirmCertificado',$user);
+            $user->certificado_confirmado = 0;
+        }
+
+
         /*DEFINE A PASSWORD COMO DATA DE NASCIMENTO*/
         $user->password = Hash::make($request->data_nascimento);
 
@@ -223,6 +234,17 @@ class UserController extends Controller
             $this->authorize('mudarDirecao',$user);
             $user->direcao = 0;
         }
+
+        if(!$request->get('licenca_confirmada')){
+            $this->authorize('confirmLicenca',$user);
+            $user->licenca_confirmada = 0;
+        }
+
+        if(!$request->get('certificado_confirmado')){
+            $this->authorize('confirmCertificado',$user);
+            $user->certificado_confirmado = 0;
+        }
+
 
 
 
