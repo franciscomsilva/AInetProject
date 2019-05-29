@@ -34,8 +34,6 @@ class EstatisticasController extends Controller
 
         }
 
-
-
         $lava = new Lava;
 
         /*MOVIMENTOS DO PILOTO*/
@@ -95,6 +93,6 @@ class EstatisticasController extends Controller
         ]);
 
 
-        return view('movimentos.estatisticas',compact('lava','users','aeronaves'));
+        return view('movimentos.estatisticas',compact('lava','users','aeronaves','movimentosTempoPiloto','movimentosTempoAeronave'));
     }
 }

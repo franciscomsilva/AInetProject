@@ -31,13 +31,56 @@
             </form>
         </div>
         @isset($lava)
-
+            <h1>Movimentos do Piloto</h1>
+            <br>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Ano</th>
+                    <th>Nº de Horas</th>
+                </tr>
+                </thead>
+                <tbody>
+                    @foreach($movimentosTempoPiloto->toArray() as $movimento)
+                    <tr>
+                        <td>{{$movimento->ano}}</td>
+                        <td>{{$movimento->tempo_total}}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <br>
+            <h2>Gráfico</h2>
+            <br>
             <div id="div_movimentos_piloto"></div>
             <br>
-            <div id="div_movimentos_aeronaves"></div>
+
+
+            <h1>Movimentos da Aeronaves</h1>
+            <br>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Mês</th>
+                    <th>Nº de Horas</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($movimentosTempoAeronave->toArray() as $movimento)
+                    <tr>
+                        <td>{{$movimento->mes}}</td>
+                        <td>{{$movimento->tempo_total}}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+            <br>
+            <h2>Gráfico</h2>
+            <br>
+            <div id="div_movimentos_aeronave"></div>
 
             {!!$lava->render('LineChart', 'Movimentos do Piloto', 'div_movimentos_piloto')!!}
-            {!!$lava->render('LineChart', 'Movimentos da Aeronaves', 'div_movimentos_aeronaves')!!}
+            {!!$lava->render('LineChart', 'Movimentos da Aeronaves', 'div_movimentos_aeronave')!!}
 
 
         @endisset
