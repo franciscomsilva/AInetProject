@@ -11,9 +11,27 @@ class StoreMovimentoRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    /*public function authorize()
     {
         return false;
+    }*/
+
+    /**
+     * Get the messages for the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function messages(){
+
+        $messages = [
+            'required' => 'O campo :attribute é obrigatório.',
+            'alpha_dash' => 'O campo :attribute só pode conter letras e números.',
+            'max' => 'O valor máximo do campo :attribute é :value.',
+            'min' => 'O valor mínimo do campo :attribute é :value.',
+            'numeric' => 'O campo :attribute só pode conter numeros.',
+            'unique' => 'A :attribute já existe, escolha outra.',
+        ];
+        return $messages;
     }
 
     /**
@@ -25,32 +43,32 @@ class StoreMovimentoRequest extends FormRequest
     {
         return [
             'data' => 'required|date',
-            'hora_descolagem' => 'required|',
-            'hora_aterragem' => 'required',
+            'hora_descolagem' => 'required|datetime',
+            'hora_aterragem' => 'required|datetime',
             'aeronave' => 'required',
-            'num_diario' => 'required',
-            'num_servico' => 'required',
-            'piloto_id' => 'required',
-            'num_licenca_piloto' => 'required',
-            'validade_licenca_piloto' => 'required',
+            'num_diario' => 'required|numeric',
+            'num_servico' => 'required|numeric',
+            'piloto_id' => 'required|numeric',
+            'num_licenca_piloto' => 'required|numeric',
+            'validade_licenca_piloto' => 'required|date',
             'tipo_licenca_piloto' => 'required',
-            'num_certificado_piloto' => 'required',
-            'validade_certificado_piloto' => 'required',
+            'num_certificado_piloto' => 'required|numeric',
+            'validade_certificado_piloto' => 'required|date',
             'classe_certificado_piloto' => 'required',
-            'natureza' => 'in:T,I,E',
+            'natureza' => 'required|in:T,I,E',
             'aerodromo_partida' => 'required',
             'aerodromo_chegada' => 'required',
-            'num_aterragens' => 'numeric',
-            'num_descolagens' => 'numeric',
-            'num_pessoas' => 'numeric',
-            'conta_horas_inicio' => 'numeric',
-            'conta_horas_fim' => 'numeric',
-            'tempo_voo' => 'numeric',
-            'preco_voo' => 'numeric',
-            'modo_pagamento' => 'in:N,M,T,P',
+            'num_aterragens' => 'required|numeric',
+            'num_descolagens' => 'required|numeric',
+            'num_pessoas' => 'required|numeric',
+            'conta_horas_inicio' => 'required|numeric',
+            'conta_horas_fim' => 'required|numeric',
+            'tempo_voo' => 'required|numeric',
+            'preco_voo' => 'required|numeric',
+            'modo_pagamento' => 'required|in:N,M,T,P',
             'num_recibo' => 'required',
             'observacoes' => 'nullable|string',
-            'confirmado' => 'between:0,1',
+            'confirmado' => 'required|between:0,1',
             'tipo_instrucao' => 'nullable',
             'instrutor_id' => 'nullable',
             'num_licenca_instrutor' => 'nullable',
@@ -61,7 +79,7 @@ class StoreMovimentoRequest extends FormRequest
             'classe_certificado_instrutor' => 'nullable',
             'created_at' => 'required',
             'updated_at' => 'required',
-            'tipo_conflito' => 'required',
-            'justificacao_conflito' => 'required'];
+            'tipo_conflito' => 'nullable | in:S,B',
+            'justificacao_conflito' => 'nullable'];
     }
 }

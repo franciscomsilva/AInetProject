@@ -15,7 +15,6 @@ class US08_PermissoesTest extends USTestBase
         $this->seedNormalUsers();
         $this->seedDesativadoUser();
         $this->seedEmailNaoVerificadoUser();
-        $this->seedSoftDeletedUser();
     }
 
     public function testProtecaoSociosParaAnonimo()
@@ -37,12 +36,6 @@ class US08_PermissoesTest extends USTestBase
         $this->actingAs($this->desativadoUser)->get('/socios')
                 ->assertUnauthorized('GET', '/socios',
                 'Utilizador desativado (ativo=0) pode ver a lista de sócios!');
-    }
-
-    public function testProtecaoSociosParaSocioSoftdeleted()
-    {
-        $this->actingAs($this->softDeletedUser)->get('/socios')
-                 ->assertNotStatus(200, 'Utilizador apagado (com SoftDeleted) tem acesso à lista de sócios!');
     }
 }
     

@@ -35,7 +35,7 @@ class US23_ATest extends USTestBase
         $total = count($allNames);        
         $this->actingAs($this->userToSimulate)->get('/socios')
                 ->assertStatus(200)
-                ->assertSeeAll($allNames, "A lista com os sócios não apresenta todos os sócios para a direção (deverá incluir os sócios não ativos). Nota: Podem ocorrer falhas se o tamanho das páginas for superior a $total");
+                ->assertSeeAll($allNames, "A lista com os sócios não apresenta todos os sócios para a direção (deverá incluir os sócios não ativos). Nota: Podem ocorrer falhas se o tamanho das páginas for inferior a $total");
     }
 
     public function testTotalSociosParaUtilizadorNormal()
@@ -44,7 +44,7 @@ class US23_ATest extends USTestBase
         $total = count($allNames);
         $this->actingAs($this->normalUser)->get('/socios')
                 ->assertStatus(200)
-                ->assertDontSeeAll($allNames, "A lista com os sócios para um utilizador normal, inclui os desativados. Nota: Podem ocorrer falhas se o tamanho das páginas for superior a $total");
+                ->assertDontSeeAll($allNames, "A lista com os sócios para um utilizador normal, inclui os desativados. Nota: Podem ocorrer falhas se o tamanho das páginas for inferior a $total");
     }
 
     public function testMostraInformacaoSocio()
@@ -95,7 +95,7 @@ class US23_ATest extends USTestBase
     {
         $this->actingAs($this->userToSimulate)->get('/socios')
                 ->assertStatus(200)
-                ->assertSeeInOrder_2(['<img', 'href=', $this->normalUserComFoto->foto_url],
+                ->assertSeeInOrder_2(['<img', 'src=', $this->normalUserComFoto->foto_url],
             "A lista com os sócios ativos não apresenta fotografias");
     }       
 

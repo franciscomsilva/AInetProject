@@ -16,7 +16,6 @@ class US07_PermissoesTest extends USTestBase
         $this->seedDirecaoUser();
         $this->seedDesativadoUser();
         $this->seedEmailNaoVerificadoUser();
-        $this->seedSoftDeletedUser();
         $this->userToSimulate = $this->normalUser;
     }
 

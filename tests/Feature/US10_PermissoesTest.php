@@ -14,7 +14,6 @@ class US10_PermissoesTest extends USTestBase
         $this->seedNormalUsers();
         $this->seedDesativadoUser();
         $this->seedEmailNaoVerificadoUser();
-        $this->seedSoftDeletedUser();
     }
 
     public function testProtecaoGetAeronavesParaAnonimo()
@@ -36,11 +35,5 @@ class US10_PermissoesTest extends USTestBase
         $this->actingAs($this->desativadoUser)->get('/socios')
                 ->assertUnauthorized('GET', '/aeronaves',
                 'Utilizador desativado (ativo=0) pode ver a lista de aeronaves!');
-    }
-
-    public function testProtecaoGetAeronavesParaSocioSoftdeleted()
-    {
-        $this->actingAs($this->softDeletedUser)->get('/aeronaves')
-                 ->assertNotStatus(200, 'Utilizador apagado (com SoftDeleted) tem acesso à lista de aeronaves!');
     }
 }

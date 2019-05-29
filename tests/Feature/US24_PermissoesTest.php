@@ -61,12 +61,6 @@ class US24_PermissoesTest extends USTestBase
             ->assertUnauthorized('POST', "/socios", 'Sócios normais conseguem criar novos sócios!');
     }
 
-    public function testProtecaoApagarSocio()
-    {
-        $this->actingAs($this->normalUser)
-                ->delete('/socios/'. $this->normalUser->id)
-                ->assertUnauthorized('DELETE', '/socios/'. $this->normalUser->id, 'Sócios normais conseguem apagar sócios!');        
-    }
 
 
 }

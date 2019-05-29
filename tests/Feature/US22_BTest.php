@@ -33,23 +33,23 @@ class US22_BTest extends USTestBase
             "conta_horas" => 23001,
             "preco_hora" => 233.34
         ];
-        $request["tempos"][8] = 47;
-        $request["precos"][8] = 23;
+        $request["tempos"][8] = 52;
+        $request["precos"][8] = 72;
         $requestData = array_merge($request, $newdata);
         $this->actingAs($this->userToSimulate)->put($this->urlPut, $requestData);
         $this->assertDatabaseHas('aeronaves', $newdata);
         $this->assertDatabaseHas('aeronaves_valores', [
             'matricula' => $newdata['matricula'],
             'unidade_conta_horas' => 8,
-            'minutos' => 47,
-            'preco' => 23,
+            'minutos' => 52,
+            'preco' => 72,
         ]);
         // Confirma se não gravou alterações em todos os valores da aeronave
         $this->assertDatabaseMissing('aeronaves_valores', [
             'matricula' => $newdata['matricula'],
             'unidade_conta_horas' => 3,
-            'minutos' => 47,
-            'preco' => 23,
+            'minutos' => 52,
+            'preco' => 72,
         ]);
     }
 
@@ -62,26 +62,26 @@ class US22_BTest extends USTestBase
             "modelo" => "Novo Modelo ZZ",
             "num_lugares" => 5,
             "conta_horas" => 8392,
-            "preco_hora" => 129.99
+            "preco_hora" => 83.99
         ];
-        $request["tempos"][10] = 33;
-        $request["precos"][10] = 342;
+        $request["tempos"][9] = 58;
+        $request["precos"][9] = 78;
         $requestData = array_merge($request, $newdata);
 
         $this->actingAs($this->userToSimulate)->post('/aeronaves', $requestData);
         $this->assertDatabaseHas('aeronaves', $newdata);
         $this->assertDatabaseHas('aeronaves_valores', [
             'matricula' => $newdata['matricula'],
-            'unidade_conta_horas' => 10,
-            'minutos' => 33,
-            'preco' => 342,
+            'unidade_conta_horas' => 9,
+            'minutos' => 58,
+            'preco' => 78,
         ]);
         // Confirma se não gravou alterações em todos os valores da aeronave
         $this->assertDatabaseMissing('aeronaves_valores', [
             'matricula' => $newdata['matricula'],
-            'unidade_conta_horas' => 9,
-            'minutos' => 33,
-            'preco' => 342,
+            'unidade_conta_horas' => 10,
+            'minutos' => 58,
+            'preco' => 78,
         ]);
     }
 }

@@ -119,7 +119,6 @@ class US21_ATest extends USTestBase
         $this->assertDatabaseMissing('aeronaves', $newdata);
     }
 
-
     public function testValidacaoMarca()
     {
         // Update
