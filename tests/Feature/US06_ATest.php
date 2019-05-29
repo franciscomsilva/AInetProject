@@ -29,7 +29,7 @@ class US06_ATest extends USTestBase
     {
         $response = $this->actingAs($this->normalUser)->get("/socios/". $this->normalUser->id.'/edit');
         $response->assertStatus(200);
-        $response->assertSeeInOrder_2(['<form', 'method="POST"', '/socios/'. $this->normalUser->id, 'enctype="multipart/form-data">'],
+        $response->assertSeeInOrder_2(['<form', 'method="POST"', '/socios/'. $this->normalUser->id, 'enctype="multipart/form-data"', '>'],
             'Tem que incluir um formulário com o método POST e [action] que acaba em /socios/'. $this->normalUser->id . ' e que permita fazer upload de ficheiros');
         $response->assertSeeAll([
                 '<input type="hidden" name="_method" value="PUT">',

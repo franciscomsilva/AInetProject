@@ -15,15 +15,15 @@
 
 <div class="form-group"> <!-- numero Lugares --> 
     <label for="inputNumLugares">Numero de Lugares</label>
-    <input type="number" min="0" class="form-control" name="num_lugares" id="inputNum_lugares" value="{{old('num_lugares', $aeronave->num_lugares)}}"  placeholder="Numero de lugares da aeronave"/>
+    <input type="number" min="1" class="form-control" name="num_lugares" id="inputNum_lugares" value="{{old('num_lugares', $aeronave->num_lugares)}}"  placeholder="Numero de lugares da aeronave"/>
 </div>
 
 <div class="form-group"> <!-- conta horas -->
     <label for="inputHoras">Conta Horas</label>
-    <input type="number" min="0" class="form-control" name="conta_horas" id="inputHoras" value="{{old('conta_horas', $aeronave->conta_horas)}}"  placeholder="Conta horas"/>
+    <input type="number" min="1" class="form-control" name="conta_horas" id="inputHoras" value="{{old('conta_horas', $aeronave->conta_horas)}}"  placeholder="Conta horas"/>
 </div>
 <div class="form-group"> <!-- preco por hora -->
     <label for="inputPrecoHora">Preço por Hora</label>
-    <input type="number" min="0" class="form-control" name="preco_hora" id="inputPrecoHora" value="{{old('preco_hora', $aeronave->preco_hora )}}"  placeholder="Preço por hora"/>
+    <input type="number" min="1" class="form-control" name="preco_hora" id="inputPrecoHora" value="{{old('preco_hora', $aeronave->preco_hora )}}"  placeholder="Preço por hora"/>
 </div>
 

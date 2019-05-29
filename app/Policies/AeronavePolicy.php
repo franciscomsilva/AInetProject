@@ -30,7 +30,7 @@ class AeronavePolicy
     */
     public function create(User $user)
     {
-        return $user->direcao && $user->ativo;
+        return $user->direcao;
     }
 
     /**

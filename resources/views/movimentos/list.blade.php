@@ -55,6 +55,7 @@
                 <label for="inputInstrutorPesquisa">Instrutor</label>
                 <input type="text" name="nomeInstrutorPesquisa" placeholder="Nome Instrutor" class="form-control">
             </div>
+            @if(Auth::user()->tipo_socio=='P')
             <div class="col">
                 <label></label>
                 <div class="input-group">
@@ -65,6 +66,7 @@
                     </div>
                     <label type="text" class="form-control"> Meus Movimentos
                     </label></div></div>
+            @endif
             <div class="col">
                 <label></label>
                 <button type="submit" class="btn btn-success form-control" name="search">Pesquisar</button>
@@ -87,20 +89,20 @@
                     <th>ID</th>
                     <th>Aeronave</th>
                     <th>Data Voo</th>
-                    <!--th>Hora Aterragem</th>
-                    <th>Hora Descolagem</th-->
+                    <th>Hora Aterragem</th>
+                    <th>Hora Descolagem</th>
                     <th>Tempo Voo</th>
                     <th>Natureza</th>
                     <th>Piloto Nome</th>
                     <th>Aeródromo Partida</th>
                     <th>Aeródromo Chegada</th>
-                    <!--th>Nº Aterragens</th>
+                    <th>Nº Aterragens</th>
                     <th>Nº Descolagens</th>
                     <th>Nº Diário</th>
                     <th>Nº Serviço</th>
                     <th>Conta-Horas Inicial</th>
                     <th>Conta-Horas Final</th>
-                    <th>Nº Pessoas</th-->
+                    <th>Nº Pessoas</th>
                     <th>Tipo Instrução</th>
                     <th>Instrutor</th>
                     <th>Confirmado</th>
@@ -113,20 +115,20 @@
                         <td>{{$movimento->id}}</td>
                         <td> {{$movimento->aeronave}}</td>
                         <td>{{$movimento->data}}</td>
-                        <!--td>date('H:i', strtotime($movimento->hora_aterragem))</td-->
-                        <!--td>date('H:i', strtotime($movimento->hora_descolagem))</td-->
+                        <td>date('H:i', strtotime($movimento->hora_aterragem))</td>
+                        <td>date('H:i', strtotime($movimento->hora_descolagem))</td>
                         <td>{{$movimento->tempo_voo}} min</td>
                         <td>{{$movimento->naturezaMovimentoToString()}}</td>
                         <td>{{$movimento->piloto->nome_informal}}</td>
                         <td>{{$movimento->aerodromo_partida}}</td>
                         <td>{{$movimento->aerodromo_chegada}}</td>
-                        <!--td>$movimento->num_aterragens</td-->
-                        <!--td>$movimento->num_descolagens</td-->
-                        <!--td>$movimento->num_diario</td-->
-                        <!--td>$movimento->num_servico</td-->
-                        <!--td>$movimento->conta_horas_inicio</td-->
-                        <!--td>$movimento->conta_horas_fim</td-->
-                        <!--td>$movimento->num_pessoas</td-->
+                        <td>$movimento->num_aterragens</td>
+                        <td>$movimento->num_descolagens</td>
+                        <td>$movimento->num_diario</td>
+                        <td>$movimento->num_servico</td>
+                        <td>$movimento->conta_horas_inicio</td>
+                        <td>$movimento->conta_horas_fim</td>
+                        <td>$movimento->num_pessoas</td>
                         <td>{{$movimento->tipoInstrucaoToString()}}</td>
                         <td>{{$movimento->instrutor==null ? '' : $movimento->nome_informal}}</td>
                         <td>

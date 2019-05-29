@@ -33,9 +33,9 @@ class CreateAeronaveRequest extends FormRequest
     {
 
         return [
-            'matricula' => 'required|alpha_dash|max:8|min:6|unique:aeronaves',
-            'marca' => 'required|alpha_dash|min:5|max:40',
-            'modelo' => 'required|alpha_dash|min:5|max:40',
+            'matricula' => 'required|alpha_dash|string|between:6,8|unique:aeronaves',
+            'marca' => 'required|alpha_dash|string|between:5,40',
+            'modelo' => 'required|alpha_dash|string|between:5,40',
             'num_lugares' => 'required|numeric|integer|min:2',
             'conta_horas' => 'required|numeric|integer|min:1',
             'preco_hora' => 'required|numeric|min:10',

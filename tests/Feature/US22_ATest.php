@@ -81,9 +81,9 @@ class US22_ATest extends USTestBase
             "preco" => -1]);
 
         $request["precos"] = $precos_original;
-        $request["precos"][2] = "34.5";
+        $request["precos"][2] = "24.5";
         $this->actingAs($this->userToSimulate)->put($this->urlPut, $request)
-            ->assertValid('precos.2', 'Preços não aceitam valores válidos (exemplo: 34.5)!');
+            ->assertValid('precos.2', 'Preços não aceitam valores válidos (exemplo: 24.5)!');
 
     }    
 

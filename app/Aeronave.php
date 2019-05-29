@@ -30,7 +30,7 @@ class Aeronave extends Model
     }
     
     public function hasMovimentos(Aeronave $aeronave){
-        $movimentos = Movimento::where('aeronave', '%like%', $aeronave['matricula'])->get();
+        $movimentos = Movimento::where('aeronave', 'like', $aeronave['matricula'])->get();
         return $movimentos->count() > 0 ? true : false;
     }
 
@@ -42,7 +42,7 @@ class Aeronave extends Model
                 $aeronave->forceDelete();
             }
         }
-        //dd($precoHora, $matricula);
+        
         for ($i = 1; $i <= 10; $i++){
             $aeronaveValor = new AeronaveValor();
             

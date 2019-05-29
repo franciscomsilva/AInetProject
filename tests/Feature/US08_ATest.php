@@ -34,7 +34,7 @@ class US08_ATest extends USTestBase
         $total = count($allNames);
         $this->actingAs($this->userToSimulate)->get('/socios')
                 ->assertStatus(200)
-                ->assertSeeAll($allNames, "A lista com os sócios ativos não apresenta todos os sócios. Nota: Podem ocorrer falhas se o tamanho das páginas for superior a $total");
+                ->assertSeeAll($allNames, "A lista com os sócios ativos não apresenta todos os sócios. Nota: Podem ocorrer falhas se o tamanho das páginas for inferior a $total");
     }
 
     public function testMostraInformacaoSocio()
@@ -85,7 +85,7 @@ class US08_ATest extends USTestBase
     {
         $response = $this->actingAs($this->userToSimulate)->get('/socios');
         $response->assertStatus(200);
-        $response->assertSeeInOrder_2(['<img', 'href=', $this->normalUserComFoto->foto_url],
+        $response->assertSeeInOrder_2(['<img', 'src=', $this->normalUserComFoto->foto_url],
             "A lista com os sócios ativos não apresenta fotografias");
     }       
 }

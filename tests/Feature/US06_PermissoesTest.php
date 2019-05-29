@@ -15,7 +15,6 @@ class US06_PermissoesTest extends USTestBase
         $this->seedDirecaoUser();
         $this->seedDesativadoUser();
         $this->seedEmailNaoVerificadoUser();
-        $this->seedSoftDeletedUser();
     }
 
     public function testProtecaoGetSociosEditParaAnonimo()
@@ -38,13 +37,6 @@ class US06_PermissoesTest extends USTestBase
                 ->assertUnauthorized('GET', "/socios/". $this->desativadoUser->id.'/edit',
                 'Utilizador desativado (ativo=0) pode ver os seus dados de perfil!');
     }
-
-    public function testProtecaoGetSociosEditParaParaSocioSoftdeleted()
-    {
-        $this->actingAs($this->softDeletedUser)->get("/socios/". $this->softDeletedUser->id.'/edit')
-                 ->assertNotStatus(200, 'Utilizador apagado (com SoftDeleted) pode ver os seus dados de perfil!');
-    }
-
 
     public function testProtecaoGetSociosEditParaOutroSocio()
     {
