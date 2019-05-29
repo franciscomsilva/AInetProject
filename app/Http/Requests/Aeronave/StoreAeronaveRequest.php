@@ -38,8 +38,8 @@ class StoreAeronaveRequest extends FormRequest
             'matricula' => [
                 'required','alpha_dash','max:8','min:6',Rule::unique('aeronaves')->ignore($aeronave->matricula, 'matricula'),
             ],
-            'marca' => 'required|alpha_dash|min:5|max:40',
-            'modelo' => 'required|alpha_dash|min:5|max:40',
+            'marca' => 'required|alpha_dash|string',
+            'modelo' => 'required|alpha_dash|string',
             'num_lugares' => 'required|numeric|integer|min:2',
             'conta_horas' => 'required|numeric|integer|min:1',
             'preco_hora' => 'required|numeric|min:10',

@@ -18,7 +18,10 @@
                 <th>Nº de Lugares</th>
                 <th>Horas e Minutos</th>
                 <th>Preço Hora</th>
+                
+                @can('authorize', App\Aeronave::class)
                 <th>Pilotos</th>
+                @endcan
                 <th></th>
                 <th>
                     @can('create', App\Aeronave::class)
@@ -41,7 +44,10 @@
                 <td>{{ $aeronave->num_lugares }}</td>
                 <td> 
                     @if( $aeronave->conta_horas > 0)
-                        {{ floor($aeronave->conta_horas / 10) }}h {{ $aeronave->roundContaHoras($aeronave->conta_horas- floor($aeronave->conta_horas / 10) * 10) }}m 
+                        {{ floor($aeronave->conta_horas / 10) }}h 
+                        @if( ($minutos = $aeronave->roundContaHoras($aeronave->conta_horas- floor($aeronave->conta_horas / 10) * 10)) > 0 )
+                            {{ $minutos }}m 
+                        @endif
                     @else
                         0h
                     @endif

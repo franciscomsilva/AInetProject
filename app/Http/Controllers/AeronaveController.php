@@ -77,7 +77,8 @@ class AeronaveController extends Controller
     {
         $this->authorize('update', $aeronave);
 
-        return view('aeronaves.edit', compact('aeronave'));
+        $precos_tempos = $aeronave->valores()->get(['unidade_conta_horas', 'minutos', 'preco']);
+        return view('aeronaves.edit', compact('aeronave', 'precos_tempos'));
     }
 
     /**
@@ -127,12 +128,12 @@ class AeronaveController extends Controller
      */
     public function destroy(Aeronave $aeronave)
     {
-        $this->authorize('delete', Aeronave::class);
+        $this->authorize('delete', $aeronave);
         
         if ($aeronave->hasMovimentos($aeronave)){
             $aeronave->delete(); // soft delete
         }else{
-            $this->authorize('forceDelete', Aeronave::class);
+            $this->authorize('forceDelete', $aeronave);
             $aeronave->forceDelete(); //hard delete
         }
         
@@ -254,13 +255,13 @@ class AeronaveController extends Controller
 
     #region precos_tempos
     public function precos_temposIndex(Aeronave $aeronave){
-        $precos_tempos = $aeronave->valores()->get();
+        $precos_tempos = $aeronave->valores()->get(['unidade_conta_horas', 'minutos', 'preco']);
 
         if($precos_tempos->count() != 10){
             $aeronave->storePrecosUnidade($aeronave->preco_hora, $aeronave->matricula);
-            $precos_tempos = $aeronave->valores()->get();
-           // dd($precos_tempos);
+            $precos_tempos = $aeronave->valores()->get(['unidade_conta_horas', 'minutos', 'preco']);
         }
+        
         return response()->json($precos_tempos);
         //return view('aeronaves.precos-tempos', compact('precos_tempos', 'aeronave'));
     }
