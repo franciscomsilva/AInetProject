@@ -28,7 +28,7 @@
                     <tr>
                         <td>{!! $preco_tempo->unidade_conta_horas !!}</td>
                         <td>{!! $preco_tempo->minutos !!}</td>
-                        <td><input type="number" min="1" class="form-control" name="preco{{$i}}" id="inputPreco{{$i}}" value="{{old('preco_hora', $preco_tempo->preco )}}"/></td>
+                        <td><input type="number" min="1" class="form-control" name="preco{{$i}}" id="inputPreco{{$i}}" value="{{old('preco', $preco_tempo->preco )}}"/></td>
                     </tr>
                     @php ($i++)
                 @endforeach
