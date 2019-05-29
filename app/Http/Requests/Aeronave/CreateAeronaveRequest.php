@@ -13,7 +13,7 @@ class CreateAeronaveRequest extends FormRequest
      */
     public function messages(){
         
-        $messages = [
+        return [
             'required' => 'O campo :attribute é obrigatório.',
             'alpha_dash' => 'O campo :attribute só pode conter letras e números.',
             'max' => 'O valor máximo do campo :attribute é :value.',
@@ -21,7 +21,6 @@ class CreateAeronaveRequest extends FormRequest
             'numeric' => 'O campo :attribute só pode conter numeros.',
             'unique' => 'A :attribute já existe, escolha outra.',
         ];
-        return $messages;
     }
 
 
@@ -35,11 +34,11 @@ class CreateAeronaveRequest extends FormRequest
 
         return [
             'matricula' => 'required|alpha_dash|max:8|min:6|unique:aeronaves',
-            'marca' => 'required|alpha_dash|max:40',
-            'modelo' => 'required|alpha_dash|max:40',
-            'num_lugares' => 'required|numeric|min:0',
-            'conta_horas' => 'required|numeric|min:0',
-            'preco_hora' => 'required|numeric|min:0',
+            'marca' => 'required|alpha_dash|min:5|max:40',
+            'modelo' => 'required|alpha_dash|min:5|max:40',
+            'num_lugares' => 'required|numeric|integer|min:2',
+            'conta_horas' => 'required|numeric|integer|min:1',
+            'preco_hora' => 'required|numeric|min:10',
         ];
     }
 }

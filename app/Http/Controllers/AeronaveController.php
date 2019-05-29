@@ -198,6 +198,9 @@ class AeronaveController extends Controller
      */
     public function autorizarPiloto(Aeronave $aeronave, User $piloto)
     {   
+        $this->authorize('authorize', $aeronave);
+
+        
         $aeronavePiloto = AeronavePiloto::where('piloto_id', $piloto->id)->where('matricula', 'like', $aeronave->matricula)->first();
         if ($aeronavePiloto != null) {
             return redirect()
@@ -207,7 +210,6 @@ class AeronaveController extends Controller
 
         $aeronavePiloto = new AeronavePiloto();
 
-        $this->authorize('authorize', $aeronave);
        
         
         $aeronavePiloto->matricula = $aeronave->matricula;
@@ -254,7 +256,13 @@ class AeronaveController extends Controller
     public function precos_temposIndex(Aeronave $aeronave){
         $precos_tempos = $aeronave->valores()->get();
 
-        return view('aeronaves.precos-tempos', compact('precos_tempos', 'aeronave'));
+        if($precos_tempos->count() != 10){
+            $aeronave->storePrecosUnidade($aeronave->preco_hora, $aeronave->matricula);
+            $precos_tempos = $aeronave->valores()->get();
+           // dd($precos_tempos);
+        }
+        return response()->json($precos_tempos);
+        //return view('aeronaves.precos-tempos', compact('precos_tempos', 'aeronave'));
     }
     #endregion precos_tempos
 

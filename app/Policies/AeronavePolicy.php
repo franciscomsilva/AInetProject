@@ -30,7 +30,7 @@ class AeronavePolicy
     */
     public function create(User $user)
     {
-        return $user->direcao == 1;
+        return $user->direcao && $user->ativo;
     }
 
     /**
@@ -42,7 +42,7 @@ class AeronavePolicy
     */
     public function update(User $user, Aeronave $aeronave)
     {
-        return $user->direcao == 1 || $user->id == $aeronave->pilotos()->find($user->id); // ou é piloto da aeronave
+        return $user->direcao; //|| $user->id == $aeronave->pilotos()->find($user->id); // ou é piloto da aeronave
     }
 
     /**
@@ -53,7 +53,7 @@ class AeronavePolicy
     */
     public function delete(User $user)
     {
-        return $user->direcao == 1;
+        return $user->direcao;
     }
 
     /**
@@ -64,7 +64,7 @@ class AeronavePolicy
     */
     public function forceDelete(User $user)
     {
-        return $user->direcao == 1;
+        return $user->direcao;
     }
 
 
@@ -76,6 +76,6 @@ class AeronavePolicy
     */
     public function authorize(User $user)
     {
-        return $user->direcao == 1;
+        return $user->direcao;
     }
 }
