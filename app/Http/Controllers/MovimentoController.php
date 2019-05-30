@@ -58,18 +58,18 @@ class MovimentoController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        //dd($request);
         //
-        //$this->authorize('create', Movimento::class);
+        $this->authorize('create', Movimento::class);
 
-        /*$movimento = new Movimento();
-        $movimento->fill($request->all());
+        $movimento = new Movimento();
+        $movimento->fill($request->validate());
         $movimento->save();
 
         return redirect()
             ->route('movimentos.index')
             ->with('success', 'Movimento adicionado com sucesso!');
-    */}
+    }
 
     /**
      * Display the specified resource.

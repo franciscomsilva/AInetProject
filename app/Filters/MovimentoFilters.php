@@ -11,43 +11,43 @@ use Illuminate\Support\Facades\Auth;
 class MovimentoFilters extends QueryFilters
 {
     /**
-     * Filter by idMovimentoPesquisa;
+     * Filter by id;
      *
      * @param string $id
      * @return Builder
      */
-    public function idMovimentoPesquisa($id = ''){
+    public function id($id = ''){
         return $this->builder->where('id', '=', $id);
     }
 
     /**
-     * Filter by aeronavePesquisa;
+     * Filter by aeronave;
      *
      * @param string $aeronave
      * @return Builder
      */
-    public function aeronavePesquisa($aeronave = ''){
+    public function aeronave($aeronave = ''){
         return $this->builder->where('aeronave', '=', $aeronave);
     }
 
     /**
-     * Filter by dataInfPesquisa;
+     * Filter by data_inf;
      *
-     * @param string $dataInf
+     * @param string $data_inf
      * @return Builder
      */
-    public function dataInfPesquisa($dataInf= ''){
-        return $this->builder->where('hora_descolagem', '=', $dataInf);
+    public function data_inf($data_inf= ''){
+        return $this->builder->where('data', '=', $data_inf);
     }
 
     /**
-     * Filter by dataSupPesquisa;
+     * Filter by data_sup;
      *
-     * @param string $dataSup
+     * @param string $data_sup
      * @return Builder
      */
-    public function dataSupPesquisa($dataSup= ''){
-        return $this->builder->where('hora_', '=', $dataSup);
+    public function data_sup($data_sup= ''){
+        return $this->builder->where('data', '=', $data_sup);
     }
 
     /**
@@ -71,25 +71,25 @@ class MovimentoFilters extends QueryFilters
     }
 
     /**
-     * Filter by nomePilotoPesquisa;
+     * Filter by piloto;
      *
-     * @param string $nomePiloto
+     * @param string $piloto
      * @return Builder
      */
-    public function nomePilotoPesquisa($nomePiloto= ''){
+    public function piloto($piloto= ''){
         return $this->builder->join('users', 'users.id', '=', 'movimentos.piloto_id')
-            ->where('nome_informal', 'like', '%'.$nomePiloto.'%');
+            ->where('nome_informal', '=', ''.$piloto.'');
     }
 
     /**
-     * Filter by nomeInstrutorPesquisa;
+     * Filter by instrutor;
      *
-     * @param string $nomeInstrutor
+     * @param string $instrutor
      * @return Builder
      */
-    public function nomeInstrutorPesquisa($nomeInstrutor= ''){
+    public function instrutor($instrutor= ''){
         return $this->builder->join('users', 'users.id', '=', 'movimentos.instrutor_id')
-            ->where('nome_informal', 'like', '%'.$nomeInstrutor.'%');
+            ->where('nome_informal', 'like', '%'.$instrutor.'%');
     }
 
     /**
