@@ -128,12 +128,12 @@
 <!--Tempo Voo-->
 <div class="form-group">
     <label for="inputTempoVoo">Tempo Voo (min)</label>
-    <input type="number" id="inputTempoVoo" name="numTempoVoo" value="{{old('numTempoVoo', $movimento->tempo_voo)}}" class="form-control disabled">
+    <input disabled type="number" id="inputTempoVoo" name="numTempoVoo" value="{{old('numTempoVoo', $movimento->tempo_voo)}}" class="form-control disabled">
 </div>
 <!--Preço Voo-->
 <div class="form-group">
     <label for="inputPrecoVoo">Preço Voo (€)</label>
-    <input type="number" id="inputPrecoVoo" name="numPrecoVoo" value="{{old('numPrecoVoo', $movimento->preco_voo)}}" class="form-control disabled">
+    <input disabled type="number" id="inputPrecoVoo" name="numPrecoVoo" value="{{old('numPrecoVoo', $movimento->preco_voo)}}" class="form-control disabled">
 </div>
 <!--Modo Pagamento-->
 <div class="form-group">

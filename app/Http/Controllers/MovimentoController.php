@@ -83,8 +83,9 @@ class MovimentoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Movimento  $movimento
+     * @param \App\Movimento $movimento
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(Movimento $movimento)
     {
