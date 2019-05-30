@@ -6,6 +6,7 @@ use App\Filters\UserFilters;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Movimento;
 use App\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
@@ -421,6 +422,23 @@ class UserController extends Controller
         return redirect()
             ->route('user.show',$user)
             ->with('success','Password alterada com sucesso!');
+
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws AuthorizationException
+     */
+    public function pendentes(){
+        $this->authorize('viewPendentes',Auth::user());
+
+        /*VAI BUSCAR TODOS OS MOVIMENTOS NAO CONFIRMADOS E COM CONFLITO*/
+        $movimentos = Movimento::where('confirmado','=',0)->OrwhereNotNull('tipo_conflito')->get();
+        $users = User::where('licenca_confirmada','=',0)->OrWhere('certificado_confirmado','=',0)->get();
+
+        $pendentes = array_merge($movimentos->toArray(),$users->toArray());
+
+        return view('users.pendentes',compact('pendentes'));
 
     }
 

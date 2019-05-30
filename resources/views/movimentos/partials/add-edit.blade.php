@@ -191,7 +191,7 @@
     <label for="inputTipoLicenca">Tipo Licença</label>
     <select name="tipoLicenca" id="inputTipoLicenca" class="form-control">
         @foreach($tipoLicencas as $tipoLicenca)
-            <option value="{{$tipoLicenca->code}}" {{ old('inputTipoLicenca', $movimento->tipo_licenca_Instrutor) ? 'selected' : ''}}>{{$tipoLicenca->nome}}</option>
+            <option value="{{$tipoLicenca->code}}" {{ old('inputTipoLicenca', $movimento->tipo_licenca_instrutor) ? 'selected' : ''}}>{{$tipoLicenca->nome}}</option>
         @endforeach
     </select>
 </div>
