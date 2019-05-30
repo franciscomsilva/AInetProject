@@ -8,12 +8,13 @@ class Aeronave extends Model
 {
     use SoftDeletes;
     protected $fillable = [
-        'matricula', 'marca', 'modelo', 'num_lugares', 'conta_horas', 'preco_hora'
+        'matricula', 'marca', 'modelo', 'num_lugares', 'conta_horas', 'preco_hora', 'precos'
     ];
 
     protected $table = 'aeronaves';
     protected $primaryKey = 'matricula';
     public $incrementing = false;
+
 
 
     public function pilotos(){

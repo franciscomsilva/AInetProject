@@ -55,7 +55,6 @@ class AeronaveController extends Controller
 
     
         $aeronave->fill($request->validated());
-        //dd($aeronave);
         $aeronave->save();
 
         //calcula os precos por unidade_hora da aeronave.
@@ -92,28 +91,44 @@ class AeronaveController extends Controller
     public function update(UpdateAeronaveRequest $request, Aeronave $aeronave)
     {
         $this->authorize('update', $aeronave);
+        $alteracoes = 0;
+        //dd($request->precos, $aeronave->valores()->get(['preco'])); //fazer validacao do vetor precos com os precos que ja estao na aeronave - se for diferente atualiza os precos diferentes... 
 
         if ($aeronave->matricula != $request->matricula) {
             $aeronave->fill($request->only('matricula'));
+            $alteracoes++;
         }
         if ($aeronave->marca != $request->marca) {
             $aeronave->fill($request->only('marca'));
+            $alteracoes++;
         }
         if ($aeronave->modelo != $request->modelo) {
             $aeronave->fill($request->only('modelo'));
+            $alteracoes++;
         }
         if ($aeronave->num_lugares != $request->num_lugares) {
             $aeronave->fill($request->only('num_lugares'));
+            $alteracoes++;
         }
         if ($aeronave->conta_horas != $request->conta_horas) {
             $aeronave->fill($request->only('conta_horas'));
+            $alteracoes++;
         }
         if ($aeronave->preco_hora != $request->preco_hora) {
             $aeronave->fill($request->only('preco_hora'));
             $aeronave->storePrecosUnidade($request->preco_hora, $aeronave->matricula);
+            $alteracoes++;
+        }
+        /*if($request->precos === $aeronave->valores()->get(['preco'])){
+            dd($request->precos === $aeronave->valores()->get(['preco']));
+        }*/
+        
+        
+        
+        if($alteracoes != 0){ // so atualiza a aeronave se houver um campo que tenha sido atualizado
+            $aeronave->save();
         }
         
-        $aeronave->save();
         return redirect()
             ->route('aeronaves.index')
             ->with('success', 'Aeronave atualizada com sucesso!');

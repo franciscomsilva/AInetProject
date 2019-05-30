@@ -33,6 +33,12 @@
                 @endforeach
             </tbody>
         </table>
+        
+        <td>
+            @can('update', $aeronave)
+            <a class="btn  btn-primary" href="{{route('aeronaves.edit', $aeronave)}}">Editar</a>
+            @endcan
+        </td>
     </div>
 
 </div>

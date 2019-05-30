@@ -39,6 +39,7 @@ class StoreAeronaveRequest extends FormRequest
             'num_lugares' => 'required|numeric|integer|min:1',
             'conta_horas' => 'required|numeric|integer|min:1',
             'preco_hora' => 'required|numeric|min:1',
+            'precos' => 'nullable'
         ];
     }
 }
