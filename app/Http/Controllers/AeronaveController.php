@@ -262,8 +262,18 @@ class AeronaveController extends Controller
             $precos_tempos = $aeronave->valores()->get(['unidade_conta_horas', 'minutos', 'preco']);
         }
         
+        return view('aeronaves.precos-tempos', compact('precos_tempos', 'aeronave'));
+    }
+
+    public function precos_temposJSON(Aeronave $aeronave){
+        $precos_tempos = $aeronave->valores()->get(['unidade_conta_horas', 'minutos', 'preco']);
+
+        if($precos_tempos->count() != 10){
+            $aeronave->storePrecosUnidade($aeronave->preco_hora, $aeronave->matricula);
+            $precos_tempos = $aeronave->valores()->get(['unidade_conta_horas', 'minutos', 'preco']);
+        }
+        
         return response()->json($precos_tempos);
-        //return view('aeronaves.precos-tempos', compact('precos_tempos', 'aeronave'));
     }
     #endregion precos_tempos
 

@@ -14,6 +14,7 @@
 Auth::routes(['verify' => true,'register' => false]);
 
 
+
 //GRUPO DE MIDDLEWARE PARA QUE TODAS ESTAS ROTAS SEJAM NECESSARIO ESTAR AUTENTICADO
 Route::middleware(['ativo','auth','verified'])->group(function () {
 
@@ -38,6 +39,10 @@ Route::middleware(['ativo','auth','verified'])->group(function () {
             Route::patch('/socios/{user}/quota', 'UserController@quota')->name('user.quota');
             Route::post('/socios/{user}/send_reactivate_mail', 'UserController@reenviarEmail')->name('user.email');
             #endregion socios
+
+            Route::get('/pendentes','MovimentoController@pendentes')->name('movimentos.pendentes');
+
+
         });
         #ENDREGION DIRECAO
 
@@ -67,7 +72,8 @@ Route::middleware(['ativo','auth','verified'])->group(function () {
         Route::get('/aeronaves/{aeronave}/pilotos/nao-autorizados', 'AeronaveController@pilotosNaoAutorizadosIndex')->name('aeronaves.pilotosNaoAutorizadosIndex');
         Route::post('/aeronaves/{aeronave}/pilotos/{piloto}', 'AeronaveController@autorizarPiloto')->name('aeronaves.autorizarPiloto');
         Route::delete('/aeronaves/{aeronave}/pilotos/{piloto}', 'AeronaveController@removerPiloto')->name('aeronaves.removerPiloto');
-        Route::get('/aeronaves/{aeronave}/precos_tempos', 'AeronaveController@precos_temposIndex')->name('aeronaves.precos_temposIndex');
+        Route::get('/aeronaves/{aeronave}/precos_tempos', 'AeronaveController@precos_temposJSON')->name('aeronaves.precos_temposJSON');
+        Route::get('/aeronaves/{aeronave}/precos', 'AeronaveController@precos_temposIndex')->name('aeronaves.precos_temposIndex');
     
         #endregion aeronaves
 

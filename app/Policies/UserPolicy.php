@@ -159,4 +159,12 @@ class UserPolicy
     public function confirmLicenca(User $user){
         return $user->direcao;
     }
+
+    /**
+     * @param User $user
+     * @return mixed
+     */
+    public function viewPendentes(User $user){
+        return $user->direcao;
+    }
 }

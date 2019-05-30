@@ -47,6 +47,11 @@
                          <li>
                                 <a class="nav-item ml-3" href="{{ route('movimentos.estatisticas') }}"> Estatísticas </a>
                          </li>
+                         @can('viewPendentes',Auth::user())
+                                <li>
+                                    <a class="nav-item ml-3" href="{{ route('movimentos.pendentes') }}"> Pendentes </a>
+                                </li>
+                         @endcan
                         @endauth
                     </ul>
 
