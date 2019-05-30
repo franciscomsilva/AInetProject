@@ -38,11 +38,11 @@ class UpdateAeronaveRequest extends FormRequest
             'matricula' => [
                 'required','alpha_dash','between:6,8',Rule::unique('aeronaves')->ignore($aeronave->matricula, 'matricula'),
             ],
-            'marca' => 'required|alpha_dash|string|between:5,40',
-            'modelo' => 'required|alpha_dash|string|between:5,40',
-            'num_lugares' => 'required|numeric|integer|min:2',
+            'marca' => 'required|alpha_dash|string|between:0,40',
+            'modelo' => 'required|alpha_dash|string|between:0,40',
+            'num_lugares' => 'required|numeric|integer|min:1',
             'conta_horas' => 'required|numeric|integer|min:1',
-            'preco_hora' => 'required|numeric|min:10',
+            'preco_hora' => 'required|numeric|min:1',
         ];
     }
 }
