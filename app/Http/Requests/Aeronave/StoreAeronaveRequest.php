@@ -4,7 +4,7 @@ namespace App\Http\Requests\Aeronave;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateAeronaveRequest extends FormRequest
+class StoreAeronaveRequest extends FormRequest
 {
     /**
      * Get the messages for the validation rules that apply to the request.

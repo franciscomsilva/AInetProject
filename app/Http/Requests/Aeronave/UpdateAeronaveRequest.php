@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Route;
 
-class StoreAeronaveRequest extends FormRequest
+class UpdateAeronaveRequest extends FormRequest
 {
     /**
      * Get the messages for the validation rules that apply to the request.

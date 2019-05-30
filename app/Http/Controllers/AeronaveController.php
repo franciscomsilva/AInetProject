@@ -10,8 +10,8 @@ use App\AeronaveValor;
 use App\User;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-use App\Http\Requests\Aeronave\CreateAeronaveRequest;
 use App\Http\Requests\Aeronave\StoreAeronaveRequest;
+use App\Http\Requests\Aeronave\UpdateAeronaveRequest;
 
 class AeronaveController extends Controller
 {
