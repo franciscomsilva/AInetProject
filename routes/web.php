@@ -72,7 +72,8 @@ Route::middleware(['ativo','auth','verified'])->group(function () {
         Route::get('/aeronaves/{aeronave}/pilotos/nao-autorizados', 'AeronaveController@pilotosNaoAutorizadosIndex')->name('aeronaves.pilotosNaoAutorizadosIndex');
         Route::post('/aeronaves/{aeronave}/pilotos/{piloto}', 'AeronaveController@autorizarPiloto')->name('aeronaves.autorizarPiloto');
         Route::delete('/aeronaves/{aeronave}/pilotos/{piloto}', 'AeronaveController@removerPiloto')->name('aeronaves.removerPiloto');
-        Route::get('/aeronaves/{aeronave}/precos_tempos', 'AeronaveController@precos_temposIndex')->name('aeronaves.precos_temposIndex');
+        Route::get('/aeronaves/{aeronave}/precos_tempos', 'AeronaveController@precos_temposJSON')->name('aeronaves.precos_temposJSON');
+        Route::get('/aeronaves/{aeronave}/precos', 'AeronaveController@precos_temposIndex')->name('aeronaves.precos_temposIndex');
     
         #endregion aeronaves
 
