@@ -89,7 +89,7 @@ class AeronaveController extends Controller
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(UpdateAeronaveRequest $request, Aeronave $aeronave, $preco)
+    public function update(UpdateAeronaveRequest $request, Aeronave $aeronave)
     {
         $this->authorize('update', $aeronave);
         dd($preco);
