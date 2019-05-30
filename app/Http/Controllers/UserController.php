@@ -351,7 +351,10 @@ class UserController extends Controller
 
         $path = 'certificado_'.$user->id . '.pdf';
 
-        return response()->file(storage_path('app/docs_piloto/'. $path));
+        if(file_exists(storage_path('app/docs_piloto/'. $path)))
+            return response()->file(storage_path('app/docs_piloto/'. $path));
+
+        return redirect()->route('user.edit',$user)->with('errors',new MessageBag(['Sócio não possui certificado!']));
     }
 
     /**
@@ -364,7 +367,10 @@ class UserController extends Controller
 
         $path = 'licenca_'.$user->id . '.pdf';
 
-        return response()->file(storage_path('app/docs_piloto/'. $path));
+        if(file_exists(storage_path('app/docs_piloto/'. $path)))
+            return response()->file(storage_path('app/docs_piloto/'. $path));
+
+        return redirect()->route('user.edit',$user)->with('errors',new MessageBag(['Sócio não possui licença!']));
     }
 
     public function estado(User $user){

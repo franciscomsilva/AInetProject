@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Aerodromo;
 use App\Aeronave;
 use App\Filters\MovimentoFilters;
+use App\Http\Requests\StoreMovimentoRequest;
 use App\Movimento;
 use App\TipoLicenca;
 use App\User;
@@ -56,16 +57,19 @@ class MovimentoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreMovimentoRequest $request)
     {
-        dd($request);
-        //
+
         //$this->authorize('create', Movimento::class);
 
-        /*$movimento = new Movimento();
-        $movimento->fill($request->all());
-        $movimento->save();
+        $movimento = new Movimento();
+        $movimento->fill($request->validated());
 
+        $this->verificaConflitos($movimento);
+        //$movimento->save();
+
+
+        /*
         return redirect()
             ->route('movimentos.index')
             ->with('success', 'Movimento adicionado com sucesso!');
@@ -146,6 +150,18 @@ class MovimentoController extends Controller
         return redirect()
             ->route("movimentos.index")
             ->with('success','Movimentos confirmados');
+    }
+
+
+    /**
+     * @param Movimento $movimento
+     */
+    public function verificaConflitos(Movimento $movimento){
+
+        dd($movimento->aeronave);
+       $movimentos = DB::table('movimentos')->where('aeronave','=',$movimento->matricula)->get();
+
+       dd($movimentos);
     }
 
 

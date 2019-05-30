@@ -45,7 +45,7 @@ class StoreMovimentoRequest extends FormRequest
             'data' => 'required|date',
             'hora_descolagem' => 'required|datetime',
             'hora_aterragem' => 'required|datetime',
-            'aeronave' => 'required',
+            'aeronave' => 'required|exists:aeronave,matricula',
             'num_diario' => 'required|numeric',
             'num_servico' => 'required|numeric',
             'piloto_id' => 'required|numeric',
