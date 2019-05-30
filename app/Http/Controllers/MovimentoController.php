@@ -135,18 +135,6 @@ class MovimentoController extends Controller
         }
     }
 
-    public function pendentes(){
-        $this->authorize('viewPendentes',Auth::user());
-
-        /*VAI BUSCAR TODOS OS MOVIMENTOS PENDENTES*/
-        $movimentos = Movimento::whereNotNull('tipo_conflito')->get();
-        $users = User::where('licenca_confirmada','=',0)->OrWhere('certificado_confirmado','=',0)->get();
-
-        $pendentes = array_merge($movimentos->toArray(),$users->toArray());
-
-        return view('movimentos.pendentes',compact('pendentes'));
-
-    }
 
 
 

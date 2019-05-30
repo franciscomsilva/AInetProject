@@ -40,7 +40,7 @@ Route::middleware(['ativo','auth','verified'])->group(function () {
             Route::post('/socios/{user}/send_reactivate_mail', 'UserController@reenviarEmail')->name('user.email');
             #endregion socios
 
-            Route::get('/pendentes','MovimentoController@pendentes')->name('movimentos.pendentes');
+            Route::get('/pendentes','UserController@pendentes')->name('movimentos.pendentes');
 
 
         });
