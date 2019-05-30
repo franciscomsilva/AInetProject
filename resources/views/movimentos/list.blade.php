@@ -80,6 +80,9 @@
 
         <div>
             <a class="btn btn-primary" href="{{route('movimentos.create')}}">Adicionar</a>
+            @if(Auth::user()->direcao)
+                <a class="btn btn-xs btn-info" href="{{route('movimentos.confirmados')}}">Confirmar</a>
+            @endif
         </div>
 
         @if (count($movimentos))
@@ -88,10 +91,10 @@
                 <tr>
                     <th>ID</th>
                     <th>Aeronave</th>
-                    <th>Data Voo</th>
+                    <th>Data</th>
                     <th>Hora Aterragem</th>
                     <th>Hora Descolagem</th>
-                    <th>Tempo Voo</th>
+                    <th>Tempo</th>
                     <th>Natureza</th>
                     <th>Piloto Nome</th>
                     <th>Aeródromo Partida</th>
@@ -113,28 +116,28 @@
                 @foreach($movimentos as $movimento)
                     <tr>
                         <td>{{$movimento->id}}</td>
-                        <td> {{$movimento->aeronave}}</td>
-                        <td>{{$movimento->data}}</td>
-                        <td>date('H:i', strtotime($movimento->hora_aterragem))</td>
-                        <td>date('H:i', strtotime($movimento->hora_descolagem))</td>
+                        <td>{{$movimento->aeronave}}</td>
+                        <td>{{date('d/m/Y', strtotime($movimento->hora_aterragem))}}</td>
+                        <td>{{date('H:i', strtotime($movimento->hora_aterragem))}}</td>
+                        <td>{{date('H:i', strtotime($movimento->hora_descolagem))}}</td>
                         <td>{{$movimento->tempo_voo}} min</td>
                         <td>{{$movimento->naturezaMovimentoToString()}}</td>
                         <td>{{$movimento->piloto->nome_informal}}</td>
                         <td>{{$movimento->aerodromo_partida}}</td>
                         <td>{{$movimento->aerodromo_chegada}}</td>
-                        <td>$movimento->num_aterragens</td>
-                        <td>$movimento->num_descolagens</td>
-                        <td>$movimento->num_diario</td>
-                        <td>$movimento->num_servico</td>
-                        <td>$movimento->conta_horas_inicio</td>
-                        <td>$movimento->conta_horas_fim</td>
-                        <td>$movimento->num_pessoas</td>
+                        <td>{{$movimento->num_aterragens}}</td>
+                        <td>{{$movimento->num_descolagens}}</td>
+                        <td>{{$movimento->num_diario}}</td>
+                        <td>{{$movimento->num_servico}}</td>
+                        <td>{{$movimento->conta_horas_inicio}}</td>
+                        <td>{{$movimento->conta_horas_fim}}</td>
+                        <td>{{$movimento->num_pessoas}}</td>
                         <td>{{$movimento->tipoInstrucaoToString()}}</td>
                         <td>{{$movimento->instrutor==null ? '' : $movimento->nome_informal}}</td>
                         <td>
                             <div class="input-group mb-3">
                                 <div class="input-group">
-                                    <input type="checkbox" {{$movimento->confirmado==1 ? ' disabled checked' : ''}}>
+                                    <input type="checkbox" name={{"confirmado".$movimento->id}} {{$movimento->confirmado==1 ? ' disabled checked' : ''}}>
                                 </div>
                             </div>
                         </td>

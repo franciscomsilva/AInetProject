@@ -8,6 +8,7 @@ use App\Filters\MovimentoFilters;
 use App\Movimento;
 use App\TipoLicenca;
 use App\User;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\Types\Compound;
@@ -27,7 +28,7 @@ class MovimentoController extends Controller
      */
     public function index(MovimentoFilters $filters)
     {
-        $movimentos = Movimento::filter($filters)->paginate();
+        $movimentos = Movimento::filter($filters) ->orderBy('id', 'desc')->paginate();
         $aeronaves = Aeronave::all();
         return view('movimentos.list', compact( ['movimentos', 'aeronaves']));
     }
@@ -92,8 +93,9 @@ class MovimentoController extends Controller
         $this->authorize('update', $movimento);
         $aeronaves = Aeronave::all();
         $pilotos = User::all();
+        $tipoLicencas = TipoLicenca::all();
         $aerodromos = Aerodromo::all();
-        return view('movimentos.edit', compact(['movimento', 'pilotos', 'aeronaves', 'aerodromos']));
+        return view('movimentos.edit', compact(['movimento', 'pilotos', 'aeronaves', 'aerodromos', 'tipoLicencas']));
     }
 
     /**
@@ -116,22 +118,32 @@ class MovimentoController extends Controller
      */
     public function destroy(Movimento $movimento)
     {
-        //$this->authorize('delete', $movimento);
-        $errors = [];
-        if ($movimento->confirmado==1){
+        $this->authorize('delete', $movimento);
+
+        if ($movimento->confirmado==0){
             $movimento->delete();
             return redirect()
                 ->route('movimentos.index')
                 ->with('success', 'Movimento apagado com sucesso!!');
         }
-        else{
-            $errors[0]="Erro";
-            return redirect()
-                ->route('movimentos.index');
-
-        }
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     * @throws AuthorizationException
+     */
+    public function confirma(Request $request){
+        $movimentos = Movimento::all();
+        foreach ($movimentos as $movimento){
+            if (dd($request->has('confirmado'.$movimento->id))){
+                DB::update("update movimentos set confirmado =1 where id = ?",[$movimento->id]);
+            }
+        }
+        return redirect()
+            ->route("movimentos.index")
+            ->with('success','Movimentos confirmados');
+    }
 
 
     /*private function validateDestroy(Movimento $movimento){

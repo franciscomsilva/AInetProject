@@ -81,4 +81,9 @@ class MovimentoPolicy
     {
         //return $user->id==$movimento->piloto_id || $user==$movimento->instrutor_id;
     }
+
+    public function direcao(User $user)
+    {
+        return $user->direcao;
+    }
 }
