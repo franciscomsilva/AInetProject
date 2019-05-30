@@ -7,6 +7,12 @@
 
 <div class="container">
 
+    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ route('user.home') }}">Flight-Club</a></li>
+        <li class="breadcrumb-item active">Aeronaves</li>
+    </ol>
+    </nav>
 
     @if(count($aeronaves) > 0)
     <table class="table table-striped" style="text-alighn: center;">
