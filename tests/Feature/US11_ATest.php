@@ -38,62 +38,62 @@ class US11_ATest extends USTestBase
         $this->actingAs($this->userToSimulate)->get('/movimentos')
                 ->assertStatus(200)
                 ->assertSeeInOrder_2([
-                    '<td',
+                    '<td>',
                     $this->normalMovimento->id,
                     '</td>'
                 ], "A lista com os movimentos não inclui o ID do movimento de testes (criado para efeitos de testes)")
                 ->assertSeeInOrder_2([
-                    '<td',
+                    '<td>',
                     $this->normalMovimento->aeronave,
                     '</td>'
                 ], "A lista com os movimentos não inclui a matricula do movimento de testes (criado para efeitos de testes)")
                 ->assertSeeInOrder_2([
-                    '<td',
+                    '<td>',
                     $this->format_date_input($this->normalMovimento->data),
                     '</td>'
                 ], "A lista com os movimentos não inclui a data do movimento de testes (criado para efeitos de testes) - ou a data não tem o formato correto (".$this->format_date_input($this->normalMovimento->data).")")
                 ->assertSeeInOrder_2([
-                    '<td',
+                    '<td>',
                     $this->format_time_input($this->normalMovimento->hora_descolagem),
                     '</td>'
                 ], "A lista com os movimentos não inclui a hora de descolagem do movimento de testes (criado para efeitos de testes) - ou a hora de descolagem não tem o formato correto (".$this->format_time_input($this->normalMovimento->hora_descolagem).")")
                 ->assertSeeInOrder_2([
-                    '<td',
+                    '<td>',
                     $this->format_time_input($this->normalMovimento->hora_aterragem),
                     '</td>'
                 ], "A lista com os movimentos não inclui a hora de aterragem do movimento de testes (criado para efeitos de testes) - ou a hora de aterragem não tem o formato correto (".$this->format_time_input($this->normalMovimento->hora_aterragem).")")
                 ->assertSeeInOrder_2([
-                    '<td',
+                    '<td>',
                     $this->pilotoUser->nome_informal,
                     '</td>'
                 ], "A lista com os movimentos não inclui o nome informal do piloto do movimento de testes (criado para efeitos de testes)")
                 ->assertSeeInOrder_2([
-                    '<td',
+                    '<td>',
                     $this->normalMovimento->aerodromo_partida,
                     '</td>'
                 ], "A lista com os movimentos não inclui o código do aerodromo de partida do movimento de testes (criado para efeitos de testes)")
                 ->assertSeeInOrder_2([
-                    '<td',
+                    '<td>',
                     $this->normalMovimento->aerodromo_chegada,
                     '</td>'
                 ], "A lista com os movimentos não inclui o código do aerodromo de chegada do movimento de testes (criado para efeitos de testes)")
                 ->assertSeeInOrder_2([
-                    '<td',
+                    '<td>',
                     $this->normalMovimento->num_aterragens,
                     '</td>'
                 ], "A lista com os movimentos não inclui o nº de aterragens do movimento de testes (criado para efeitos de testes)")
                 ->assertSeeInOrder_2([
-                    '<td',
+                    '<td>',
                     $this->normalMovimento->num_descolagens,
                     '</td>'
                 ], "A lista com os movimentos não inclui o nº de descolagens do movimento de testes (criado para efeitos de testes)")
                 ->assertSeeInOrder_2([
-                    '<td',
+                    '<td>',
                     $this->normalMovimento->num_diario,
                     '</td>'
                 ], "A lista com os movimentos não inclui o nº do diário do movimento de testes (criado para efeitos de testes)")
                 ->assertSeeInOrder_2([
-                    '<td',
+                    '<td>',
                     $this->normalMovimento->num_servico,
                     '</td>'
                 ], "A lista com os movimentos não inclui o nº do serviço do movimento de testes (criado para efeitos de testes)");

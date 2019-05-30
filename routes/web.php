@@ -72,7 +72,8 @@ Route::middleware(['ativo','auth','verified'])->group(function () {
         Route::get('/aeronaves/{aeronave}/pilotos/nao-autorizados', 'AeronaveController@pilotosNaoAutorizadosIndex')->name('aeronaves.pilotosNaoAutorizadosIndex');
         Route::post('/aeronaves/{aeronave}/pilotos/{piloto}', 'AeronaveController@autorizarPiloto')->name('aeronaves.autorizarPiloto');
         Route::delete('/aeronaves/{aeronave}/pilotos/{piloto}', 'AeronaveController@removerPiloto')->name('aeronaves.removerPiloto');
-        Route::get('/aeronaves/{aeronave}/precos_tempos', 'AeronaveController@precos_temposIndex')->name('aeronaves.precos_temposIndex');
+        Route::get('/aeronaves/{aeronave}/precos_tempos', 'AeronaveController@precos_temposJSON')->name('aeronaves.precos_temposJSON');
+        Route::get('/aeronaves/{aeronave}/precos', 'AeronaveController@precos_temposIndex')->name('aeronaves.precos_temposIndex');
     
         #endregion aeronaves
 
@@ -87,9 +88,11 @@ Route::middleware(['ativo','auth','verified'])->group(function () {
             Route::get('/movimentos/create', 'MovimentoController@create')->name('movimentos.create');
             Route::get('/movimentos/{movimento}', 'MovimentoController@show')->name('movimentos.show');
             Route::get('/movimentos/{movimento}/edit', 'MovimentoController@edit')->name('movimentos.edit');
+            Route::get('/movimentos/confirmado', 'MovimentoController@confirma')->name('movimentos.confirmados');
             Route::post('/movimentos', 'MovimentoController@store')->name('movimentos.store');
             Route::put('/movimentos/{movimento}', 'MovimentoController@update')->name('movimentos.update');
             Route::delete('/movimentos/{movimento}', 'MovimentoController@destroy')->name('movimentos.destroy');
+
             #endregion movimentos
         });
     });

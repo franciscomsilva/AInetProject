@@ -81,7 +81,13 @@ class MovimentoPolicy
     {
         return $user->id==$movimento->piloto_id || $user==$movimento->instrutor_id;
     }
-
-
-
+    
+    /**
+     * @param  \App\User  $user
+     * @return mixed
+     */
+    public function direcao(User $user)
+    {
+        return $user->direcao;
+    }
 }
