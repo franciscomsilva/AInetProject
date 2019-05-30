@@ -92,7 +92,7 @@ class AeronaveController extends Controller
     public function update(UpdateAeronaveRequest $request, Aeronave $aeronave)
     {
         $this->authorize('update', $aeronave);
-        dd($preco);
+
         if ($aeronave->matricula != $request->matricula) {
             $aeronave->fill($request->only('matricula'));
         }
