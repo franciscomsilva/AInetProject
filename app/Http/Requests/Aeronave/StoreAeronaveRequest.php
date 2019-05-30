@@ -3,10 +3,8 @@
 namespace App\Http\Requests\Aeronave;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Route;
 
-class StoreAeronaveRequest extends FormRequest
+class CreateAeronaveRequest extends FormRequest
 {
     /**
      * Get the messages for the validation rules that apply to the request.
@@ -15,7 +13,7 @@ class StoreAeronaveRequest extends FormRequest
      */
     public function messages(){
         
-        $messages = [
+        return [
             'required' => 'O campo :attribute é obrigatório.',
             'alpha_dash' => 'O campo :attribute só pode conter letras e números.',
             'max' => 'O valor máximo do campo :attribute é :value.',
@@ -23,8 +21,8 @@ class StoreAeronaveRequest extends FormRequest
             'numeric' => 'O campo :attribute só pode conter numeros.',
             'unique' => 'A :attribute já existe, escolha outra.',
         ];
-        return $messages;
     }
+
 
     /**
      * Get the validation rules that apply to the request.
@@ -33,11 +31,9 @@ class StoreAeronaveRequest extends FormRequest
      */
     public function rules()
     {
-        $aeronave = Route::current()->parameter('aeronave');
+
         return [
-            'matricula' => [
-                'required','alpha_dash','between:6,8',Rule::unique('aeronaves')->ignore($aeronave->matricula, 'matricula'),
-            ],
+            'matricula' => 'required|alpha_dash|string|between:6,8|unique:aeronaves',
             'marca' => 'required|alpha_dash|string|between:5,40',
             'modelo' => 'required|alpha_dash|string|between:5,40',
             'num_lugares' => 'required|numeric|integer|min:2',
