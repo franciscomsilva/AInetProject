@@ -79,6 +79,9 @@ class MovimentoPolicy
      */
     public function forceDelete(User $user, Movimento $movimento)
     {
-        //return $user->id==$movimento->piloto_id || $user==$movimento->instrutor_id;
+        return $user->id==$movimento->piloto_id || $user==$movimento->instrutor_id;
     }
+
+
+
 }

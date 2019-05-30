@@ -14,6 +14,7 @@
 Auth::routes(['verify' => true,'register' => false]);
 
 
+
 //GRUPO DE MIDDLEWARE PARA QUE TODAS ESTAS ROTAS SEJAM NECESSARIO ESTAR AUTENTICADO
 Route::middleware(['ativo','auth','verified'])->group(function () {
 
@@ -38,6 +39,10 @@ Route::middleware(['ativo','auth','verified'])->group(function () {
             Route::patch('/socios/{user}/quota', 'UserController@quota')->name('user.quota');
             Route::post('/socios/{user}/send_reactivate_mail', 'UserController@reenviarEmail')->name('user.email');
             #endregion socios
+
+            Route::get('/pendentes','MovimentoController@pendentes')->name('movimentos.pendentes');
+
+
         });
         #ENDREGION DIRECAO
 

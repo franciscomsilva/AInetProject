@@ -9,6 +9,7 @@ use App\Movimento;
 use App\TipoLicenca;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\Types\Compound;
 
@@ -112,8 +113,9 @@ class MovimentoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Movimento  $movimento
+     * @param \App\Movimento $movimento
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Movimento $movimento)
     {
@@ -131,6 +133,19 @@ class MovimentoController extends Controller
                 ->route('movimentos.index');
 
         }
+    }
+
+    public function pendentes(){
+        $this->authorize('viewPendentes',Auth::user());
+
+        /*VAI BUSCAR TODOS OS MOVIMENTOS PENDENTES*/
+        $movimentos = Movimento::whereNotNull('tipo_conflito')->get();
+        $users = User::where('licenca_confirmada','=',0)->OrWhere('certificado_confirmado','=',0)->get();
+
+        $pendentes = array_merge($movimentos->toArray(),$users->toArray());
+
+        return view('movimentos.pendentes',compact('pendentes'));
+
     }
 
 
