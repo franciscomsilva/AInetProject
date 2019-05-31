@@ -76,8 +76,9 @@
             @include('shared.errors')
         @endif
 
-        <div>
+        <div>@can('create', App\Movimento::class)
             <a class="btn btn-primary" href="{{route('movimentos.create')}}">Adicionar</a>
+            @endcan
             @if(Auth::user()->direcao)
                 <a class="btn btn-xs btn-info" href="{{route('movimentos.confirmados')}}">Confirmar</a>
             @endif

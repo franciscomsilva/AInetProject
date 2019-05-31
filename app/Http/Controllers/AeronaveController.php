@@ -58,7 +58,7 @@ class AeronaveController extends Controller
         $aeronave->save();
 
         //calcula os precos por unidade_hora da aeronave.
-        $aeronave->storePrecosUnidade($aeronave->preco_hora, $aeronave->matricula);
+        $aeronave->storePrecosUnidade($request);
         
         return redirect()
             ->route('aeronaves.index')
@@ -93,7 +93,6 @@ class AeronaveController extends Controller
         $this->authorize('update', $aeronave);
         $alteracoes = 0;
         //dd($request->precos, $aeronave->valores()->get(['preco'])); //fazer validacao do vetor precos com os precos que ja estao na aeronave - se for diferente atualiza os precos diferentes... 
-
         if ($aeronave->matricula != $request->matricula) {
             $aeronave->fill($request->only('matricula'));
             $alteracoes++;
@@ -114,14 +113,13 @@ class AeronaveController extends Controller
             $aeronave->fill($request->only('conta_horas'));
             $alteracoes++;
         }
-        if ($aeronave->preco_hora != $request->preco_hora) {
+
+
+        //if ($aeronave->preco_hora != $request->preco_hora) {
             $aeronave->fill($request->only('preco_hora'));
-            $aeronave->storePrecosUnidade($request->preco_hora, $aeronave->matricula);
+            $aeronave->storePrecosUnidade($request);
             $alteracoes++;
-        }
-        /*if($request->precos === $aeronave->valores()->get(['preco'])){
-            dd($request->precos === $aeronave->valores()->get(['preco']));
-        }*/
+        //}
         
         
         
@@ -272,10 +270,10 @@ class AeronaveController extends Controller
     public function precos_temposIndex(Aeronave $aeronave){
         $precos_tempos = $aeronave->valores()->get(['unidade_conta_horas', 'minutos', 'preco']);
 
-        if($precos_tempos->count() != 10){
+       /* if($precos_tempos->count() != 10){
             $aeronave->storePrecosUnidade($aeronave->preco_hora, $aeronave->matricula);
             $precos_tempos = $aeronave->valores()->get(['unidade_conta_horas', 'minutos', 'preco']);
-        }
+        }*/
         
         return view('aeronaves.precos-tempos', compact('precos_tempos', 'aeronave'));
     }
