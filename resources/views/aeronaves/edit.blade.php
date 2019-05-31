@@ -38,7 +38,9 @@
                 @foreach($precos_tempos as $preco_tempo)
                     <tr>
                         <td>{{ $preco_tempo->unidade_conta_horas }}</td>
-                        <td>{{ $preco_tempo->minutos }}</td>
+                        <!--td>{{ $preco_tempo->minutos }}</td-->
+                        <td><input type="number" min="0" class="form-control" name="minutos[]" id="inputMinutos{{$i}}" value="{{old('minutos.$i', $preco_tempo->minutos )}}"/></td>
+
                         @if($i < 9)
                             <td><input type="number" min="0" class="form-control" name="precos[]" id="inputPreco{{$i}}" value="{{old('precos.$i', $preco_tempo->preco )}}"/></td>
                         @else

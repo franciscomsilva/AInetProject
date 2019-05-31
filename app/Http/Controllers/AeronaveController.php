@@ -54,7 +54,7 @@ class AeronaveController extends Controller
         $aeronave = new Aeronave();
 
     
-        $aeronave->fill($request->validated());
+        $aeronave->fill($request->except('precos'));
         $aeronave->save();
 
         //calcula os precos por unidade_hora da aeronave.
@@ -92,7 +92,7 @@ class AeronaveController extends Controller
     {
         $this->authorize('update', $aeronave);
         $alteracoes = 0;
-        //dd($request->precos, $aeronave->valores()->get(['preco'])); //fazer validacao do vetor precos com os precos que ja estao na aeronave - se for diferente atualiza os precos diferentes... 
+
         if ($aeronave->matricula != $request->matricula) {
             $aeronave->fill($request->only('matricula'));
             $alteracoes++;

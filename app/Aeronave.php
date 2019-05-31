@@ -9,7 +9,7 @@ class Aeronave extends Model
 {
     use SoftDeletes;
     protected $fillable = [
-        'matricula', 'marca', 'modelo', 'num_lugares', 'conta_horas', 'preco_hora', 'precos'
+        'matricula', 'marca', 'modelo', 'num_lugares', 'conta_horas', 'preco_hora'
     ];
 
     protected $table = 'aeronaves';
@@ -40,8 +40,7 @@ class Aeronave extends Model
     #region funcoes auxiliares da tabela de ContaHoras
     public function storePrecosUnidade($request){
         $aeronavesValores = AeronaveValor::where('matricula', 'like', $request->matricula)->get();
-        if ($aeronavesValores->count() == 0) { // creates
-           
+        if ($aeronavesValores->count() == 0) { // creates precos com tempo por unidade de tempo = Default for aeronave
             for ($i = 0; $i < 10; $i++) {
                 $aeronaveValor = new AeronaveValor();
 
@@ -51,14 +50,14 @@ class Aeronave extends Model
                 $aeronaveValor->matricula = $request->matricula;
                 $aeronaveValor->save();
             }
-        } else {
+        } else { // modifica os tempos e os precos da aeronave
             $j = 0;
             foreach ($aeronavesValores as $aeronaveValor) {
                 
                 
-                //$aeronaveValor->minutos = $this->roundContaHoras($i);
+                $aeronaveValor->minutos = $request->minutos[$j];
                 $aeronaveValor->preco = $request->precos[$j];
-                // $aeronaveValor->unidade_conta_horas = $i;
+                //$aeronaveValor->unidade_conta_horas = $i;
                 //$aeronaveValor->matricula = $request->matricula;
                 
                 $aeronaveValor->save();
