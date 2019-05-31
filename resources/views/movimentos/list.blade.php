@@ -67,7 +67,7 @@
             @endif
             <div class="col">
                 <label></label>
-                <button type="submit" class="btn btn-success form-control" name="search">Pesquisar</button>
+                <button type="submit" class="btn btn-success form-control">Pesquisar</button>
             </div></div>
     </form>
     <br>

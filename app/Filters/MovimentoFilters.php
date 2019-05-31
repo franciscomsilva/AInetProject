@@ -7,6 +7,7 @@ namespace App\Filters;
 use App\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class MovimentoFilters extends QueryFilters
 {
@@ -51,32 +52,34 @@ class MovimentoFilters extends QueryFilters
     }
 
     /**
-     * Filter by naturezaPesquisa;
+     * Filter by natureza;
      *
      * @param string $natureza
      * @return Builder
      */
-    public function naturezaPesquisa($natureza= ''){
+    public function natureza($natureza= ''){
         return $this->builder->where('natureza', '=', $natureza);
     }
 
     /**
-     * Filter by confirmadoPesquisa;
+     * Filter by confirmado;
      *
      * @param string $confirmado
      * @return Builder
      */
-    public function confirmadoPesquisa($confirmado= ''){
+    public function confirmado($confirmado= ''){
         return $this->builder->where('confirmado', '=', $confirmado);
     }
 
     /**
      * Filter by piloto;
      *
+     * @param Request $request
      * @param string $piloto
      * @return Builder
      */
-    public function piloto($piloto= ''){
+    public function piloto(Request $request, $piloto= ''){
+        dd($request);
         return $this->builder->join('users', 'users.id', '=', 'movimentos.piloto_id')
             ->where('nome_informal', '=', ''.$piloto.'');
     }
@@ -88,6 +91,7 @@ class MovimentoFilters extends QueryFilters
      * @return Builder
      */
     public function instrutor($instrutor= ''){
+
         return $this->builder->join('users', 'users.id', '=', 'movimentos.instrutor_id')
             ->where('nome_informal', 'like', '%'.$instrutor.'%');
     }

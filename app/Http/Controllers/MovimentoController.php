@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Aerodromo;
 use App\Aeronave;
 use App\Filters\MovimentoFilters;
+use App\Http\Requests\Movimento\UpdateMovimentoRequest;
+use App\Http\Requests\StoreMovimentoRequest;
 use App\Movimento;
 use App\TipoLicenca;
 use App\User;
@@ -56,14 +58,14 @@ class MovimentoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreMovimentoRequest $request)
     {
         //dd($request);
         //
         $this->authorize('create', Movimento::class);
 
         $movimento = new Movimento();
-        $movimento->fill($request->validate());
+        $movimento->fill($request->validated());
         $movimento->save();
 
         return redirect()
@@ -104,12 +106,19 @@ class MovimentoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Movimento  $movimentos
+     * @param  \App\Movimento  $movimento
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Movimento $movimentos)
+    public function update(UpdateMovimentoRequest $request, Movimento $movimento)
     {
-        //$this->authorize('update', $movimento);
+        $this->authorize('update', $movimento);
+
+        $movimento->fill($request->all());
+        $movimento->save();
+
+        return redirect()
+            ->route('users.index')
+            ->with('success', 'Movimento updated successfully!');
     }
 
     /**
@@ -137,6 +146,7 @@ class MovimentoController extends Controller
      * @throws AuthorizationException
      */
     public function confirma(Request $request){
+
         $movimentos = Movimento::all();
         foreach ($movimentos as $movimento){
             if (dd($request->has('confirmado'.$movimento->id))){
@@ -147,6 +157,7 @@ class MovimentoController extends Controller
             ->route("movimentos.index")
             ->with('success','Movimentos confirmados');
     }
+
 
 
 
