@@ -156,7 +156,7 @@
                     </tr>
                 @endforeach
             </table>
-                {{$movimentos->links()}}
+                {{$movimentos->appends(Request()->input())->links()}}
 
 
         @else

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Aerodromo;
 use App\Aeronave;
+use App\ClasseCertificado;
 use App\Filters\MovimentoFilters;
 use App\Http\Requests\Movimento\UpdateMovimentoRequest;
 use App\Http\Requests\StoreMovimentoRequest;
@@ -49,7 +50,8 @@ class MovimentoController extends Controller
         $aerodromos = Aerodromo::all();
         $tipoLicencas = TipoLicenca::all();
         $movimento = new Movimento();
-        return view('movimentos.add', compact(['movimento','pilotos', 'aeronaves', 'aerodromos', 'tipoLicencas']));
+        $classesCertificados = ClasseCertificado::all();
+        return view('movimentos.add', compact(['movimento','pilotos', 'aeronaves', 'aerodromos', 'tipoLicencas', 'classesCertificados']));
     }
 
     /**
@@ -99,7 +101,8 @@ class MovimentoController extends Controller
         $pilotos = User::all();
         $tipoLicencas = TipoLicenca::all();
         $aerodromos = Aerodromo::all();
-        return view('movimentos.edit', compact(['movimento', 'pilotos', 'aeronaves', 'aerodromos', 'tipoLicencas']));
+        $classesCertificados = ClasseCertificado::all();
+        return view('movimentos.edit', compact(['movimento', 'pilotos', 'aeronaves', 'aerodromos', 'tipoLicencas','classesCertificados']));
     }
 
     /**
@@ -112,6 +115,12 @@ class MovimentoController extends Controller
     public function update(UpdateMovimentoRequest $request, Movimento $movimento)
     {
         $this->authorize('update', $movimento);
+
+        if (!(Auth::user()->id==$request->id_piloto || Auth::user()->id==$request->id_instrutor)){
+            return redirect()
+                ->route('users.create')
+                ->with('erros', 'erro');
+        }
 
         $movimento->fill($request->all());
         $movimento->save();

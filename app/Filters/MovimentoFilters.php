@@ -38,7 +38,18 @@ class MovimentoFilters extends QueryFilters
      * @return Builder
      */
     public function data_inf($data_inf= ''){
-        return $this->builder->where('data', '=', $data_inf);
+        $data_sup = Request()->input('data_sup');
+
+        if($data_sup=="") {
+            return $this->builder->where('data', '', $data_inf);
+        }
+        else if ($data_inf==$data_sup){
+            return $this->builder->where('data', '=', $data_inf);
+
+        }
+        else if ($data_sup!=$data_inf){
+            return $this->builderwhereBetween('data', array($data_inf, $data_sup));
+        }
     }
 
     /**
@@ -48,7 +59,11 @@ class MovimentoFilters extends QueryFilters
      * @return Builder
      */
     public function data_sup($data_sup= ''){
-        return $this->builder->where('data', '=', $data_sup);
+        $data_inf = Request()->input('data_inf');
+        if($data_inf==""){
+            return $this->builder->where('data', '<=', $data_sup);
+        }
+
     }
 
     /**
@@ -78,10 +93,9 @@ class MovimentoFilters extends QueryFilters
      * @param string $piloto
      * @return Builder
      */
-    public function piloto(Request $request, $piloto= ''){
-        dd($request);
+    public function piloto($piloto= ''){
         return $this->builder->join('users', 'users.id', '=', 'movimentos.piloto_id')
-            ->where('nome_informal', '=', ''.$piloto.'');
+            ->where('name', 'like', '%'.$piloto.'%');
     }
 
     /**
@@ -93,7 +107,7 @@ class MovimentoFilters extends QueryFilters
     public function instrutor($instrutor= ''){
 
         return $this->builder->join('users', 'users.id', '=', 'movimentos.instrutor_id')
-            ->where('nome_informal', 'like', '%'.$instrutor.'%');
+            ->where('name', 'like', '%'.$instrutor.'%');
     }
 
     /**
