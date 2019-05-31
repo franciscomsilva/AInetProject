@@ -94,8 +94,10 @@ class MovimentoFilters extends QueryFilters
      * @return Builder
      */
     public function piloto($piloto= ''){
-        return $this->builder->join('users', 'users.id', '=', 'movimentos.piloto_id')
+        if (Request()->input('instrutor'=='')) {
+                return $this->builder->join('users', 'users.id', '=', 'movimentos.piloto_id')
             ->where('name', 'like', '%'.$piloto.'%');
+            }
     }
 
     /**
@@ -105,9 +107,10 @@ class MovimentoFilters extends QueryFilters
      * @return Builder
      */
     public function instrutor($instrutor= ''){
-
-        return $this->builder->join('users', 'users.id', '=', 'movimentos.instrutor_id')
-            ->where('name', 'like', '%'.$instrutor.'%');
+        if (Request()->input('piloto'=='')) {
+            return $this->builder->join('users', 'users.id', '=', 'movimentos.piloto_id')
+        ->where('name', 'like', '%'.$instrutor.'%');
+        }
     }
 
     /**
