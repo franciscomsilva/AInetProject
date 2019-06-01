@@ -81,17 +81,21 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Flight-Club
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    @auth()
+                        <a href="{{ route('user.index') }}">Sócios</a>
+                        <a href="{{ route('aeronaves.index') }}">Aeronaves</a>
+                        <a href="{{ route('movimentos.index') }}">Movimentos</a>
+                        <a href="{{ route('movimentos.estatisticas') }}">Estatísticas</a>
+                        @can('viewPendentes',Auth::user())
+                            <li>
+                                <a href="{{ route('movimentos.pendentes') }}"> Pendentes </a>
+                            </li>
+                        @endcan
+                    @endauth
                 </div>
             </div>
         </div>
