@@ -13,7 +13,7 @@
 
 
     <!-- Fonts -->
-    <link rel="icon" href="{{asset('storage/img/flight_club.png')}}"/>
+    <link rel="icon" href="{{asset('storage/images/flight_club.png')}}"/>
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
@@ -27,7 +27,7 @@
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
-                    <img src="{{asset('storage/img/flight_club.png')}}" height="50px" width="50px">
+                    <img src="{{asset('storage/images/flight_club.png')}}" height="50px" width="50px">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
