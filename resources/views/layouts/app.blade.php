@@ -8,6 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Flight-Club') }}</title>
+    <link rel="icon" href="{!! asset('images/flight_club.png') !!}"/>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
