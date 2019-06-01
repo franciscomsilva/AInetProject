@@ -321,7 +321,7 @@
             @endif
         </table>
 
-        {{$users->links()}}
+        {{$users->appends($_GET)->links()}}
     @else
 
         <h2>No users found</h2>
