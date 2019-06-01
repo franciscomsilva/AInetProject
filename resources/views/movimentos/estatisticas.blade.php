@@ -3,6 +3,14 @@
 @section('title', 'Estatísticas de Voo')
 
 @section('content')
+    <!-- Secção das breadcrumbs -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('user.home') }}">Flight-Club</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('movimentos.index') }}">Movimentos</a></li>
+            <li class="breadcrumb-item active">Estatísticas</li>
+        </ol>
+    </nav>
 
     @if (count($errors) > 0)
         @include('shared.errors')

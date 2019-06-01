@@ -3,6 +3,19 @@
 @section('title','Detalhes Movimento')
 
 @section('content')
+
+    <!-- Secção das breadcrumbs -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('user.home') }}">Flight-Club</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('movimentos.index') }}">Movimentos</a></li>
+            <li class="breadcrumb-item active">{{ $movimento->id }}</li>
+        </ol>
+    </nav>
+
+
+
+
         <div class="card" style="margin-bottom: 50px;">
             <div class="card-header">
                 <h3 class="card-title">Movimento</h3>
