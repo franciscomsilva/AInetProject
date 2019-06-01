@@ -3,7 +3,16 @@
 @section('title', 'Editar Sócio')
 
 @section('content')
-    
+<!-- secção dos breadcrumbs -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ route('user.home') }}">Flight-Club</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('user.index') }}">Sócios</a></li>
+        <li class="breadcrumb-item"><a href="{{route('user.show', $user)}}">{{ $user->nome_informal }}</a> </li>
+        <li class="breadcrumb-item active">Editar</li>
+    </ol>
+</nav>
+
 <div>
     <form action="{{route('user.update',$user)}}" method="post" class="form-group" enctype="multipart/form-data">
         {{method_field('PUT')}}

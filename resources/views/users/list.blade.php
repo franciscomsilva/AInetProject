@@ -3,7 +3,19 @@
 @section('title','Sócios')
 
 @section('content')
-<div class="row">
+<!-- secção dos breadcrumbs -->
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ route('user.home') }}">Flight-Club</a></li>
+        <li class="breadcrumb-item active"><a href="{{ route('user.index') }}">Sócios</a></li>
+    </ol>
+</nav>
+
+
+
+
+<div class="row"> <!-- secção dos filtros c-->
     <div class="col">
         <div class="card" style="margin-bottom: 50px;">
             <div class="card-header">
