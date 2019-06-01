@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-9">
+    <div class="col">
         <div class="card" style="margin-bottom: 50px;">
             <div class="card-header">
                 <h3 class="card-title">Filtrar</h3>
@@ -78,50 +78,52 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Ações</h3>
-            </div>
-            <div class="card-body">
-                <div class="form-group">
-                    @can('create', App\User::class)
-                        <div class="row">
-                            <div class="col">
+    @if(Auth::user()->direcao)
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Ações</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        @can('create', App\User::class)
+                            <div class="row">
+                                <div class="col">
 
-                                <a class="btn btn-primary" href="{{route('user.create')}}">Adicionar sócio</a>
-                            </div>
+                                    <a class="btn btn-primary" style="width: 100%" href="{{route('user.create')}}">Adicionar sócio</a>
+                                </div>
 
-                        </div>
-                    @endcan
-                    <br>
-                    @can('resetQuotas',App\User::class)
-                        <div class="row">
-                            <div class="col">
-                                <form action="{{route('user.resetQuotas')}}" method="post" class="form-group">
-                                    {{ method_field('PATCH') }}
-                                    {{csrf_field()}}
-                                    <button type="submit" class="btn btn-primary" name="resetQuotas">Reset Quotas</button>
-                                </form>
                             </div>
-                        </div>
-                    @endcan
+                        @endcan
+                        <br>
+                        @can('resetQuotas',App\User::class)
+                            <div class="row">
+                                <div class="col">
+                                    <form action="{{route('user.resetQuotas')}}" method="post" class="form-group">
+                                        {{ method_field('PATCH') }}
+                                        {{csrf_field()}}
+                                        <button type="submit" style="width: 100%" class="btn btn-primary" name="resetQuotas">Reset Quotas</button>
+                                    </form>
+                                </div>
+                            </div>
+                        @endcan
 
-                    @can('resetQuotas',App\User::class)
-                        <div class="row">
-                            <div class="col">
-                                <form action="{{route('user.desativarSQuotas')}}" method="post" class="form-group">
-                                    {{ method_field('PATCH') }}
-                                    {{csrf_field()}}
-                                    <button type="submit" class="btn btn-dark" name="desativaUserQuotas">Desativar p/pagar</button>
-                                </form>
+                        @can('resetQuotas',App\User::class)
+                            <div class="row">
+                                <div class="col">
+                                    <form action="{{route('user.desativarSQuotas')}}" method="post" class="form-group">
+                                        {{ method_field('PATCH') }}
+                                        {{csrf_field()}}
+                                        <button type="submit" style="width: 100%" class="btn btn-dark" name="desativaUserQuotas">Desativar p/pagar</button>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                    @endcan
-                </div> 
+                        @endcan
+                    </div> 
+                </div>
             </div>
         </div>
-    </div>
+    @endif
 </div>
 
 
@@ -149,6 +151,7 @@
                         Quotas em Dia
                     @endcan
                 </th>
+                <th></th>
             </tr>
             </thead>
             <tbody>

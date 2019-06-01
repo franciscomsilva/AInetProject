@@ -108,7 +108,7 @@
                     @can('create', App\Movimento::class)
                         <div class="row">
                             <div class="col">
-                                <a class="btn btn-primary" href="{{route('movimentos.create')}}">Adicionar</a>
+                                <a class="btn btn-primary" style="width: 100%" href="{{route('movimentos.create')}}">Adicionar</a>
                             </div>
                         </div>
                     @endcan
@@ -116,7 +116,7 @@
                     @if(Auth::user()->direcao)                        
                         <div class="row">
                             <div class="col">
-                                <a class="btn btn-xs btn-info" href="{{route('movimentos.confirmados')}}">Confirmar</a>
+                                <a class="btn btn-xs btn-info" style="width: 100%" href="{{route('movimentos.confirmados')}}">Confirmar</a>
                             </div>
                         </div>
                     @endif
@@ -218,7 +218,7 @@
                     
                     <td>{{$movimento->num_pessoas}}</td>
                     <td>{{$movimento->tipoInstrucaoToString()}}</td>
-                    <td>{{$movimento->instrutor==null ? '' : $movimento->nome_informal}}</td>
+                    <td>{{$movimento->instrutor==null ? '' : $movimento->instrutor->nome_informal}}</td>
                     <td>
                         <div class="input-group mb-3">
                             <div class="input-group">
