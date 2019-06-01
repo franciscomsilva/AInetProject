@@ -7,23 +7,13 @@ use Illuminate\Foundation\Http\FormRequest;
 class StoreMovimentoRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    /*public function authorize()
-    {
-        return false;
-    }*/
-
-    /**
      * Get the messages for the validation rules that apply to the request.
      *
      * @return array
      */
     public function messages(){
 
-        $messages = [
+        return [
             'required' => 'O campo :attribute é obrigatório.',
             'alpha_dash' => 'O campo :attribute só pode conter letras e números.',
             'max' => 'O valor máximo do campo :attribute é :value.',
@@ -31,7 +21,6 @@ class StoreMovimentoRequest extends FormRequest
             'numeric' => 'O campo :attribute só pode conter numeros.',
             'unique' => 'A :attribute já existe, escolha outra.',
         ];
-        return $messages;
     }
 
     /**
@@ -42,10 +31,11 @@ class StoreMovimentoRequest extends FormRequest
     public function rules()
     {
         return [
+
             'data' => 'required|date',
-            'hora_descolagem' => 'required|datetime',
-            'hora_aterragem' => 'required|datetime',
-            'aeronave' => 'required|exists:aeronave,matricula',
+            'hora_descolagem' => 'required|date',
+            'hora_aterragem' => 'required|date|after:hora_descolagem',
+            'aeronave' => 'required|exists:aeronaves,matricula',
             'num_diario' => 'required|numeric',
             'num_servico' => 'required|numeric',
             'piloto_id' => 'required|numeric',
@@ -80,6 +70,8 @@ class StoreMovimentoRequest extends FormRequest
             'created_at' => 'required',
             'updated_at' => 'required',
             'tipo_conflito' => 'nullable | in:S,B',
-            'justificacao_conflito' => 'nullable'];
+            'justificacao_conflito' => 'nullable'
+            ];
+
     }
 }

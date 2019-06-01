@@ -24,6 +24,6 @@
 </div>
 <div class="form-group"> <!-- preco por hora -->
     <label for="inputPrecoHora">Preço por Hora</label>
-    <input type="number" min="1" class="form-control" name="preco_hora" id="inputPrecoHora" value="{{old('preco_hora', $aeronave->preco_hora )}}"  placeholder="Preço por hora"/>
+    <input type="number" min="1" class="form-control" name="preco_hora" id="inputPrecoHora" onchange="calcularPrecosUnidades()" value="{{old('preco_hora', $aeronave->preco_hora )}}"  placeholder="Preço por hora"/>
 </div>
 

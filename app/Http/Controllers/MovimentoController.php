@@ -17,10 +17,6 @@ use phpDocumentor\Reflection\Types\Compound;
 
 class MovimentoController extends Controller
 {
-    /*public function __construct()
-    {
-        $this->middleware('auth');
-    }*/
 
     /**
      * Display a listing of the resource.
@@ -60,20 +56,24 @@ class MovimentoController extends Controller
     public function store(StoreMovimentoRequest $request)
     {
 
-        //$this->authorize('create', Movimento::class);
 
+        $this->authorize('create', Movimento::class);
         $movimento = new Movimento();
         $movimento->fill($request->validated());
 
         $this->verificaConflitos($movimento);
-        //$movimento->save();
 
 
-        /*
+
+        $movimento = new Movimento();
+        $movimento->fill($request->validated());
+        $movimento->save();
+
+
         return redirect()
             ->route('movimentos.index')
             ->with('success', 'Movimento adicionado com sucesso!');
-    */}
+    }
 
     /**
      * Display the specified resource.
@@ -113,7 +113,7 @@ class MovimentoController extends Controller
      */
     public function update(Request $request, Movimento $movimentos)
     {
-        //$this->authorize('update', $movimento);
+        return $this->authorize('update', $movimento);
     }
 
     /**

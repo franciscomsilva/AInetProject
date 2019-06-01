@@ -7,12 +7,12 @@
     <form action="{{URL::Current()}}">
         <div class="row">
             <div class="col">
-                <label for="idMovimentoPesquisa">ID</label>
-                <input type="number" class="form-control" name="idMovimentoPesquisa"  {{ old('idMovimentoPesquisa',(isset($_GET["idMovimentoPesquisa"]) ? $_GET["idMovimentoPesquisa"] : ''))}}/>
+                <label for="id">ID:</label>
+                <input type="number" name="id" class="form-control"/>
             </div>
             <div class="col">
                 <label for="aeronave">Matricula</label>
-                <select name="aeronave" id="inputAeronaves" class="form-control">
+                <select name="aeronave" class="form-control">
                     <option value=""></option>
                     @foreach($aeronaves as $aeronave)
                         <option value="{{$aeronave->matricula}}">{{$aeronave->matricula}}</option>
@@ -20,40 +20,38 @@
                 </select>
             </div></div>
         <div class="row"><div class="col">
-                <label for="dataInfPesquisa">Data Inferior</label>
+                <label for="data_inf">Data Inferior</label>
                 <input
-                        type="date" class="form-control"
-                        name="dataInfPesquisa"
+                        type="date" name="data_inf" class="form-control"
                         placeholder="Data Inferior" {{old('dataInfPesquisa')}}/>
             </div><div class="col">
-                <label for="dataSupPesquisa">Data Superior</label>
+                <label for="data_sup">Data Superior</label>
                 <input
-                        type="date" class="form-control"
-                        name="dataSupPesquisa"
+                        type="date" name="data_sup" class="form-control"
                         placeholder="Data Superior" {{old('dataSupPesquisa')}}>
             </div></div>
         <div class="row"><div class="col">
-                <label for="naturezaPesquisa">Natureza</label>
-                <select name="naturezaPesquisa" class="form-control">
+                <label for="natureza">Natureza</label>
+                <select name="natureza" class="form-control">
                     <option disabled selected> -- Natureza -- </option>
                     <option value="T">Treino</option>
                     <option value="I">Instrução</option>
                     <option value="E">Especial</option>
                 </select>
             </div><div class="col">
-                <label for="confirmadoPesquisa">Confirmado</label>
-                <select name="confirmadoPesquisa" class="form-control">
+                <label for="confirmado">Confirmado</label>
+                <select name="confirmado" class="form-control">
                     <option disabled selected value></option>
                     <option  value="1">Sim</option>
                     <option  value="0">Não</option>
                 </select>
             </div></div>
         <div class="row"><div class="col">
-                <label for="inputPilotoPesquisa">Piloto</label>
-                <input type="text" name="nomePilotoPesquisa" placeholder="Nome Piloto" class="form-control">
+                <label for="piloto">Piloto</label>
+                <input type="text" name="piloto" placeholder="Nome Piloto" class="form-control">
             </div><div class="col">
-                <label for="inputInstrutorPesquisa">Instrutor</label>
-                <input type="text" name="nomeInstrutorPesquisa" placeholder="Nome Instrutor" class="form-control">
+                <label for="instrutor">Instrutor</label>
+                <input type="text" name="instrutor" placeholder="Nome Instrutor" class="form-control">
             </div>
             @if(Auth::user()->tipo_socio=='P')
             <div class="col">
@@ -162,7 +160,7 @@
 
         @else
 
-            <h2>Not ... found</h2>
+            <h2>Não existem registos!</h2>
 
         @endif
     </div>

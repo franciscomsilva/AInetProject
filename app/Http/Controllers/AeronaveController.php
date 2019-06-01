@@ -10,8 +10,8 @@ use App\AeronaveValor;
 use App\User;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-use App\Http\Requests\Aeronave\CreateAeronaveRequest;
 use App\Http\Requests\Aeronave\StoreAeronaveRequest;
+use App\Http\Requests\Aeronave\UpdateAeronaveRequest;
 
 class AeronaveController extends Controller
 {
@@ -45,10 +45,10 @@ class AeronaveController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  CreateAeronaveRequest  $request
+     * @param  StoreAeronaveRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateAeronaveRequest $request)
+    public function store(StoreAeronaveRequest $request)
     {
         $this->authorize('create', Aeronave::class);
         $aeronave = new Aeronave();
@@ -84,12 +84,12 @@ class AeronaveController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param StoreAeronaveRequest $request
+     * @param UpdateAeronaveRequest $request
      * @param Aeronave $aeronave
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(StoreAeronaveRequest $request, Aeronave $aeronave)
+    public function update(UpdateAeronaveRequest $request, Aeronave $aeronave)
     {
         $this->authorize('update', $aeronave);
 

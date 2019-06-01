@@ -1,11 +1,19 @@
 @extends('layouts.app')
 
-@section('title', 'Tabela de Preços')
+@section('title', 'Tabela de Preços - ' . $aeronave->marca . ' ' . $aeronave->modelo)
 
 @section('content')
 <div class="container">
+    
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('user.home') }}">Flight-Club</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('aeronaves.index') }}">Aeronaves</a></li>
+            <li class="breadcrumb-item active">{{ $aeronave->matricula }} </li>
+            <li class="breadcrumb-item active">Preços</li>
+        </ol>
+    </nav>
 
-    <h3>{{ $aeronave->marca }} {{ $aeronave->modelo }} ({{$aeronave->matricula }})</h3>
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
             <thead>
