@@ -78,10 +78,10 @@
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
-                                                <input type="checkbox" name="meusMovimentosPesquisa" value="{{old('meusMovimentosPesquisa')}}">
+                                                <input type="checkbox" name="meusMovimentosPesquisa" {{old('meusMovimentosPesquisa')}}>
                                             </div>
                                         </div>
-                                        <label type="text" class="form-control"> Meus Movimentos</label>
+                                        <label type="text" class="form-control">Meus Movimentos</label>
                                     </div>
                                 </div>
                             @endif

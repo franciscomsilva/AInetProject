@@ -5,6 +5,7 @@ namespace App\Filters;
 
 
 use App\User;
+use App\Movimento;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -97,17 +98,21 @@ class MovimentoFilters extends QueryFilters
   /*      return DB::table('movimentos')
                 ->join('users', 'movimentos.piloto_id', '=', 'users.id')
                 ->select('movimentos.*')->get();
-*/
+*
         return $piloto->movimentoPiloto();
-        /*
-
-        return $this->builder->join('users', 'movimentos.piloto_id', '=', 'users.id')
-        ->where('name', 'like', '%'.$piloto.'%')->get();
+        */
         
-            if (Request()->input('instrutor'=='')) {
+        //if (Request()->input('instrutor'=='')) {
+            //dd($piloto);
+            $pilotos_ids = User::where('name', 'like', '%'.$piloto.'%')->get('id');
+            $movimentosPiloto = Movimento::whereIn('piloto_id', $pilotos_ids)->get();
+            //dd($pilotos_ids, $movimentosPiloto);
+            
+            return $this->builder->whereIn('piloto_id', $pilotos_ids);
+        
 
             //return $this->builder->join('users', 'users.id', '=', 'movimentos.piloto_id')->where('name', 'like', '%'.$piloto.'%');
-        }*/
+       // }
     }
 
     /**
@@ -130,7 +135,9 @@ class MovimentoFilters extends QueryFilters
      */
     public function meusMovimentosPesquisa($meusMovimento = ''){
         if ($meusMovimento=="on"){
-            return $this->builder->where('piloto_id', "=", Auth::User()->id)->orWhere('instrutor_id', '=', Auth::User()->id);
+            //dd(Auth::User()->movimentoPiloto());
+            return Auth::User()->movimentoPiloto()->get();
+            //return $this->builder->where('piloto_id', "=", Auth::User()->id)->orWhere('instrutor_id', '=', Auth::User()->id);
         }
 
     }
