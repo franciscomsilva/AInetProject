@@ -7,8 +7,8 @@
         {{method_field('PUT')}}
         @include('movimentos.partials.add-edit')
         <div class="form-group">
-            <button type="submit" class="btn btn-success" name="ok">Save</button>
-            <a type="submit" class="btn btn-default" name="cancel" href="{{route('movimentos.index')}}">Cancel</a>
+            <button type="submit" class="btn btn-success" name="ok">Guardar</button>
+            <a type="submit" class="btn btn-default" name="cancel" href="{{route('movimentos.index')}}">Cancelar</a>
         </div>
     </form>
 @endsection

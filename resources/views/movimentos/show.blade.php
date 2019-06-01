@@ -3,7 +3,6 @@
 @section('title','Detalhes Movimento')
 
 @section('content')
-    <div class="container">
         <div class="card" style="margin-bottom: 50px;">
             <div class="card-header">
                 <h3 class="card-title">Movimento</h3>
@@ -207,5 +206,8 @@
         </div>
     </div>
             @endif
-    </div>
+            @can('update', $movimento)
+                <a class="btn btn-xs btn-primary" href="{{route('movimentos.edit', $movimento)}}">Editar</a>
+            @endcan
+
 @endsection

@@ -41,14 +41,14 @@ class MovimentoFilters extends QueryFilters
         $data_sup = Request()->input('data_sup');
 
         if($data_sup=="") {
-            return $this->builder->where('data', '', $data_inf);
+            return $this->builder->where('data', '<=', $data_inf);
         }
         else if ($data_inf==$data_sup){
             return $this->builder->where('data', '=', $data_inf);
 
         }
         else if ($data_sup!=$data_inf){
-            return $this->builderwhereBetween('data', array($data_inf, $data_sup));
+            return $this->builder->whereBetween('data', array($data_inf, $data_sup));
         }
     }
 
@@ -60,8 +60,9 @@ class MovimentoFilters extends QueryFilters
      */
     public function data_sup($data_sup= ''){
         $data_inf = Request()->input('data_inf');
+
         if($data_inf==""){
-            return $this->builder->where('data', '<=', $data_sup);
+            return $this->builder->where('data', '>=', $data_sup);
         }
 
     }
@@ -89,15 +90,24 @@ class MovimentoFilters extends QueryFilters
     /**
      * Filter by piloto;
      *
-     * @param Request $request
      * @param string $piloto
      * @return Builder
      */
     public function piloto($piloto= ''){
-        if (Request()->input('instrutor'=='')) {
-                return $this->builder->join('users', 'users.id', '=', 'movimentos.piloto_id')
-            ->where('name', 'like', '%'.$piloto.'%');
-            }
+  /*      return DB::table('movimentos')
+                ->join('users', 'movimentos.piloto_id', '=', 'users.id')
+                ->select('movimentos.*')->get();
+*/
+        return $piloto->movimentoPiloto();
+        /*
+
+        return $this->builder->join('users', 'movimentos.piloto_id', '=', 'users.id')
+        ->where('name', 'like', '%'.$piloto.'%')->get();
+        
+            if (Request()->input('instrutor'=='')) {
+
+            //return $this->builder->join('users', 'users.id', '=', 'movimentos.piloto_id')->where('name', 'like', '%'.$piloto.'%');
+        }*/
     }
 
     /**
@@ -108,8 +118,7 @@ class MovimentoFilters extends QueryFilters
      */
     public function instrutor($instrutor= ''){
         if (Request()->input('piloto'=='')) {
-            return $this->builder->join('users', 'users.id', '=', 'movimentos.piloto_id')
-        ->where('name', 'like', '%'.$instrutor.'%');
+            return $this->builder->join('users', 'users.id', '=', 'movimentos.piloto_id')->where('name', 'like', '%'.$instrutor.'%');
         }
     }
 

@@ -1,4 +1,5 @@
 {{csrf_field()}}
+<h3>Dados gerais</h3>
 <input type="hidden" name="id" value="{{ $movimento->id }}">
 <!--Data-->
 <div class="form-group">
@@ -34,6 +35,9 @@
     <label for="num_servico">Número Serviço</label>
     <input type="number" name="num_servico" value="{{old('num_servico', $movimento->num_servico)}}" class="form-control">
 </div>
+<br>
+<h3>Dados do Piloto</h3>
+
 <!--Piloto-->
 <div class="form-group">
     <label for="piloto_id">Piloto</label>
@@ -91,6 +95,9 @@
         <option value="E" {{ old('natureza',$movimento->natureza)=='E' ? 'selected' : '' }}>Especial</option>
     </select>
 </div>
+<br>
+<h3>Dados de Voo</h3>
+
 <!--Aerodromo Partida-->
 <div class="form-group">
     <label for="aerodromo_partida">Aeródromo Partida</label>
@@ -144,6 +151,9 @@
     <label for="preco_voo">Preço Voo (€)</label>
     <input disabled type="number" name="preco_voo" id="inputPrecoVoo" value="{{old('preco_voo', $movimento->preco_voo)}}" class="form-control disabled">
 </div>
+<br>
+<h3>Dados de Pagamento</h3>
+
 <!--Modo Pagamento-->
 <div class="form-group">
     <label for="modo_pagamento">Modo Pagamento</label>
@@ -166,6 +176,8 @@
 </div>
 <!--Confirmado-->
 <input type="hidden" name="confirmado" value="0">
+<h3>Dados da Instrução e do Instrutor</h3>
+
 <!--Tipo Instrucao-->
 <div class="form-group">
     <label for="tipo_instrucao">Tipo Instrução</label>
@@ -223,6 +235,9 @@
         @endforeach
     </select>
 </div>
+<br>
+<h3>Conflitos</h3>
+
 <!--Tipo Conflito-->
 <div class="form-group">
     <label for="tipo_conflito">Tipo Conflito</label>

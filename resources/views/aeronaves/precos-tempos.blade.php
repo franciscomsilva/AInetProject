@@ -3,7 +3,6 @@
 @section('title', 'Tabela de Preços - ' . $aeronave->marca . ' ' . $aeronave->modelo)
 
 @section('content')
-<div class="container">
     
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -41,6 +40,5 @@
         </td>
     </div>
 
-</div>
 @endsection
 

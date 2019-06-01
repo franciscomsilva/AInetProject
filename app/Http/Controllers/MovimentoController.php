@@ -32,8 +32,9 @@ class MovimentoController extends Controller
      */
     public function index(MovimentoFilters $filters)
     {
-        $movimentos = Movimento::filter($filters) ->orderBy('id', 'desc')->paginate();
+        $movimentos = Movimento::filter($filters) ->orderBy('id', 'desc')->paginate(15);
         $aeronaves = Aeronave::all();
+
         return view('movimentos.list', compact( ['movimentos', 'aeronaves']));
     }
 
@@ -115,15 +116,16 @@ class MovimentoController extends Controller
     public function update(UpdateMovimentoRequest $request, Movimento $movimento)
     {
         $this->authorize('update', $movimento);
-
+/*
         if (!(Auth::user()->id==$request->id_piloto || Auth::user()->id==$request->id_instrutor)){
             return redirect()
                 ->route('users.create')
                 ->with('erros', 'erro');
-        }
+        }*/
 
-        $movimento->fill($request->all());
-        $movimento->save();
+       // $movimento->fill($request->all());
+       $movimento->fill($request->validated()); 
+       $movimento->save();
 
         return redirect()
             ->route('users.index')
