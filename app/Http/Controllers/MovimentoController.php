@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Aerodromo;
+use App\Aeronave;
+use App\ClasseCertificado;
+use App\Filters\MovimentoFilters;
 use App\Http\Requests\Movimento\UpdateMovimentoRequest;
 use App\Http\Requests\StoreMovimentoRequest;
 use App\Movimento;

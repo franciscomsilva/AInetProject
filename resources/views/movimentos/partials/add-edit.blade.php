@@ -19,11 +19,8 @@
 <!--Aeronave-->
 <div class="form-group">
     <label for="aeronave">Aeronave</label>
-<<<<<<< HEAD
+
     <select name="aeronave" id="inputAeronaves" class="form-control">
-=======
-    <select name="aeronave" class="form-control">
->>>>>>> f3b5a81377898d6127de61e4e5945388d250ab8d
         @foreach($aeronaves as $aeronave)
             <option value="{{$aeronave->matricula}}" {{old('aeronaves', $movimento->aeronave)==$aeronave->matricula? 'selected' : ''}}>{{$aeronave->matricula}}</option>
             @endforeach
@@ -148,20 +145,19 @@
 <!--Tempo Voo-->
 <div class="form-group">
     <label for="tempo_voo">Tempo Voo (min)</label>
-<<<<<<< HEAD
+
     <input disabled type="number" id="inputTempoVoo" name="tempo_voo" value="{{old('tempo_voo', $movimento->tempo_voo)}}" class="form-control disabled">
-=======
+
     <input disabled type="number" name="tempo_voo" id="inputTempoVoo" value="{{old('tempo_voo', $movimento->tempo_voo)}}" class="form-control disabled">
->>>>>>> f3b5a81377898d6127de61e4e5945388d250ab8d
+
 </div>
 <!--Preço Voo-->
 <div class="form-group">
     <label for="preco_voo">Preço Voo (€)</label>
-<<<<<<< HEAD
+
     <input disabled type="number" id="inputPrecoVoo" name="preco_voo" value="{{old('preco_voo', $movimento->preco_voo)}}" class="form-control disabled">
-=======
+
     <input disabled type="number" name="preco_voo" id="inputPrecoVoo" value="{{old('preco_voo', $movimento->preco_voo)}}" class="form-control disabled">
->>>>>>> f3b5a81377898d6127de61e4e5945388d250ab8d
 </div>
 <br>
 <h3>Dados de Pagamento</h3>
