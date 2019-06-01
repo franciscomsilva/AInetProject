@@ -78,7 +78,7 @@
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
-                                                <input type="checkbox" name="meusMovimentosPesquisa" {{old('meusMovimentosPesquisa')}}>
+                                                <input type="checkbox" name="meusMovimentos">
                                             </div>
                                         </div>
                                         <label type="text" class="form-control">Meus Movimentos</label>
@@ -116,7 +116,7 @@
                     @if(Auth::user()->direcao)                        
                         <div class="row">
                             <div class="col">
-                                <a class="btn btn-xs btn-info" style="width: 100%" href="{{route('movimentos.confirmados')}}">Confirmar</a>
+                                <a class="btn btn-xs btn-info" style="width: 100%" href="{{route('movimentos.confirmado')}}">Confirmar</a>
                             </div>
                         </div>
                     @endif
@@ -222,7 +222,7 @@
                     <td>
                         <div class="input-group mb-3">
                             <div class="input-group">
-                                <input type="checkbox" name={{"confirmado".$movimento->id}} {{$movimento->confirmado==1 ? ' disabled checked' : ''}}>
+                                <input type="checkbox" name="confirmado" value="{{$movimento->confirmado}}" {{$movimento->confirmado==1 ? ' disabled checked' : ''}}>
                             </div>
                         </div>
                     </td>

@@ -80,6 +80,7 @@ Route::middleware(['ativo','auth','verified'])->group(function () {
         //Movimentos!
         #region movimentos
         Route::get('/movimentos', 'MovimentoController@index')->name('movimentos.index');
+        Route::get('/movimentos/confirmado', 'MovimentoController@confirmado')->name('movimentos.confirmado');
         Route::get('/movimentos/estatisticas', 'EstatisticasController@estatisticas')->name('movimentos.estatisticas');
         Route::post('movimentos/estatisticas', 'EstatisticasController@getEstatisticas')->name('movimentos.getEstatisticas');
 
@@ -88,7 +89,7 @@ Route::middleware(['ativo','auth','verified'])->group(function () {
             Route::get('/movimentos/create', 'MovimentoController@create')->name('movimentos.create');
             Route::get('/movimentos/{movimento}', 'MovimentoController@show')->name('movimentos.show');
             Route::get('/movimentos/{movimento}/edit', 'MovimentoController@edit')->name('movimentos.edit');
-            Route::get('/movimentos/confirmado', 'MovimentoController@confirma')->name('movimentos.confirmados');
+
             Route::post('/movimentos', 'MovimentoController@store')->name('movimentos.store');
             Route::put('/movimentos/{movimento}', 'MovimentoController@update')->name('movimentos.update');
             Route::delete('/movimentos/{movimento}', 'MovimentoController@destroy')->name('movimentos.destroy');

@@ -4,22 +4,22 @@
 <!--Data-->
 <div class="form-group">
     <label for="data">Data</label>
-    <input type="date" name="data" value="{{old('data', $movimento->data)}}" class="form-control">
+    <input type="date" name="data" value="{{old('data', $movimento->data)}}" class="form-control" required>
 </div>
 <!--Hora Deslocagem-->
 <div class="form-group">
     <label for="hora_descolagem">Hora Descolagem</label>
-    <input type="time" name="hora_descolagem" value="{{old('hora_descolagem', date('H:i', strtotime($movimento->hora_descolagem)))}}" class="form-control">
+    <input type="time" name="hora_descolagem" value="{{old('hora_descolagem', date('H:i', strtotime($movimento->hora_descolagem)))}}" class="form-control" required>
 </div>
 <!--Hora Aterragem-->
 <div class="form-group">
     <label for="hora_aterragem">Hora Aterragem</label>
-    <input type="time" name="hora_aterragem" value="{{old('hora_aterragem', date('H:i', strtotime($movimento->hora_aterragem)))}}" class="form-control">
+    <input type="time" name="hora_aterragem" value="{{old('hora_aterragem', date('H:i', strtotime($movimento->hora_aterragem)))}}" class="form-control" required>
 </div>
 <!--Aeronave-->
 <div class="form-group">
     <label for="aeronave">Aeronave</label>
-    <select name="aeronave" class="form-control">
+    <select name="aeronave" id="aeronave" class="form-control">
         @foreach($aeronaves as $aeronave)
             <option value="{{$aeronave->matricula}}" {{old('aeronaves', $movimento->aeronave)==$aeronave->matricula? 'selected' : ''}}>{{$aeronave->matricula}}</option>
             @endforeach
@@ -50,12 +50,12 @@
 <!--Num Licença-->
 <div class="form-group">
     <label for="num_licenca_piloto">Número Licença</label>
-    <input type="number" name="num_licenca_piloto" class="form-control" value="{{old('inputNumLincenca', $movimento->num_licenca_piloto)}}"/>
+    <input type="number" name="num_licenca_piloto" class="form-control" value="{{old('num_licenca_piloto', $movimento->num_licenca_piloto)}}"/>
 </div>
 <!--Validade Licença-->
 <div class="form-group">
     <label for="validade_licenca_piloto">Validade Licença</label>
-    <input type="date" name="validade_licenca_piloto" class="form-control" value="{{old('inputValidadeLincenca', $movimento->validade_licenca_piloto)}}"/>
+    <input type="date" name="validade_licenca_piloto" class="form-control" value="{{old('validade_licenca_piloto', $movimento->validade_licenca_piloto)}}"/>
 </div>
 <!--Tipo Licença-->
 <div class="form-group">
@@ -119,7 +119,7 @@
 <!--Numero de Aterragens-->
 <div class="form-group">
     <label for="num_aterragens">Número Aterragens</label>
-    <input type="number" name="num_aterragens" value="{{old('numAterragens', $movimento->num_aterragens)}}" class="form-control">
+    <input type="number" name="num_aterragens" value="{{old('num_aterragens', $movimento->num_aterragens)}}" class="form-control">
 </div>
 <!--Numero de Deslocagens-->
 <div class="form-group">
@@ -134,22 +134,22 @@
 <!--Conta Horas Inicial-->
 <div class="form-group">
     <label for="conta_horas_inicio">Conta Horas Inicial</label>
-    <input type="number" name="conta_horas_inicio" value="{{old('conta_horas_inicio', $movimento->conta_horas_inicio)}}" class="form-control">
+    <input type="text" name="conta_horas_inicio" value="{{old('conta_horas_inicio', $movimento->conta_horas_inicio)}}" id="conta_horas_inicio" class="form-control">
 </div>
 <!--Conta Horas Final-->
 <div class="form-group">
     <label for="conta_horas_fim">Conta Horas Final</label>
-    <input type="number" name="conta_horas_fim" onchange="calcularPrecoETempoVoo()" value="{{old('conta_horas_fim', $movimento->conta_horas_fim)}}" class="form-control">
+    <input type="text" name="conta_horas_fim" onchange="calcularPrecoETempoVoo()" onload="calcularPrecoETempoVoo()" value="{{old('conta_horas_fim', $movimento->conta_horas_fim)}}" id="conta_horas_fim" class="form-control">
 </div>
 <!--Tempo Voo-->
 <div class="form-group">
     <label for="tempo_voo">Tempo Voo (min)</label>
-    <input disabled type="number" name="tempo_voo" id="inputTempoVoo" value="{{old('tempo_voo', $movimento->tempo_voo)}}" class="form-control disabled">
+    <input type="text" name="tempo_voo" id="tempo_voo" value="{{old('tempo_voo', $movimento->tempo_voo)}}" class="form-control">
 </div>
 <!--Preço Voo-->
 <div class="form-group">
     <label for="preco_voo">Preço Voo (€)</label>
-    <input disabled type="number" name="preco_voo" id="inputPrecoVoo" value="{{old('preco_voo', $movimento->preco_voo)}}" class="form-control disabled">
+    <input type="text" name="preco_voo" id="preco_voo" value="{{old('preco_voo', $movimento->preco_voo)}}" class="form-control">
 </div>
 <br>
 <h3>Dados de Pagamento</h3>
@@ -166,8 +166,8 @@
 </div>
 <!--Recibo-->
 <div class="form-group">
-    <label for="modo_pagamento">Recibo</label>
-    <input type="number" name="modo_pagamento" value="{{old('modo_pagamento', $movimento->num_recibo)}}" class="form-control disabled">
+    <label for="num_recibo">Recibo</label>
+    <input type="number" name="num_recibo" value="{{old('num_recibo', $movimento->num_recibo)}}" class="form-control disabled">
 </div>
 <!--Observações-->
 <div class="form-group">
@@ -182,7 +182,7 @@
 <div class="form-group">
     <label for="tipo_instrucao">Tipo Instrução</label>
     <select name="tipo_instrucao" class="form-control">
-        <option value="" disabled> -- Não é instrução -- </option>
+        <option value=""> -- Não é instrução -- </option>
         <option value="D" {{ old('tipo_instrucao', $movimento->tipo_instrucao)=='D' ? 'selected' : ''}}>Duplo Comando</option>
         <option value="S" {{ old('tipo_instrucao', $movimento->tipo_instrucao)=='S' ? 'selected' : ''}}>Solo</option>
     </select>
@@ -258,18 +258,18 @@
     function calcularPrecoETempoVoo(){
 
         //OBTEM E CALCULA AS UNIDADES DE CONTA HORAS DO VOO
-        var contaHorasInicial = document.getElementById('inputContaHorasInicial').value;
-        var contaHorasFinal = document.getElementById('inputContaHorasFinal').value;
+        var contaHorasInicial = document.getElementById('conta_horas_inicio').value;
+        var contaHorasFinal = document.getElementById('conta_horas_fim').value;
         var valoresContaHoras = contaHorasFinal - contaHorasInicial;
 
 
         //OBTEM OS CAMPOS A PREEENCHER
-        var inputPreco = document.getElementById('inputPrecoVoo');
-        var inputTempoVoo = document.getElementById('inputTempoVoo');
+        var inputPreco = document.getElementById('preco_voo');
+        var inputTempoVoo = document.getElementById('tempo_voo');
 
 
         //OBTEM A MATRICULA DA AERONAVE EM QUESTAO
-        var aeronave = document.getElementById('inputAeronaves');
+        var aeronave = document.getElementById('aeronave');
         var matricula = aeronave.options[aeronave.selectedIndex].value;
 
 
@@ -287,7 +287,7 @@
             inputPreco.value = Number(valoresContaHoras * preco);
 
             //CALCULA E PREENCHE O TEMPO DE VOO EM MINUTOS
-            inputTempoVoo.value = minutosVoo * valoresContaHoras;
+            inputTempoVoo.value = Number(minutosVoo * valoresContaHoras);
 
         });
 

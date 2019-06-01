@@ -75,7 +75,25 @@ class MovimentoFilters extends QueryFilters
      * @return Builder
      */
     public function natureza($natureza= ''){
+        if (Request()->input('piloto')!=null && Request()->input('instrutor')!=null) {
+            $pilotos_ids = User::where('nome_informal', 'like', '%'.Request()->input('piloto').'%')->get('id');
+
+            $instrutores_ids = User::where('name', 'like', '%'.Request()->input('instrutor').'%')->get('id');
+
+
+            return $this->builder->Where('natureza', '=', $natureza)->whereIn('piloto_id', $pilotos_ids)
+                ->whereIn('instrutor_id', $instrutores_ids);
+        }
+
+        if (Request()->input('piloto')!=null) {
+            $pilotos_ids = User::where('nome_informal', 'like', '%'.Request()->input('piloto').'%')->get('id');
+
+            return $this->builder->Where('natureza', '=', $natureza)->whereIn('piloto_id', $pilotos_ids);
+        }
+
         return $this->builder->where('natureza', '=', $natureza);
+
+
     }
 
     /**
@@ -95,18 +113,9 @@ class MovimentoFilters extends QueryFilters
      * @return Builder
      */
     public function piloto($piloto= ''){
-  /*      return DB::table('movimentos')
-                ->join('users', 'movimentos.piloto_id', '=', 'users.id')
-                ->select('movimentos.*')->get();
-*
-        return $piloto->movimentoPiloto();
-        */
-        $pilotos_ids = User::where('name', 'like', '%'.$piloto.'%')->get('id');
+        $pilotos_ids = User::where('nome_informal', 'like', '%'.$piloto.'%')->get('id');
 
         return $this->builder->whereIn('piloto_id', $pilotos_ids);
-        /*
-        if (Request()->input('instrutor'=='')) {
-        }*/
     }
 
     /**
@@ -116,14 +125,9 @@ class MovimentoFilters extends QueryFilters
      * @return Builder
      */
     public function instrutor($instrutor= ''){
-        $instrutores_ids = User::where('name', 'like', '%'.$instrutor.'%')->where('instrutor', '1')->get('id');
-      // dd($instrutores_ids);
-        
+        $instrutores_ids = User::where('name', 'like', '%'.$instrutor.'%')->get('id');
+
         return $this->builder->whereIn('instrutor_id', $instrutores_ids);
-/*
-        if (Request()->input('piloto'=='')) {
-            
-        }*/
     }
 
     /**
@@ -132,11 +136,9 @@ class MovimentoFilters extends QueryFilters
      * @param string $meusMovimento
      * @return Builder
      */
-    public function meusMovimentosPesquisa($meusMovimento = ''){
-        if ($meusMovimento=="on"){
-            //dd(Auth::User()->movimentoPiloto());
-            return Auth::User()->movimentoPiloto()->get();
-            //return $this->builder->where('piloto_id', "=", Auth::User()->id)->orWhere('instrutor_id', '=', Auth::User()->id);
+    public function meusMovimentos($meusMovimentos = ''){
+        if ($meusMovimentos=="on"){
+            return $this->builder->where('piloto_id', "=", Auth::User()->id)->orWhere('instrutor_id', '=', Auth::User()->id);
         }
 
     }
