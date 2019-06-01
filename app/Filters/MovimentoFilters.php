@@ -157,12 +157,8 @@ class MovimentoFilters extends QueryFilters
      */
     public function meusMovimentosPesquisa($meusMovimento = ''){
         if ($meusMovimento=="on"){
-
             $piloto_corrente_id = Auth::User()->id;
-           // dd($piloto_corrente_id, Auth::User()->movimentoPiloto());
             return $this->builder->where('piloto_id', '=', $piloto_corrente_id);
-           // Auth::User()->movimentoPiloto();
-            //return $this->builder->where('piloto_id', "=", Auth::User()->id)->orWhere('instrutor_id', '=', Auth::User()->id);
         }
 
     }
