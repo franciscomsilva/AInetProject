@@ -4,97 +4,133 @@
 @section('title','Movimentos')
 
 @section('content')
-
-<div class="card" style="margin-bottom: 50px;">
-    <div class="form-group">
-        <div class="card-header">
-            <h3 class="card-title">Filtrar</h3>
-        </div>
-    <div class="card-body">
-        <form action="{{URL::Current()}}">
-            <div class="row">
-                <div class="col">
-                    <label for="id">ID Movimento:</label>
-                    <input type="number" name="id" class="form-control"/>
+<div class="row">
+    <div class="col-md-9">
+        <div class="card" style="margin-bottom: 50px;">
+            <div class="form-group">
+                <div class="card-header">
+                    <h3 class="card-title">Filtrar</h3>
                 </div>
-                <div class="col">
-                    <label for="aeronave">Matricula</label>
-                    <select name="aeronave" class="form-control">
-                        <option value=""></option>
-                        @foreach($aeronaves as $aeronave)
-                            <option value="{{$aeronave->matricula}}">{{$aeronave->matricula}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <label for="data_inf">Data Inferior (Até á Data)</label>
-                    <input type="date" name="data_inf" class="form-control" placeholder="Data Inferior" value="{{old('dataInfPesquisa')}}"/>
-                </div>
-                <div class="col">
-                    <label for="data_sup">Data Superior (Depois da Data)</label>
-                    <input
-                            type="date" name="data_sup" class="form-control"
-                            placeholder="Data Superior" value="{{old('dataSupPesquisa' )}}"> 
-                </div>
-            </div>
-            <div class="row"><div class="col">
-                    <label for="natureza">Natureza</label>
-                    <select name="natureza" class="form-control">
-                        <option disabled selected> -- Natureza -- </option>
-                        <option value="T">Treino</option>
-                        <option value="I">Instrução</option>
-                        <option value="E">Especial</option>
-                    </select>
-                </div><div class="col">
-                    <label for="confirmado">Confirmado</label>
-                    <select name="confirmado" class="form-control">
-                        <option disabled selected value></option>
-                        <option  value="1">Sim</option>
-                        <option  value="0">Não</option>
-                    </select>
-                </div></div>
-            <div class="row"><div class="col">
-                    <label for="piloto">Piloto</label>
-                    <input type="text" name="piloto" placeholder="Nome Piloto" class="form-control">
-                </div><div class="col">
-                    <label for="instrutor">Instrutor</label>
-                    <input type="text" name="instrutor" placeholder="Nome Instrutor" class="form-control">
-                </div>
-                @if(Auth::user()->tipo_socio=='P')
-                <div class="col">
-                    <label></label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">
-                                <input type="checkbox" name="meusMovimentosPesquisa" {{old('meusMovimentosPesquisa')}}>
+                <div class="card-body">
+                    <form action="{{URL::Current()}}">
+                        <div class="row">
+                            <div class="col">
+                                <label for="id">ID Movimento:</label>
+                                <input type="number" name="id" class="form-control"/>
+                            </div>
+                            <div class="col">
+                                <label for="aeronave">Matricula</label>
+                                <select name="aeronave" class="form-control">
+                                    <option value=""></option>
+                                    @foreach($aeronaves as $aeronave)
+                                        <option value="{{$aeronave->matricula}}">{{$aeronave->matricula}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
-                        <label type="text" class="form-control"> Meus Movimentos
-                        </label></div></div>
-                @endif
-                <div class="col">
-                    <label></label>
-                    <button type="submit" class="btn btn-success form-control">Pesquisar</button>
-                </div></div>
-        </form>
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                                <label for="data_inf">Data Inferior (Até á Data)</label>
+                                <input type="date" name="data_inf" class="form-control" placeholder="Data Inferior" value="{{old('dataInfPesquisa')}}"/>
+                            </div>
+                            <div class="col">
+                                <label for="data_sup">Data Superior (Depois da Data)</label>
+                                <input
+                                        type="date" name="data_sup" class="form-control"
+                                        placeholder="Data Superior" value="{{old('dataSupPesquisa' )}}"> 
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                                <label for="natureza">Natureza</label>
+                                <select name="natureza" class="form-control">
+                                    <option disabled selected> -- Natureza -- </option>
+                                    <option value="T">Treino</option>
+                                    <option value="I">Instrução</option>
+                                    <option value="E">Especial</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="confirmado">Confirmado</label>
+                                <select name="confirmado" class="form-control">
+                                    <option disabled selected value></option>
+                                    <option  value="1">Sim</option>
+                                    <option  value="0">Não</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                                <label for="piloto">Piloto</label>
+                                <input type="text" name="piloto" placeholder="Nome Piloto" class="form-control">
+                            </div>
+                            <div class="col">
+                                <label for="instrutor">Instrutor</label>
+                                <input type="text" name="instrutor" placeholder="Nome Instrutor" class="form-control">
+                            </div>
+                            @if(Auth::user()->tipo_socio=='P')
+                                <div class="col">
+                                    <br>
+                                    <label></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input type="checkbox" name="meusMovimentosPesquisa" value="{{old('meusMovimentosPesquisa')}}">
+                                            </div>
+                                        </div>
+                                        <label type="text" class="form-control"> Meus Movimentos</label>
+                                    </div>
+                                </div>
+                            @endif
+                            <div class="col">
+                                <br>
+                                <label></label>
+                                <button type="submit" class="btn btn-success form-control">Pesquisar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+
+
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Ações</h3>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    @can('create', App\Movimento::class)
+                        <div class="row">
+                            <div class="col">
+                                <a class="btn btn-primary" href="{{route('movimentos.create')}}">Adicionar</a>
+                            </div>
+                        </div>
+                    @endcan
+                    <br>
+                    @if(Auth::user()->direcao)                        
+                        <div class="row">
+                            <div class="col">
+                                <a class="btn btn-xs btn-info" href="{{route('movimentos.confirmados')}}">Confirmar</a>
+                            </div>
+                        </div>
+                    @endif
+                </div> 
+            </div>
+        </div>
     </div>
 </div>
-    <br>
+
 <!--
     @if (count($errors) > 0)
         @include('shared.errors')
     @endif
 -->
-    <div>@can('create', App\Movimento::class)
-        <a class="btn btn-primary" href="{{route('movimentos.create')}}">Adicionar</a>
-        @endcan
-        @if(Auth::user()->direcao)
-            <a class="btn btn-xs btn-info" href="{{route('movimentos.confirmados')}}">Confirmar</a>
-        @endif
-    </div>
 
     @if (count($movimentos))
         <table class="table table-striped">
