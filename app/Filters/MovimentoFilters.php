@@ -112,6 +112,8 @@ class MovimentoFilters extends QueryFilters
      * @return Builder
      */
     public function piloto($piloto= ''){
+        $nomes = explode(" ", $piloto);
+
 switch (count($nomes)) {
             case 1:
                 $pilotos_ids = User::where('name', 'like', '%'.$piloto.'%')->get('id');
@@ -163,5 +165,5 @@ switch (count($nomes)) {
         if ($meusMovimentos=="on"){
             return $this->builder->where('piloto_id', "=", Auth::User()->id)->orWhere('instrutor_id', '=', Auth::User()->id);
 
-    }
+    }}
 }
