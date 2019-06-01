@@ -83,19 +83,21 @@ Route::middleware(['ativo','auth','verified'])->group(function () {
         Route::get('/movimentos/confirmado', 'MovimentoController@confirmado')->name('movimentos.confirmado');
         Route::get('/movimentos/estatisticas', 'EstatisticasController@estatisticas')->name('movimentos.estatisticas');
         Route::post('movimentos/estatisticas', 'EstatisticasController@getEstatisticas')->name('movimentos.getEstatisticas');
-
+        
         //SO PERMITE SE FOR DIRECAO E/OU PILOTO
         Route::middleware(['direcao','piloto'])->group(function () {
             Route::get('/movimentos/create', 'MovimentoController@create')->name('movimentos.create');
+            Route::get('/movimentos/confirmado', 'MovimentoController@confirmado')->name('movimentos.confirmado');
             Route::get('/movimentos/{movimento}', 'MovimentoController@show')->name('movimentos.show');
             Route::get('/movimentos/{movimento}/edit', 'MovimentoController@edit')->name('movimentos.edit');
-
             Route::post('/movimentos', 'MovimentoController@store')->name('movimentos.store');
             Route::put('/movimentos/{movimento}', 'MovimentoController@update')->name('movimentos.update');
             Route::delete('/movimentos/{movimento}', 'MovimentoController@destroy')->name('movimentos.destroy');
 
             #endregion movimentos
         });
+        
+        
     });
 });
 

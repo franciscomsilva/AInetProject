@@ -3,6 +3,7 @@
 @section('title', 'Editar Movimento')
 
 @section('content')
+
     <form action="{{route('movimentos.update', $movimento)}}" method="post" class="form-group">
         {{method_field('PUT')}}
         @include('movimentos.partials.add-edit')

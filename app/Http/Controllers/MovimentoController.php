@@ -19,10 +19,6 @@ use phpDocumentor\Reflection\Types\Compound;
 
 class MovimentoController extends Controller
 {
-    /*public function __construct()
-    {
-        $this->middleware('auth');
-    }*/
 
     /**
      * Display a listing of the resource.
@@ -63,9 +59,15 @@ class MovimentoController extends Controller
      */
     public function store(StoreMovimentoRequest $request)
     {
-        //dd($request);
-        //
+
+
         $this->authorize('create', Movimento::class);
+        $movimento = new Movimento();
+        $movimento->fill($request->validated());
+
+        $this->verificaConflitos($movimento);
+
+
 
         $movimento = new Movimento();
 
@@ -134,6 +136,7 @@ class MovimentoController extends Controller
         }
 
         $movimento->save();
+
 
         return redirect()
             ->route('movimentos.index')
@@ -222,25 +225,18 @@ class MovimentoController extends Controller
      * @throws AuthorizationException
      */
     public function confirmado(Request $request){
-        //dd($request);
-        //dd(Request()::input());
-        $movimentos = Movimento::all();
+        //$movimentos = Movimento::all();
+    }
 
 
+    /**
+     * @param Movimento $movimento
+     */
+    public function verificaConflitos(Movimento $movimento){
 
-        /*$typedocs = $request->input('confirmado');
-        foreach($typedocs as $ke){
-            dd($ke);
-        }/*
-        foreach ($movimentos as $movimento){
-            if ($request->input('confirmado'.$movimento->id)=='checked'){
-                dd($movimento);
-                //DB::update("update movimentos set confirmado =1 where id = ?",[$movimento->id]);
+        dd($movimento->aeronave);
+       $movimentos = DB::table('movimentos')->where('aeronave','=',$movimento->matricula)->get();
 
-            }
-        }
-        return redirect()
-            ->route("movimentos.index")
-            ->with('success','Movimentos confirmados');*/
+       //dd($movimentos);
     }
 }

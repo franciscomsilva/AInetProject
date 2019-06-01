@@ -47,8 +47,8 @@ class StoreMovimentoRequest extends FormRequest
             'natureza' => 'required|in:T,I,E',
             'aerodromo_partida' => 'required',
             'aerodromo_chegada' => 'required',
-            'num_aterragens' => 'required|numeric|min:0',
-            'num_descolagens' => 'required|numeric|min:0',
+            'num_aterragens' => 'required|numeric|min:1',
+            'num_descolagens' => 'required|numeric|min:1',
             'num_pessoas' => 'required|numeric|min:1',
             'conta_horas_inicio' => 'required|numeric',
             'conta_horas_fim' => 'required|numeric',
@@ -66,7 +66,9 @@ class StoreMovimentoRequest extends FormRequest
             'num_certificado_instrutor' => 'nullable',
             'validade_certificado_instrutor' => 'nullable',
             'classe_certificado_instrutor' => 'nullable',
-            'tipo_conflito' => 'nullable',
+            'created_at' => 'required',
+            'updated_at' => 'required',
+            'tipo_conflito' => 'nullable | in:S,B',
             'justificacao_conflito' => 'nullable'
         ];
     }

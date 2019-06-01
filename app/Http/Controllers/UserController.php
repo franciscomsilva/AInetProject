@@ -351,7 +351,10 @@ class UserController extends Controller
 
         $path = 'certificado_'.$user->id . '.pdf';
 
-        return response()->file(storage_path('app/docs_piloto/'. $path));
+        if(file_exists(storage_path('app/docs_piloto/'. $path)))
+            return response()->file(storage_path('app/docs_piloto/'. $path));
+
+        return redirect()->route('user.edit',$user)->with('errors',new MessageBag(['Sócio não possui certificado!']));
     }
 
     /**
@@ -364,7 +367,10 @@ class UserController extends Controller
 
         $path = 'licenca_'.$user->id . '.pdf';
 
-        return response()->file(storage_path('app/docs_piloto/'. $path));
+        if(file_exists(storage_path('app/docs_piloto/'. $path)))
+            return response()->file(storage_path('app/docs_piloto/'. $path));
+
+        return redirect()->route('user.edit',$user)->with('errors',new MessageBag(['Sócio não possui licença!']));
     }
 
     public function estado(User $user){
@@ -434,7 +440,7 @@ class UserController extends Controller
 
         /*VAI BUSCAR TODOS OS MOVIMENTOS NAO CONFIRMADOS E COM CONFLITO*/
         $movimentos = Movimento::where('confirmado','=',0)->OrwhereNotNull('tipo_conflito')->get();
-        $users = User::where('licenca_confirmada','=',0)->OrWhere('certificado_confirmado','=',0)->get();
+        $users = User::where('licenca_confirmada','=',0)->where('tipo_socio','=','P')->OrWhere('certificado_confirmado','=',0)->get();
 
         $pendentes = array_merge($movimentos->toArray(),$users->toArray());
 

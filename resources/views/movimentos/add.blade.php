@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Adicionar Movimento')
 @section('content')
+
     <form action="{{route('movimentos.store')}}" method="post" class="form-group">
         @include('movimentos.partials.add-edit')
         <div class="form-group">

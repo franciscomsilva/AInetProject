@@ -46,7 +46,6 @@ class MovimentoFilters extends QueryFilters
         }
         else if ($data_inf==$data_sup){
             return $this->builder->where('data', '=', $data_inf);
-
         }
         else if ($data_sup!=$data_inf){
             return $this->builder->whereBetween('data', array($data_inf, $data_sup));
@@ -113,9 +112,20 @@ class MovimentoFilters extends QueryFilters
      * @return Builder
      */
     public function piloto($piloto= ''){
-        $pilotos_ids = User::where('nome_informal', 'like', '%'.$piloto.'%')->get('id');
-
-        return $this->builder->whereIn('piloto_id', $pilotos_ids);
+switch (count($nomes)) {
+            case 1:
+                $pilotos_ids = User::where('name', 'like', '%'.$piloto.'%')->get('id');
+            break;
+            case 2:
+                $pilotos_ids = User::where('name', 'like', '%'.$nomes[0].'%'.$nomes[1].'%')->get('id');
+            break;
+            case 3:
+                $pilotos_ids = User::where('name', 'like', '%'.$nomes[0].'%'.$nomes[1].'%'.$nomes[2].'%')->get('id');
+            break;
+            case 4:
+                $pilotos_ids = User::where('name', 'like', '%'.$nomes[0].'%'.$nomes[1].'%'.$nomes[2].'%'.$nomes[3].'%')->get('id');
+            break;
+        }
     }
 
     /**
@@ -125,9 +135,22 @@ class MovimentoFilters extends QueryFilters
      * @return Builder
      */
     public function instrutor($instrutor= ''){
-        $instrutores_ids = User::where('name', 'like', '%'.$instrutor.'%')->get('id');
+        $nomes = explode(" ", $instrutor);
 
-        return $this->builder->whereIn('instrutor_id', $instrutores_ids);
+        switch (count($nomes)) {
+            case 1:
+                $instrutores_ids = User::where('name', 'like', '%'.$instrutor.'%')->get('id');
+            break;
+            case 2:
+                $instrutores_ids = User::where('name', 'like', '%'.$nomes[0].'%'.$nomes[1].'%')->get('id');
+            break;
+            case 3:
+                $instrutores_ids = User::where('name', 'like', '%'.$nomes[0].'%'.$nomes[1].'%'.$nomes[2].'%')->get('id');
+            break;
+            case 4:
+                $instrutores_ids = User::where('name', 'like', '%'.$nomes[0].'%'.$nomes[1].'%'.$nomes[2].'%'.$nomes[3].'%')->get('id');
+            break;
+        }
     }
 
     /**
@@ -139,7 +162,6 @@ class MovimentoFilters extends QueryFilters
     public function meusMovimentos($meusMovimentos = ''){
         if ($meusMovimentos=="on"){
             return $this->builder->where('piloto_id', "=", Auth::User()->id)->orWhere('instrutor_id', '=', Auth::User()->id);
-        }
 
     }
 }

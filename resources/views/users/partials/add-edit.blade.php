@@ -108,7 +108,7 @@
             name="endereco" id="address"
             placeholder="Endereço" value="{{old('endereco', $user->endereco)}}"/>
 </div>
-<div display="none">{{$route = Route::current()->getName() }}</div>
+<div style="display:none">{{$route = Route::current()->getName() }}</div>
 @if($user->tipo_socio == 'P' || $route == 'user.create')
 <div id="div-piloto">
     <br>
