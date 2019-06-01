@@ -3,7 +3,6 @@
 @section('title', 'Tabela de Preços - ' . $aeronave->marca . ' ' . $aeronave->modelo)
 
 @section('content')
-<div class="container">
     
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -33,8 +32,13 @@
                 @endforeach
             </tbody>
         </table>
+        
+        <td>
+            @can('update', $aeronave)
+            <a class="btn  btn-primary" href="{{route('aeronaves.edit', $aeronave)}}">Editar</a>
+            @endcan
+        </td>
     </div>
 
-</div>
 @endsection
 

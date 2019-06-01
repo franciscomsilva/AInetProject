@@ -1,4 +1,5 @@
 {{csrf_field()}}
+<h3>Dados gerais</h3>
 <input type="hidden" name="id" value="{{ $movimento->id }}">
 <!--Data-->
 <div class="form-group">
@@ -18,7 +19,11 @@
 <!--Aeronave-->
 <div class="form-group">
     <label for="aeronave">Aeronave</label>
+<<<<<<< HEAD
     <select name="aeronave" id="inputAeronaves" class="form-control">
+=======
+    <select name="aeronave" class="form-control">
+>>>>>>> f3b5a81377898d6127de61e4e5945388d250ab8d
         @foreach($aeronaves as $aeronave)
             <option value="{{$aeronave->matricula}}" {{old('aeronaves', $movimento->aeronave)==$aeronave->matricula? 'selected' : ''}}>{{$aeronave->matricula}}</option>
             @endforeach
@@ -34,6 +39,9 @@
     <label for="num_servico">Número Serviço</label>
     <input type="number" name="num_servico" value="{{old('num_servico', $movimento->num_servico)}}" class="form-control">
 </div>
+<br>
+<h3>Dados do Piloto</h3>
+
 <!--Piloto-->
 <div class="form-group">
     <label for="piloto_id">Piloto</label>
@@ -65,17 +73,21 @@
 <!--Num Certificado-->
 <div class="form-group">
     <label for="num_certificado_piloto">Número Certificado</label>
-    <input type="number" name="num_certificado_piloto" class="form-control" value="{{old('inputNumCertificado', $movimento->num_Certificado_piloto)}}"/>
+    <input type="text" name="num_certificado_piloto" value="{{old('num_certificado_piloto', $movimento->num_certificado_piloto)}}" class="form-control"/>
 </div>
 <!--Validade Certificado-->
 <div class="form-group">
     <label for="validade_certificado_piloto">Validade Certificado</label>
-    <input type="date" name="validade_certificado_piloto" class="form-control" value="{{old('inputValidadeCertificado', $movimento->validade_Certificado_piloto)}}"/>
+    <input type="date" name="validade_certificado_piloto" class="form-control" value="{{old('validade_certificado_piloto', $movimento->validade_certificado_piloto)}}"/>
 </div>
 <!--classe_certificado_piloto-->
 <div class="form-group">
-    <label for="classe_certificado_piloto">Validade Certificado</label>
-    <input type="date" name="classe_certificado_piloto" class="form-control" value="{{old('inputValidadeCertificado', $movimento->validade_Certificado_piloto)}}"/>
+    <label for="classe_certificado_piloto">Classe Certificado</label>
+    <select name="classe_certificado_piloto"class="form-control">
+        @foreach($classesCertificados as $classeCertificado)
+            <option value="{{$classeCertificado->code}}" {{ old('classe_certificado_piloto', $movimento->classe_certificado_piloto) ? 'selected' : ''}}>{{$classeCertificado->nome}}</option>
+        @endforeach
+    </select>
 </div>
 <!--Natureza-->
 <div class="form-group">
@@ -87,6 +99,9 @@
         <option value="E" {{ old('natureza',$movimento->natureza)=='E' ? 'selected' : '' }}>Especial</option>
     </select>
 </div>
+<br>
+<h3>Dados de Voo</h3>
+
 <!--Aerodromo Partida-->
 <div class="form-group">
     <label for="aerodromo_partida">Aeródromo Partida</label>
@@ -133,18 +148,28 @@
 <!--Tempo Voo-->
 <div class="form-group">
     <label for="tempo_voo">Tempo Voo (min)</label>
+<<<<<<< HEAD
     <input disabled type="number" id="inputTempoVoo" name="tempo_voo" value="{{old('tempo_voo', $movimento->tempo_voo)}}" class="form-control disabled">
+=======
+    <input disabled type="number" name="tempo_voo" id="inputTempoVoo" value="{{old('tempo_voo', $movimento->tempo_voo)}}" class="form-control disabled">
+>>>>>>> f3b5a81377898d6127de61e4e5945388d250ab8d
 </div>
 <!--Preço Voo-->
 <div class="form-group">
     <label for="preco_voo">Preço Voo (€)</label>
+<<<<<<< HEAD
     <input disabled type="number" id="inputPrecoVoo" name="preco_voo" value="{{old('preco_voo', $movimento->preco_voo)}}" class="form-control disabled">
+=======
+    <input disabled type="number" name="preco_voo" id="inputPrecoVoo" value="{{old('preco_voo', $movimento->preco_voo)}}" class="form-control disabled">
+>>>>>>> f3b5a81377898d6127de61e4e5945388d250ab8d
 </div>
+<br>
+<h3>Dados de Pagamento</h3>
+
 <!--Modo Pagamento-->
 <div class="form-group">
     <label for="modo_pagamento">Modo Pagamento</label>
     <select name="modo_pagamento" class="form-control">
-        <option disabled> -- Selecione uma opção -- </option>
         <option value="N" {{ old('modo_pagamento', $movimento->modo_pagamento)=='N' ? 'selected' : ''}}>Numerário</option>
         <option value="M" {{ old('modo_pagamento', $movimento->modo_pagamento)=='M' ? 'selected' : ''}}>Multibanco</option>
         <option value="T" {{ old('modo_pagamento', $movimento->modo_pagamento)=='T' ? 'selected' : ''}}>Transferência</option>
@@ -163,6 +188,8 @@
 </div>
 <!--Confirmado-->
 <input type="hidden" name="confirmado" value="0">
+<h3>Dados da Instrução e do Instrutor</h3>
+
 <!--Tipo Instrucao-->
 <div class="form-group">
     <label for="tipo_instrucao">Tipo Instrução</label>
@@ -176,9 +203,9 @@
 <div class="form-group">
     <label for="instrutor_id">Instrutor</label>
     <select name="instrutor_id" class="form-control">
-        <option value=""></option>
-        @foreach($pilotos as $Instrutor)
-            <option value="{{$Instrutor->id}}" {{ $Instrutor->name == Auth::user()->name ? 'selected' : ''}}>{{$Instrutor->name}}</option>
+        <option value="" selected></option>
+        @foreach($pilotos as $instrutor)
+            <option value="{{$instrutor->id}}">{{$instrutor->name}}</option>
         @endforeach
     </select>
 </div>
@@ -204,18 +231,24 @@
 <!--Num Certificado-->
 <div class="form-group">
     <label for="num_certificado_instrutor">Número Certificado</label>
-    <input type="number" name="num_certificado_instrutor" class="form-control" value="{{old('num_certificado_instrutor', $movimento->num_certificado_instrutor)}}"/>
+    <input type="text" name="num_certificado_instrutor" class="form-control" value="{{old('num_certificado_instrutor', $movimento->num_certificado_instrutor)}}"/>
 </div>
 <!--Validade Certificado-->
 <div class="form-group">
     <label for="validade_certificado_instrutor">Validade Certificado</label>
-    <input type="date" name="validade_certificado_instrutor" class="form-control" value="{{old('inputValidadeCertificado', $movimento->validade_Certificado_instrutor)}}"/>
+    <input type="date" name="validade_certificado_instrutor" value="{{old('validade_certificado_instrutor', $movimento->validade_certificado_instrutor)}}" class="form-control"/>
 </div>
-<!--classe_certificado_piloto-->
+<!--classe_certificado_instrutor-->
 <div class="form-group">
-    <label for="classe_certificado_instrutor">Validade Certificado</label>
-    <input type="date" name="classe_certificado_instrutor" class="form-control" value="{{old('classe_certificado_instrutor', $movimento->validade_Certificado_piloto)}}"/>
+    <label for="classe_certificado_instrutor">Classe Certificado</label>
+    <select name="classe_certificado_instrutor"class="form-control">
+        @foreach($classesCertificados as $classeCertificado)
+            <option value="{{$classeCertificado->code}}" {{ old('classe_certificado_instrutor', $movimento->classe_certificado_instrutor) ? 'selected' : ''}}>{{$classeCertificado->nome}}</option>
+        @endforeach
+    </select>
 </div>
+<br>
+<h3>Conflitos</h3>
 
 <!--Tipo Conflito-->
 <div class="form-group">

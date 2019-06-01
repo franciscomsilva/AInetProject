@@ -5,8 +5,10 @@ namespace App\Filters;
 
 
 use App\User;
+use App\Movimento;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class MovimentoFilters extends QueryFilters
 {
@@ -37,7 +39,17 @@ class MovimentoFilters extends QueryFilters
      * @return Builder
      */
     public function data_inf($data_inf= ''){
-        return $this->builder->where('data', '=', $data_inf);
+        $data_sup = Request()->input('data_sup');
+
+        if($data_sup=="") {
+            return $this->builder->where('data', '<=', $data_inf);
+        }
+        else if ($data_inf==$data_sup){
+            return $this->builder->where('data', '=', $data_inf);
+        }
+        else if ($data_sup!=$data_inf){
+            return $this->builder->whereBetween('data', array($data_inf, $data_sup));
+        }
     }
 
     /**
@@ -47,26 +59,31 @@ class MovimentoFilters extends QueryFilters
      * @return Builder
      */
     public function data_sup($data_sup= ''){
-        return $this->builder->where('data', '=', $data_sup);
+        $data_inf = Request()->input('data_inf');
+
+        if($data_inf==""){
+            return $this->builder->where('data', '>=', $data_sup);
+        }
+
     }
 
     /**
-     * Filter by naturezaPesquisa;
+     * Filter by natureza;
      *
      * @param string $natureza
      * @return Builder
      */
-    public function naturezaPesquisa($natureza= ''){
+    public function natureza($natureza= ''){
         return $this->builder->where('natureza', '=', $natureza);
     }
 
     /**
-     * Filter by confirmadoPesquisa;
+     * Filter by confirmado;
      *
      * @param string $confirmado
      * @return Builder
      */
-    public function confirmadoPesquisa($confirmado= ''){
+    public function confirmado($confirmado= ''){
         return $this->builder->where('confirmado', '=', $confirmado);
     }
 
@@ -77,8 +94,27 @@ class MovimentoFilters extends QueryFilters
      * @return Builder
      */
     public function piloto($piloto= ''){
-        return $this->builder->join('users', 'users.id', '=', 'movimentos.piloto_id')
-            ->where('nome_informal', '=', ''.$piloto.'');
+        $nomes = explode(" ", $piloto);
+
+        switch (count($nomes)) {
+            case 1:
+                $pilotos_ids = User::where('name', 'like', '%'.$piloto.'%')->get('id');
+            break;
+            case 2:
+                $pilotos_ids = User::where('name', 'like', '%'.$nomes[0].'%'.$nomes[1].'%')->get('id');
+            break;
+            case 3:
+                $pilotos_ids = User::where('name', 'like', '%'.$nomes[0].'%'.$nomes[1].'%'.$nomes[2].'%')->get('id');
+            break;
+            case 4:
+                $pilotos_ids = User::where('name', 'like', '%'.$nomes[0].'%'.$nomes[1].'%'.$nomes[2].'%'.$nomes[3].'%')->get('id');
+            break;
+        }
+
+        return $this->builder->whereIn('piloto_id', $pilotos_ids);
+        /*
+        if (Request()->input('instrutor'=='')) {
+        }*/
     }
 
     /**
@@ -88,8 +124,29 @@ class MovimentoFilters extends QueryFilters
      * @return Builder
      */
     public function instrutor($instrutor= ''){
-        return $this->builder->join('users', 'users.id', '=', 'movimentos.instrutor_id')
-            ->where('nome_informal', 'like', '%'.$instrutor.'%');
+        
+        $nomes = explode(" ", $instrutor);
+
+        switch (count($nomes)) {
+            case 1:
+                $instrutores_ids = User::where('name', 'like', '%'.$instrutor.'%')->get('id');
+            break;
+            case 2:
+                $instrutores_ids = User::where('name', 'like', '%'.$nomes[0].'%'.$nomes[1].'%')->get('id');
+            break;
+            case 3:
+                $instrutores_ids = User::where('name', 'like', '%'.$nomes[0].'%'.$nomes[1].'%'.$nomes[2].'%')->get('id');
+            break;
+            case 4:
+                $instrutores_ids = User::where('name', 'like', '%'.$nomes[0].'%'.$nomes[1].'%'.$nomes[2].'%'.$nomes[3].'%')->get('id');
+            break;
+        }
+
+        return $this->builder->whereIn('instrutor_id', $instrutores_ids);
+/*
+        if (Request()->input('piloto'=='')) {
+            
+        }*/
     }
 
     /**
@@ -100,7 +157,8 @@ class MovimentoFilters extends QueryFilters
      */
     public function meusMovimentosPesquisa($meusMovimento = ''){
         if ($meusMovimento=="on"){
-            return $this->builder->where('piloto_id', "=", Auth::User()->id)->orWhere('instrutor_id', '=', Auth::User()->id);
+            $piloto_corrente_id = Auth::User()->id;
+            return $this->builder->where('piloto_id', '=', $piloto_corrente_id);
         }
 
     }

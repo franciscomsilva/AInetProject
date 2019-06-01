@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model, Illuminate\Database\Eloquent\SoftDeletes;
 
+
 class Aeronave extends Model
 {
     use SoftDeletes;
@@ -14,6 +15,7 @@ class Aeronave extends Model
     protected $table = 'aeronaves';
     protected $primaryKey = 'matricula';
     public $incrementing = false;
+
 
 
     public function pilotos(){
@@ -36,22 +38,31 @@ class Aeronave extends Model
 
 
     #region funcoes auxiliares da tabela de ContaHoras
-    public function storePrecosUnidade($precoHora, $matricula){
-        if (($aeronaves = AeronaveValor::where('matricula', 'like', $matricula)->get()) != null) {
-            foreach ($aeronaves as $aeronave) {
-                $aeronave->forceDelete();
+    public function storePrecosUnidade($request){
+        $aeronavesValores = AeronaveValor::where('matricula', 'like', $request->matricula)->get();
+        if ($aeronavesValores->count() == 0) { // creates precos com tempo por unidade de tempo = Default for aeronave
+            for ($i = 0; $i < 10; $i++) {
+                $aeronaveValor = new AeronaveValor();
+
+                $aeronaveValor->minutos = $this->roundContaHoras($i+1);
+                $aeronaveValor->preco = $this->roundPrecoUnidade($request->precoHora, $i);
+                $aeronaveValor->unidade_conta_horas = $i+1;
+                $aeronaveValor->matricula = $request->matricula;
+                $aeronaveValor->save();
             }
-        }
-        
-        for ($i = 1; $i <= 10; $i++){
-            $aeronaveValor = new AeronaveValor();
-            
-            $aeronaveValor->minutos = $this->roundContaHoras($i);
-            $aeronaveValor->preco = $this->roundPrecoUnidade($precoHora, $i);
-            $aeronaveValor->unidade_conta_horas = $i;
-            $aeronaveValor->matricula = $matricula;
-            
-            $aeronaveValor->save();
+        } else { // modifica os tempos e os precos da aeronave
+            $j = 0;
+            foreach ($aeronavesValores as $aeronaveValor) {
+                
+                
+                $aeronaveValor->minutos = $request->minutos[$j];
+                $aeronaveValor->preco = $request->precos[$j];
+                //$aeronaveValor->unidade_conta_horas = $i;
+                //$aeronaveValor->matricula = $request->matricula;
+                
+                $aeronaveValor->save();
+                $j++;
+            }
         }
     }
 

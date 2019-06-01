@@ -4,6 +4,14 @@
 
 @section('content')
 
+<nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('user.home') }}">Flight-Club</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('aeronaves.index') }}">Aeronaves</a></li>
+            <li class="breadcrumb-item active">{{ $aeronave->matricula }} </li>
+            <li class="breadcrumb-item active">Editar</li>
+        </ol>
+</nav>
 
 <form action="{{route('aeronaves.update', $aeronave)}}" method="post" class="form-group">
     {{method_field('PUT')}}
@@ -30,11 +38,13 @@
                 @foreach($precos_tempos as $preco_tempo)
                     <tr>
                         <td>{{ $preco_tempo->unidade_conta_horas }}</td>
-                        <td>{{ $preco_tempo->minutos }}</td>
+                        <!--td>{{ $preco_tempo->minutos }}</td-->
+                        <td><input type="number" min="0" class="form-control" name="minutos[]" id="inputMinutos{{$i}}" value="{{old('minutos.$i', $preco_tempo->minutos )}}"/></td>
+
                         @if($i < 9)
-                            <td><input type="number" min="0" class="form-control" name="preco$i" id="inputPreco{{$i}}" value="{{old('precos[$i]', $preco_tempo->preco )}}"/></td>
+                            <td><input type="number" min="0" class="form-control" name="precos[]" id="inputPreco{{$i}}" value="{{old('precos.$i', $preco_tempo->preco )}}"/></td>
                         @else
-                            <td><input disabled type="number" min="0" class="form-control" name="preco$i" id="inputPreco9" value="{{old('precos[9]', $preco_tempo->preco )}}"/></td>                    
+                            <td><input type="number" min="0" class="form-control" name="precos[]" id="inputPreco9" onchange="setPrecoHora()" value="{{old('precos.9', $preco_tempo->preco )}}"/></td>                    
                         @endif
                     </tr>
                     @php 
@@ -54,7 +64,7 @@
 @endsection
 
 
-<!-- SCRIPT PARA MOSTRAR TEMPO E PREÇO DE VOO -->
+<!-- SCRIPT PARA ALTERAR OS VALORES DAS UNIDADES DE TEMPO AUTOMATICAMENTE. SE O UTILIZADOR DER OVERRIDE ESSES PREVALECEM -->
 <script type="text/javascript">
 
     function calcularPrecosUnidades(){
@@ -81,6 +91,16 @@
 
     function calculaPrecosUnidade(unidadeTempo, precoHora) {
         return Math.ceil(precoHora * unidadeTempo / 10);
+    }
+
+    function setPrecoHora() {
+        var inputPrecoHora = document.getElementById('inputPrecoHora');
+        var inputPrecoUnidade10 = document.getElementById('inputPreco9');
+
+        if (inputPrecoHora.value != inputPrecoUnidade10.value) {
+            inputPrecoHora.value = inputPrecoUnidade10.value;
+            calcularPrecosUnidades();
+        }
     }
 
 </script>

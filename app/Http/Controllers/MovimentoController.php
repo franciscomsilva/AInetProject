@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Aerodromo;
-use App\Aeronave;
-use App\Filters\MovimentoFilters;
+use App\Http\Requests\Movimento\UpdateMovimentoRequest;
 use App\Http\Requests\StoreMovimentoRequest;
 use App\Movimento;
 use App\TipoLicenca;
@@ -26,8 +24,9 @@ class MovimentoController extends Controller
      */
     public function index(MovimentoFilters $filters)
     {
-        $movimentos = Movimento::filter($filters) ->orderBy('id', 'desc')->paginate();
+        $movimentos = Movimento::filter($filters) ->orderBy('id', 'desc')->paginate(15);
         $aeronaves = Aeronave::all();
+
         return view('movimentos.list', compact( ['movimentos', 'aeronaves']));
     }
 
@@ -44,7 +43,8 @@ class MovimentoController extends Controller
         $aerodromos = Aerodromo::all();
         $tipoLicencas = TipoLicenca::all();
         $movimento = new Movimento();
-        return view('movimentos.add', compact(['movimento','pilotos', 'aeronaves', 'aerodromos', 'tipoLicencas']));
+        $classesCertificados = ClasseCertificado::all();
+        return view('movimentos.add', compact(['movimento','pilotos', 'aeronaves', 'aerodromos', 'tipoLicencas', 'classesCertificados']));
     }
 
     /**
@@ -101,19 +101,34 @@ class MovimentoController extends Controller
         $pilotos = User::all();
         $tipoLicencas = TipoLicenca::all();
         $aerodromos = Aerodromo::all();
-        return view('movimentos.edit', compact(['movimento', 'pilotos', 'aeronaves', 'aerodromos', 'tipoLicencas']));
+        $classesCertificados = ClasseCertificado::all();
+        return view('movimentos.edit', compact(['movimento', 'pilotos', 'aeronaves', 'aerodromos', 'tipoLicencas','classesCertificados']));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Movimento  $movimentos
+     * @param  \App\Movimento  $movimento
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Movimento $movimentos)
+    public function update(UpdateMovimentoRequest $request, Movimento $movimento)
     {
-        return $this->authorize('update', $movimento);
+        $this->authorize('update', $movimento);
+/*
+        if (!(Auth::user()->id==$request->id_piloto || Auth::user()->id==$request->id_instrutor)){
+            return redirect()
+                ->route('users.create')
+                ->with('erros', 'erro');
+        }*/
+
+       // $movimento->fill($request->all());
+       $movimento->fill($request->validated()); 
+       $movimento->save();
+
+        return redirect()
+            ->route('users.index')
+            ->with('success', 'Movimento updated successfully!');
     }
 
     /**
@@ -141,6 +156,7 @@ class MovimentoController extends Controller
      * @throws AuthorizationException
      */
     public function confirma(Request $request){
+
         $movimentos = Movimento::all();
         foreach ($movimentos as $movimento){
             if (dd($request->has('confirmado'.$movimento->id))){
@@ -163,6 +179,7 @@ class MovimentoController extends Controller
 
        dd($movimentos);
     }
+
 
 
 
