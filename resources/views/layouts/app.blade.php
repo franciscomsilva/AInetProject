@@ -129,7 +129,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-center" aria-labelledby="navbarDropdown">
                                     @can('create',App\Movimento::class)
-                                    <a class="dropdown-item" href="{{ route('movimentos.create') }}"> Adicionar </a>
+                                        <a class="dropdown-item" href="{{ route('movimentos.create') }}"> Adicionar </a>
                                     @endcan
                                     <a class="dropdown-item" href="{{ route('movimentos.estatisticas') }}"> Estatísticas </a>
                                 </div>
