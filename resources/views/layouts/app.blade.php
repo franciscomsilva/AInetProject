@@ -128,7 +128,7 @@
                                     <span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-center" aria-labelledby="navbarDropdown">
-                                    @can('create',App\Http\Requests\Movimento::class)
+                                    @can('create',App\Movimento::class)
                                     <a class="dropdown-item" href="{{ route('movimentos.create') }}"> Adicionar </a>
                                     @endcan
                                     <a class="dropdown-item" href="{{ route('movimentos.estatisticas') }}"> Estatísticas </a>
