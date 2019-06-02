@@ -95,6 +95,7 @@
                         <li class="nav-item ml-3 dropdown"> <!-- Socios -->
                             <div class="btn-group">
                                 <a class="btn nav-item ml-3" href="{{ route('user.index') }}  "> Sócios </a>
+                                @can('create',App\User::class)
                                 <a id="navbarDropdown" class="btn nav-item dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <span class="caret"></span>
                                 </a>
@@ -102,18 +103,22 @@
                                     
                                     <a class="dropdown-item" href="{{ route('user.create') }}"> Adicionar Sócio </a>
                                 </div>
+                                @endcan
                             </div>
                         </li>
                         <li class="nav-item ml-3 dropdown"> <!-- Aeronaves -->
                             <div class="btn-group">
                                 <a class="btn nav-item ml-3" href="{{ route('aeronaves.index') }}  "> Aeronaves </a>
+                                @can('create',\App\Aeronave::class)
                                 <a id="navbarDropdown" class="btn nav-item dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <span class="caret"></span>
                                 </a>
+
                                 <div class="dropdown-menu dropdown-menu-center" aria-labelledby="navbarDropdown">
                                     
                                     <a class="dropdown-item" href="{{ route('aeronaves.create') }}"> Adicionar </a>
                                 </div>
+                                @endcan
                             </div>
                         </li>
                         <li class="nav-item ml-3 dropdown"> <!-- Movimentos -->
@@ -123,9 +128,9 @@
                                     <span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-center" aria-labelledby="navbarDropdown">
-                                    
+                                    @can('create',App\Http\Requests\Movimento::class)
                                     <a class="dropdown-item" href="{{ route('movimentos.create') }}"> Adicionar </a>
-                                    
+                                    @endcan
                                     <a class="dropdown-item" href="{{ route('movimentos.estatisticas') }}"> Estatísticas </a>
                                 </div>
                             </div>
