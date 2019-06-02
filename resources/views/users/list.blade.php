@@ -181,43 +181,6 @@
                                 {{$user->quotasToString()}}
                             @endcan
                         </td>
-                        <!--td>
-                        @can('update', $user)
-                            <a class="btn btn-xs btn-primary" href="{{route('user.edit', $user)}}">Editar</a>
-                        @endcan
-
-                        @can('view',$user)
-                            <a class="btn btn-xs btn-success" href="{{route('user.show', $user)}}">Ver</a>
-                        @endcan
-                        </td>
-                        <td>
-                            @can('viewAtivo',$user)
-                                <form action="{{route('user.ativo',$user)}}" method="post" class="form-group">
-                                    {{ method_field('PATCH') }}
-                                    {{csrf_field()}}
-                                    <div class="form-group">
-                                    
-                                        @if($user->ativo)
-                                            <button type="submit" class="btn btn-xs btn-danger" name="ok">Desativar</button>
-                                        @else
-                                            <button type="submit" class="btn btn-xs btn-success" name="ok">Ativar</button>
-                                        @endif
-                                        <!--button type="submit" class="btn btn-xs btn-danger" name="ok">Ativar/Desativar</button->
-                                    </div>
-                                </form>
-                            @endcan
-                        </td>
-                        <td>
-                            @can('viewQuota',$user)
-                                <form action="{{route('user.quota',$user)}}" method="post" class="form-group">
-                                    {{ method_field('PATCH') }}
-                                    {{csrf_field()}}
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-xs btn-info" name="ok">Alterar Quota</button>
-                                    </div>
-                                </form>
-                            @endcan
-                        </td-->
                         <td>
                             <div class="dropdown-lg">
                                 <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -238,15 +201,11 @@
                                         <form action="{{route('user.ativo',$user)}}" method="post" class="form-group">
                                             {{ method_field('PATCH') }}
                                             {{csrf_field()}}
-                                            <!--div class="form-group"-->
-                                            
                                                 @if($user->ativo)
                                                     <button type="submit" class="dropdown-item" name="ok">Desativar</button>
                                                 @else
                                                     <button type="submit" class="dropdown-item" name="ok">Ativar</button>
                                                 @endif
-                                                <!--button type="submit" class="btn btn-xs btn-danger" name="ok">Ativar/Desativar</button-->
-                                            <!--/div-->
                                         </form>
                                     @endcan
                                 
@@ -310,7 +269,6 @@
                                     @else
                                         <button type="submit" class="btn btn-xs btn-success" name="ok">Ativar</button>
                                     @endif
-                                    <!--button type="submit" class="btn btn-xs btn-danger" name="ok">Ativar/Desativar</button-->
                                 </div>
                             </form>
                         @endcan

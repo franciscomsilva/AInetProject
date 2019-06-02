@@ -101,7 +101,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-center" aria-labelledby="navbarDropdown">
                                     
-                                    <a class="dropdown-item" href="{{ route('user.create') }}"> Adicionar Sócio </a>
+                                    <a class="dropdown-item" href="{{ route('user.create') }}"> Adicionar </a>
                                 </div>
                                 @endcan
                             </div>

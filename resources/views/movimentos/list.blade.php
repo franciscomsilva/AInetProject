@@ -144,12 +144,6 @@
     </div>
 </div>
 
-<!--
-    @if (count($errors) > 0)
-        @include('shared.errors')
-    @endif
--->
-
 </div> <!-- end div 'container' -->
 <div>
     @if (count($movimentos))
@@ -159,36 +153,18 @@
                 <th>ID</th>
                 <th>Aeronave</th>
                 <th>Data</th>
-                <!--
-                <th>Hora Aterragem</th>
-                <th>Hora Descolagem</th>
-                -->
-                <th>Hora Descolagem / Aterragem</th> <!-- Apagar se quiserem -->
+                <th>Hora Descolagem / Aterragem</th> 
 
                 <th>Tempo</th>
                 <th>Natureza</th>
                 <th>Piloto <!--Nome--></th>
-                <!--
-                <th>Aeródromo Partida</th>
-                <th>Aeródromo Chegada</th>
-                -->
                 
                 <th>Aeródromo Partida / Chegada</th>
-                
-                <!--
-                <th>Nº Aterragens</th>
-                <th>Nº Descolagens</th>
-                -->
                 
                 <th>Nº Descolagens / Aterragens</th>
 
                 <th>Nº Diário</th>
                 <th>Nº Serviço</th>
-                <!--
-                <th>Conta-Horas Inicial</th>
-                <th>Conta-Horas Final</th>
-                -->
-                
                 <th>Conta-Horas Inicial / Final</th>
 
                 <th>Nº Pessoas</th>
@@ -204,38 +180,15 @@
                     <td>{{$movimento->id}}</td>
                     <td>{{$movimento->aeronave}}</td>
                     <td>{{date('d/m/Y', strtotime($movimento->hora_aterragem))}}</td>
-                    <!--
-                    <td>{{date('H:i', strtotime($movimento->hora_descolagem))}}</td>
-                    <td>{{date('H:i', strtotime($movimento->hora_aterragem))}}</td>
-                    -->
-                    
                     <td>{{date('H:i', strtotime($movimento->hora_descolagem))}} / {{date('H:i', strtotime($movimento->hora_aterragem))}}</td>
-                    
                     <td>{{$movimento->tempo_voo}} min</td>
                     <td>{{$movimento->naturezaMovimentoToString()}}</td>
                     <td>{{$movimento->piloto->nome_informal}}</td>
-                    <!--
-                    <td>{{$movimento->aerodromo_partida}}</td>
-                    <td>{{$movimento->aerodromo_chegada}}</td>
-                    -->
-                    
                     <td>{{$movimento->aerodromo_partida}} / {{$movimento->aerodromo_chegada}}</td>
-
-                    <!--
-                    <td>{{$movimento->num_descolagens}}</td>
-                    <td>{{$movimento->num_aterragens}}</td>
-                    -->
-                    
                     <td>{{$movimento->num_descolagens}} / {{$movimento->num_aterragens}}</td>
-                    
                     <td>{{$movimento->num_diario}}</td>
                     <td>{{$movimento->num_servico}}</td>
-                    <!--
-                    <td>{{$movimento->conta_horas_inicio}}</td>
-                    <td>{{$movimento->conta_horas_fim}}</td>
-                    -->
                     <td>{{$movimento->conta_horas_inicio}} / {{$movimento->conta_horas_fim}}</td>
-                    
                     <td>{{$movimento->num_pessoas}}</td>
                     <td>{{$movimento->tipoInstrucaoToString()}}</td>
                     <td>{{$movimento->instrutor==null ? '' : $movimento->instrutor->nome_informal}}</td>
