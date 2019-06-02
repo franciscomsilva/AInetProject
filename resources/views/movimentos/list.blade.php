@@ -126,10 +126,18 @@
                     @if(Auth::user()->direcao)                        
                         <div class="row">
                             <div class="col">
-                                <a class="btn btn-xs btn-info" style="width: 100%" href="{{route('movimentos.confirmado')}}">Confirmar</a>
+                                <a class="btn btn-info" style="width: 100%" href="{{route('movimentos.confirmado')}}">Confirmar</a>
                             </div>
                         </div>
                     @endif
+                    
+                    <br> <!-- Movimentos pendentess -->
+                
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn-info" style="width: 100%" href="{{route('movimentos.estatisticas')}}">Estatísticas</a>
+                        </div>
+                    </div>
                 </div> 
             </div>
         </div>
@@ -142,6 +150,8 @@
     @endif
 -->
 
+</div> <!-- end div 'container' -->
+<div>
     @if (count($movimentos))
         <table class="table table-striped">
             <thead>
@@ -237,17 +247,30 @@
                         </div>
                     </td>
                     <td>
-                        <a class="btn btn-xs btn-primary" href="{{route('movimentos.show', $movimento)}}"><img src="/imagens/eye.png" class="" alt="mostrar"></a>
-                        @can('update', $movimento)
-                            <a class="btn btn-xs btn-primary" href="{{route('movimentos.edit', $movimento)}}"><img src="/imagens/pencil.png" class="" alt="editar"></a>
-                        @endcan
-                        @can('delete', $movimento)
-                            <form action="{{route('movimentos.destroy', $movimento)}}" method="POST" role="form" class="inline">
-                                @csrf
-                                @method('delete')
-                                <button type="submit" class="btn btn-xs btn-danger"><img src="/imagens/delete.png" class="" alt="apagar"></button>
-                            </form>
-                        @endcan
+                    <div class="dropdown-lg">
+                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Opções
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            
+                            
+                            <a class="dropdown-item" href="{{route('movimentos.show', $movimento)}}">Ver</a>
+                            
+                            @can('update', $movimento)
+                                <a class="dropdown-item" href="{{route('movimentos.edit', $movimento)}}">Editar</a>
+                            @endcan
+                            
+                            @can('delete', $movimento)
+                                <form action="{{route('movimentos.destroy', $movimento)}}" method="POST" role="form" class="inline">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="dropdown-item">Apagar </button>
+                                </form>
+                            @endcan
+                            
+                        </div>
+
+                    </div>
                     </td>
                 </tr>
             @endforeach

@@ -27,6 +27,7 @@
     <div class="start-page">
         <div class="title m-b-md">
             Flight-Club
+            <img src="https://i.imgur.com/PxSC8kg.png"/>
         </div>
 
         <div class="links">

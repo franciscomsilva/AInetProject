@@ -92,21 +92,47 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @auth()
-                        <li>
-                            <a class="nav-item ml-3" href="{{ route('user.index') }}"> Sócios </a>
+                        <li class="nav-item ml-3 dropdown"> <!-- Socios -->
+                            <div class="btn-group">
+                                <a class="btn nav-item ml-3" href="{{ route('user.index') }}  "> Sócios </a>
+                                <a id="navbarDropdown" class="btn nav-item dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <span class="caret"></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-center" aria-labelledby="navbarDropdown">
+                                    
+                                    <a class="dropdown-item" href="{{ route('user.create') }}"> Adicionar Sócio </a>
+                                </div>
+                            </div>
                         </li>
-                        <li>
-                            <a class="nav-item ml-3" href="{{ route('aeronaves.index') }}"> Aeronaves </a>
+                        <li class="nav-item ml-3 dropdown"> <!-- Aeronaves -->
+                            <div class="btn-group">
+                                <a class="btn nav-item ml-3" href="{{ route('aeronaves.index') }}  "> Aeronaves </a>
+                                <a id="navbarDropdown" class="btn nav-item dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <span class="caret"></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-center" aria-labelledby="navbarDropdown">
+                                    
+                                    <a class="dropdown-item" href="{{ route('aeronaves.create') }}"> Adicionar </a>
+                                </div>
+                            </div>
                         </li>
-                        <li>
-                            <a class="nav-item ml-3" href="{{ route('movimentos.index') }}"> Movimentos </a>
+                        <li class="nav-item ml-3 dropdown"> <!-- Movimentos -->
+                            <div class="btn-group">
+                                <a class="btn nav-item ml-3" href="{{ route('movimentos.index') }}  "> Movimentos </a>
+                                <a id="navbarDropdown" class="btn nav-item dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <span class="caret"></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-center" aria-labelledby="navbarDropdown">
+                                    
+                                    <a class="dropdown-item" href="{{ route('movimentos.create') }}"> Adicionar </a>
+                                    
+                                    <a class="dropdown-item" href="{{ route('movimentos.estatisticas') }}"> Estatísticas </a>
+                                </div>
+                            </div>
                         </li>
-                         <li>
-                                <a class="nav-item ml-3" href="{{ route('movimentos.estatisticas') }}"> Estatísticas </a>
-                         </li>
                          @can('viewPendentes',Auth::user())
                                 <li>
-                                    <a class="nav-item ml-3" href="{{ route('movimentos.pendentes') }}"> Pendentes </a>
+                                    <a class="btn nav-item ml-3" href="{{ route('movimentos.pendentes') }}"> Pendentes </a>
                                 </li>
                          @endcan
                         @endauth

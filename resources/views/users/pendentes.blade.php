@@ -4,6 +4,14 @@
 
 @section('content')
 
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ route('user.home') }}">Flight-Club</a></li>
+        <li class="breadcrumb-item active">Pendentes</li>
+    </ol>
+</nav>
+
+
     @if (count($errors) > 0)
         @include('shared.errors')
     @endif
@@ -12,7 +20,7 @@
         <tr>
             <th>Tipo</th>
             <th>Número</th>
-            <th></th>
+            <th>Ações</th>
         </tr>
         </thead>
         <tbody>
@@ -26,6 +34,6 @@
         </tbody>
     </table>
 
-    <input type="button" value="Refresh" onClick="window.location.reload()">
+    <input class="btn btn-primary" type="button" value="Refresh" onClick="window.location.reload()">
 
 @endsection
