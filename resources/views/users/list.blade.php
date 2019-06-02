@@ -8,7 +8,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('user.home') }}">Flight-Club</a></li>
-        <li class="breadcrumb-item active"><a href="{{ route('user.index') }}">Sócios</a></li>
+        <li class="breadcrumb-item active">Sócios</li>
     </ol>
 </nav>
 
@@ -137,12 +137,6 @@
         </div>
     @endif
 </div>
-
-
-
-    
-    
-
     @if (count($users))
         <table class="table table-striped">
             <thead>
