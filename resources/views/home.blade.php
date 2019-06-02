@@ -18,7 +18,8 @@
         </div>
     </div-->
     @if (session('status'))
-        <div class="alert alert-success alert-dismissible">
+        <div class="alert alert-success alert-dismissible" rolee="alert">
+            {{ session('status') }} 
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             Bem vindo ao <strong>Flight-Club</strong> {{ Auth::User()->nome_informal }}
         </div>
