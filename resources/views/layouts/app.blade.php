@@ -94,8 +94,8 @@
                         @auth()
                         <li class="nav-item ml-3 dropdown"> <!-- Socios -->
                             <div class="btn-group">
-                                <a class="btn nav-item ml-3" href="{{ route('user.index') }}  "> Sócios </a>
-                                <a id="navbarDropdown" class="btn nav-item dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a class="btn btn-link nav-item ml-3" href="{{ route('user.index') }}  "> Sócios </a>
+                                <a id="navbarDropdown" class="btn btn-link nav-item dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-center" aria-labelledby="navbarDropdown">
@@ -106,8 +106,8 @@
                         </li>
                         <li class="nav-item ml-3 dropdown"> <!-- Aeronaves -->
                             <div class="btn-group">
-                                <a class="btn nav-item ml-3" href="{{ route('aeronaves.index') }}  "> Aeronaves </a>
-                                <a id="navbarDropdown" class="btn nav-item dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a class="btn btn-link nav-item ml-3" href="{{ route('aeronaves.index') }}  "> Aeronaves </a>
+                                <a id="navbarDropdown" class="btn btn-link nav-item dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-center" aria-labelledby="navbarDropdown">
@@ -118,8 +118,8 @@
                         </li>
                         <li class="nav-item ml-3 dropdown"> <!-- Movimentos -->
                             <div class="btn-group">
-                                <a class="btn nav-item ml-3" href="{{ route('movimentos.index') }}  "> Movimentos </a>
-                                <a id="navbarDropdown" class="btn nav-item dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a class="btn btn-link nav-item ml-3" href="{{ route('movimentos.index') }}  "> Movimentos </a>
+                                <a id="navbarDropdown" class="btn btn-link nav-item dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-center" aria-labelledby="navbarDropdown">
@@ -132,7 +132,7 @@
                         </li>
                          @can('viewPendentes',Auth::user())
                                 <li>
-                                    <a class="btn nav-item ml-3" href="{{ route('movimentos.pendentes') }}"> Pendentes </a>
+                                    <a class="btn btn-link nav-item ml-3" href="{{ route('movimentos.pendentes') }}"> Pendentes </a>
                                 </li>
                          @endcan
                         @endauth
