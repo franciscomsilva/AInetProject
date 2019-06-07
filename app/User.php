@@ -20,7 +20,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'name','num_socio','sexo','ativo','quota_paga', 'email', 'password','nome_informal','data_nascimento','nif','telefone','endereco','img','certificado_confirmado',
         'tipo_socio','quota_paga','ativo','password_inicial','direcao','num_licenca','tipo_licenca','instrutor','aluno',
-        'validade_licenca','licenca_confirmada','num_certificado','classe_certificado','validade_certificado','licenca','password_inicial'
+        'validade_licenca','licenca_confirmada','num_certificado','classe_certificado','validade_certificado','licenca','password_inicial','classe_socio'
     ];
 
     /**

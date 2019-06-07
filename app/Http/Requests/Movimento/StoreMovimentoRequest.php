@@ -66,8 +66,6 @@ class StoreMovimentoRequest extends FormRequest
             'num_certificado_instrutor' => 'nullable',
             'validade_certificado_instrutor' => 'nullable',
             'classe_certificado_instrutor' => 'nullable',
-            'created_at' => 'required',
-            'updated_at' => 'required',
             'tipo_conflito' => 'nullable | in:S,B',
             'justificacao_conflito' => 'nullable'
         ];

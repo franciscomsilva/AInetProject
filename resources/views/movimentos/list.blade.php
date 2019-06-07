@@ -70,6 +70,10 @@
                                     <option  value="0">Não</option>
                                 </select>
                             </div>
+                            <div class="col">
+                                <label for="nrAterragens">Nº Aterragens</label>
+                                <input type="number" name="nrAterragens" class="form-control"/>
+                            </div>
                         </div>
                         <br>
                         <div class="row">

@@ -73,6 +73,8 @@ class MovimentoController extends Controller
 
         $movimento->fill($request->validated());
 
+
+
         if ($movimento->natureza!='I')
         {
             $movimento->instrutor_id=null;
@@ -133,6 +135,14 @@ class MovimentoController extends Controller
 
         if ($movimento->conta_horas_inicial>$movimento->conta_horas_final){
             return redirect()->back()->withErrors( 'Conta Horas Inicial tem que ser inferior ao Conta Horas Final');
+        }
+
+
+        /*ALTERACOES DOS PRECOS*/
+        if($movimento->num_pessoas >= 3){
+            $pessoas_extra = $movimento->num_pessoas-2;
+            $movimento->preco_voo += ($pessoas_extra * 20);
+
         }
 
         $movimento->save();
@@ -234,7 +244,7 @@ class MovimentoController extends Controller
      */
     public function verificaConflitos(Movimento $movimento){
 
-        dd($movimento->aeronave);
+       // dd($movimento->aeronave);
        $movimentos = DB::table('movimentos')->where('aeronave','=',$movimento->matricula)->get();
 
        //dd($movimentos);

@@ -11,4 +11,10 @@ class Aerodromo extends Model
     ];
 
     protected $table = 'aerodromos';
+    protected $primaryKey = 'code';
+
+    public $incrementing = false;
+
+    public $timestamps = false;
+
 }

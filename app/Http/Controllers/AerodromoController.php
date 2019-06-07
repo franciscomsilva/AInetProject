@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Aerodromo;
+use App\Http\Requests\UpdateAerodromoRequest;
 use Illuminate\Http\Request;
 
 class AerodromoController extends Controller
@@ -14,7 +15,8 @@ class AerodromoController extends Controller
      */
     public function index()
     {
-        //
+        $aerodromos = Aerodromo::paginate();
+        return view('aerodromos.list',compact('aerodromos'));
     }
 
     /**
@@ -57,7 +59,7 @@ class AerodromoController extends Controller
      */
     public function edit(Aerodromo $aerodromo)
     {
-        //
+        return view('aerodromos.edit',compact('aerodromo'));
     }
 
     /**
@@ -67,9 +69,15 @@ class AerodromoController extends Controller
      * @param  \App\Aerodromo  $aerodromo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Aerodromo $aerodromo)
+    public function update(UpdateAerodromoRequest $request, Aerodromo $aerodromo)
     {
-        //
+        $aerodromo->fill($request->validated());
+        $aerodromo->militar = $aerodromo->ultraleve = 0;
+        $aerodromo->save();
+
+        return redirect()
+            ->route('aerodromo.index')
+            ->with('success', 'Aerodromo editado com sucesso!');
     }
 
     /**

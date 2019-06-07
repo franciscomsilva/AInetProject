@@ -35,6 +35,18 @@
     </select>
 </div>
 <div class="form-group">
+    <label for="inputClasseSocio">Classe Sócio</label>
+    <select id='select-classe_socio' name="classe_socio">
+        <option disabled selected value>---</option>
+        <option {{$user->classe_socio == "N" ? 'selected' : ''}} value="N">Normal</option>
+        <option {{$user->classe_socio == "C" ? 'selected' : ''}} value="C">Correspondente</option>
+        <option {{$user->classe_socio == "M" ? 'selected' : ''}} value="M">Menor</option>
+        <option {{$user->classe_socio == "H" ? 'selected' : ''}} value="H">Honorário</option>
+    </select>
+</div>
+
+
+<div class="form-group">
     <label for="inputSocioAtivo">Sócio Ativo</label>
     <input
            type="checkbox"

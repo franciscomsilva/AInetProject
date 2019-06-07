@@ -166,4 +166,12 @@ switch (count($nomes)) {
             return $this->builder->where('piloto_id', "=", Auth::User()->id)->orWhere('instrutor_id', '=', Auth::User()->id);
 
     }}
+
+
+
+    public function nrAterragens($nrAterragens = ''){
+        return $this->builder->where('num_aterragens','>=',$nrAterragens);
+    }
+
+
 }

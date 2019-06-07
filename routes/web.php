@@ -28,6 +28,11 @@ Route::middleware(['ativo','auth','verified'])->group(function () {
         Route::get('/home', 'HomeController@index')->name('user.home');
 
 
+        Route::get('/aerodromos','AerodromoController@index')->name('aerodromo.index');
+        Route::get('/aerodromos/{aerodromo}/edit','AerodromoController@edit')->name('aerodromo.edit');
+        Route::put('/aerodromos/{aerodromo}/edit','AerodromoController@update')->name('aerodromo.update');
+
+
         #REGION DIRECAO
         Route::middleware(['direcao'])->group(function () {
             #region socios

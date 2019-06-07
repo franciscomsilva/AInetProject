@@ -42,7 +42,8 @@ class UpdateUserRequest extends FormRequest
             'certificado_confirmado' => 'between:0,1',
             'ativo' => 'between:0,1',
             'quota_paga' => 'between:0,1',
-            'direcao' => 'between:0,1'
+            'direcao' => 'between:0,1',
+            'classe_socio' => 'in:N,C,M,H'
 
         ];
     }

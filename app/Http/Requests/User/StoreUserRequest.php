@@ -36,8 +36,8 @@ class StoreUserRequest extends FormRequest
             'ativo' => 'between:0,1',
             'quota_paga' => 'between:0,1',
             'direcao' => 'between:0,1',
-            'password_inicial' => 'between:0,1'
-
+            'password_inicial' => 'between:0,1',
+            'classe_socio' => 'in:N,C,M,H'
         ];
     }
 }
